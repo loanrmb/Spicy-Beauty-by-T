@@ -80,7 +80,7 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
 /* ── Leaflet map : zone 1km, sans adresse exacte ── */
 document.addEventListener('DOMContentLoaded', () => {
   /* Centre : au-dessus de l'Étang du Vignoble, NW de Valenciennes */
-  const lat = 50.3605, lng = 3.5120;
+  const lat = 50.3354, lng = 3.5307; /* 190 Avenue de Denain, Valenciennes */
   const isMobile = window.innerWidth < 768;
 
   const map = L.map('leaflet-map', {

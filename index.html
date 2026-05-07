@@ -230,108 +230,93 @@
      LOCALISATION
 ════════════════════════════════════ -->
 <section class="loc" id="localisation">
-  <div class="loc-grid">
 
-    <div class="anim-left">
-      <span class="loc-eyebrow">✦ Localisation</span>
-      <h2 class="loc-title">
-        La zone<br>d'intervention<br><em>à Valenciennes.</em>
-      </h2>
-    </div>
-
-    <div class="loc-right anim-right">
-      <div class="loc-row">
-        <div class="loc-ico">📍</div>
-        <div>
-          <div class="loc-lbl">Zone</div>
-          <div class="loc-val">
-            <strong>Valenciennes · 59300</strong>
-            <small>L'adresse exacte est communiquée lors de la prise de rendez-vous.</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="loc-row">
-        <div class="loc-ico">📱</div>
-        <div>
-          <div class="loc-lbl">Téléphone (message uniquement)</div>
-          <div class="loc-val">
-            <a href="sms:+33635214756"><strong>+33 6 35 21 47 56</strong></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="loc-row">
-        <div class="loc-ico" style="display:flex;align-items:center;justify-content:center;">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#C8709A" stroke-width="1.5">
-            <rect x="2" y="2" width="20" height="20" rx="5"/>
-            <circle cx="12" cy="12" r="4.5"/>
-            <circle cx="17.5" cy="6.5" r="1" fill="#C8709A" stroke="none"/>
-          </svg>
-        </div>
-        <div>
-          <div class="loc-lbl">Instagram</div>
-          <div class="loc-val">
-            <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">@spicybeautyyy</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- RDV Card -->
-      <div class="rdv-card">
-        <span class="rdv-card-eyebrow">✦ Prise de rendez-vous</span>
-        <div class="rdv-card-title">Par message uniquement.</div>
-        <p class="rdv-card-note">
-          <strong>Aucun appel téléphonique.</strong> Les rendez-vous se prennent exclusivement par SMS ou Instagram DM.
-        </p>
-        <div class="rdv-btns">
-          <a href="sms:+33635214756" class="rdv-btn rdv-white">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/>
-            </svg>
-            SMS
-          </a>
-          <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="rdv-btn rdv-outline">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="2" y="2" width="20" height="20" rx="5"/>
-              <circle cx="12" cy="12" r="4.5"/>
-              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-            </svg>
-            Instagram DM
-          </a>
-        </div>
-      </div>
-
-      <!-- Transports -->
-      <div class="transp">
-        <div class="transp-title">🚌 Transports en commun</div>
-        <div class="transp-list">
-          <div class="transp-row">
-            <span class="tbadge">Bus</span>
-            <span>Ligne <strong>12</strong> — arrêt <strong>Solitude</strong> ou <strong>Avenue de Denain</strong></span>
-          </div>
-          <div class="transp-row">
-            <span class="tbadge">Tram</span>
-            <span>Tramway <strong>T1</strong> — arrêt <strong>Université</strong>, ~7 min à pied</span>
-          </div>
-          <div class="transp-row">
-            <span class="tbadge">Train</span>
-            <span>Gare de <strong>Valenciennes</strong> — ~15 min à pied</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
+  <!-- Header centré, typo géante -->
+  <div class="loc-hero anim-up">
+    <span class="loc-eyebrow">✦ Localisation</span>
+    <h2 class="loc-title-big">Valenciennes.</h2>
+    <p class="loc-headline">L'adresse exacte est communiquée lors de la prise de rendez-vous.</p>
   </div>
 
-  <!-- Carte Leaflet -->
-  <div class="loc-map anim-up">
+  <!-- Apple-style spec bar -->
+  <div class="loc-specs">
+    <div class="loc-spec-item anim-up">
+      <span class="ls-label">Zone d'intervention</span>
+      <span class="ls-value">
+        <strong>Valenciennes · 59300</strong>
+        <small class="ls-sub">Hauts-de-France</small>
+      </span>
+    </div>
+    <div class="loc-spec-item anim-up d1">
+      <span class="ls-label">Message uniquement</span>
+      <span class="ls-value">
+        <a href="sms:+33635214756"><strong>+33 6 35 21 47 56</strong></a>
+        <small class="ls-sub">SMS — pas d'appel téléphonique</small>
+      </span>
+    </div>
+    <div class="loc-spec-item anim-up d2">
+      <span class="ls-label">Instagram</span>
+      <span class="ls-value">
+        <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener"><strong>@spicybeautyyy</strong></a>
+        <small class="ls-sub">DM disponibles 7j/7</small>
+      </span>
+    </div>
+  </div>
+
+  <!-- Transports -->
+  <div class="loc-transp-bar anim-up">
+    <div class="transp-title">🚌 Transports en commun</div>
+    <div class="transp-list">
+      <div class="transp-row">
+        <span class="tbadge">Bus</span>
+        <span>Ligne <strong>12</strong> — arrêt <strong>Solitude</strong> ou <strong>Avenue de Denain</strong></span>
+      </div>
+      <div class="transp-row">
+        <span class="tbadge">Tram</span>
+        <span>Tramway <strong>T1</strong> — arrêt <strong>Université</strong>, ~7 min à pied</span>
+      </div>
+      <div class="transp-row">
+        <span class="tbadge">Train</span>
+        <span>Gare de <strong>Valenciennes</strong> — ~15 min à pied</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA bar Tesla-style -->
+  <div class="loc-rdv-bar anim-up">
+    <div class="loc-rdv-bar-text">
+      <div class="loc-rdv-bar-title">Par message uniquement.</div>
+      <p class="loc-rdv-bar-note">
+        <strong>Aucun appel téléphonique.</strong> Les rendez-vous se prennent exclusivement par SMS ou Instagram DM.
+      </p>
+    </div>
+    <div class="rdv-btns">
+      <a href="sms:+33635214756" class="rdv-btn rdv-white">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/>
+        </svg>
+        Envoyer un SMS
+      </a>
+      <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="rdv-btn rdv-outline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4.5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Instagram DM
+      </a>
+    </div>
+  </div>
+
+  <!-- Carte Leaflet full-bleed -->
+  <div class="loc-map">
     <div id="leaflet-map"></div>
     <div class="map-tag">
       <div class="map-tag-name">Spicy Beauty by T.</div>
       <div class="map-tag-addr">Zone Valenciennes · 59300<br>Adresse communiquée sur RDV</div>
     </div>
   </div>
+
 </section>
 
 
