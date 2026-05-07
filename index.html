@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ══ SEO ══ -->
+  <title>Spicy Beauty by T. | Esthéticienne à Valenciennes | Épilation & Nails</title>
+  <meta name="description" content="Spicy Beauty by T. — Esthéticienne professionnelle à Valenciennes (59300). Épilations à la cire, pose d'ongles semi-permanent, manucure, pédicure & nails design. RDV par SMS ou Instagram.">
+  <meta name="keywords" content="esthéticienne Valenciennes, épilation Valenciennes, pose ongles Valenciennes, semi permanent Valenciennes, manucure Valenciennes, Spicy Beauty by T, nails Valenciennes 59300">
+  <meta name="author" content="Spicy Beauty by T.">
+  <link rel="canonical" href="https://spicybeautybyt.fr">
+
+  <!-- ══ Open Graph ══ -->
+  <meta property="og:title" content="Spicy Beauty by T. | Esthéticienne à Valenciennes">
+  <meta property="og:description" content="Épilations, nails & soins beauté sur mesure à Valenciennes. Prise de RDV par message.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://spicybeautybyt.fr">
+  <meta property="og:image" content="images/logo-spicy-beauty-by-t.JPG">
+
+  <!-- ══ Schema.org LocalBusiness ══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BeautySalon",
+    "name": "Spicy Beauty by T.",
+    "description": "Institut de beauté à Valenciennes spécialisé en épilations, pose d'ongles et soins beauté.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "190 Avenue de Denain",
+      "addressLocality": "Valenciennes",
+      "postalCode": "59300",
+      "addressCountry": "FR"
+    },
+    "telephone": "+33635214756",
+    "url": "https://spicybeautybyt.fr",
+    "sameAs": ["https://www.instagram.com/spicybeautyyy/"],
+    "priceRange": "€–€€",
+    "image": "images/logo-spicy-beauty-by-t.JPG",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 50.3530,
+      "longitude": 3.5340
+    }
+  }
+  </script>
+
+  <!-- ══ Fonts ══ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Pacifico&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ══════════════════════════════════════════
+       CSS VARIABLES
+    ══════════════════════════════════════════ */
+    :root {
+      --pink:            #D4789F;
+      --pink-light:      #F0CADE;
+      --pink-ultra:      #FDF5FA;
+      --pink-dark:       #AF5B82;
+      --cream:           #FAF8F5;
+      --white:           #FFFFFF;
+      --dark:            #1A1212;
+      --gray:            #7A7070;
+      --gray-light:      #E8E3DF;
+      --serif:           'Cormorant Garamond', Georgia, serif;
+      --script:          'Pacifico', cursive;
+      --sans:            'Jost', Helvetica Neue, Helvetica, sans-serif;
+      --nav-h:           78px;
+      --ease:            cubic-bezier(.25,.46,.45,.94);
+    }
+
+    /* ══════════════════════════════════════════
+       RESET
+    ══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--cream); color: var(--dark); overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { background: none; border: none; cursor: pointer; font: inherit; }
+
+    /* ══════════════════════════════════════════
+       UTILITIES
+    ══════════════════════════════════════════ */
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 18px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4.5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.12;
+      color: var(--dark);
+    }
+    .section-title em { font-style: italic; color: var(--pink-dark); }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ══════════════════════════════════════════
+       NAVBAR
+    ══════════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+      background: rgba(250, 248, 245, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(212,120,159,0.10);
+      transition: box-shadow 0.35s;
+    }
+    .nav.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.06); }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+    .nav-logo img {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 2px 12px rgba(212,120,159,0.25);
+    }
+    .nav-logo-name {
+      font-family: var(--script);
+      font-size: 1.05rem;
+      color: var(--pink-dark);
+      line-height: 1.25;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-menu li a {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dark);
+      position: relative;
+      transition: color 0.22s;
+    }
+    .nav-menu li a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--pink);
+      transition: width 0.3s var(--ease);
+    }
+    .nav-menu li a:hover { color: var(--pink-dark); }
+    .nav-menu li a:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-size: 0.65rem !important;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--pink-dark) !important;
+      border: 1px solid var(--pink);
+      padding: 9px 22px;
+      border-radius: 1px;
+      transition: all 0.25s !important;
+      background: transparent;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--pink); color: white !important; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 210;
+    }
+    .hamburger span {
+      width: 24px; height: 1.5px;
+      background: var(--dark);
+      display: block;
+      transition: all 0.3s;
+    }
+
+    /* Mobile nav drawer */
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--cream);
+      z-index: 195;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--dark);
+    }
+    .nav-drawer a:hover { color: var(--pink-dark); }
+
+    /* ══════════════════════════════════════════
+       CONTACT POPUP
+    ══════════════════════════════════════════ */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26,18,18,0.40);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 900;
+      align-items: center;
+      justify-content: center;
+    }
+    .overlay.active { display: flex; }
+
+    .popup {
+      background: var(--white);
+      width: calc(100% - 32px);
+      max-width: 430px;
+      padding: 52px 44px 44px;
+      border-radius: 4px;
+      text-align: center;
+      position: relative;
+      animation: popIn 0.38s cubic-bezier(.22,.68,0,1.38);
+    }
+    @keyframes popIn {
+      from { opacity:0; transform: scale(.94) translateY(18px); }
+      to   { opacity:1; transform: scale(1) translateY(0); }
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 16px; right: 18px;
+      font-size: 1.5rem;
+      color: var(--gray);
+      line-height: 1;
+      padding: 4px 8px;
+      transition: color 0.2s;
+    }
+    .popup-close:hover { color: var(--dark); }
+
+    .popup-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 10px;
+    }
+    .popup-title {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .popup-note {
+      font-size: 0.8rem;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .popup-phone {
+      display: block;
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--dark);
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+      transition: color 0.2s;
+    }
+    .popup-phone:hover { color: var(--pink-dark); }
+
+    .popup-phone-sub {
+      font-size: 0.7rem;
+      color: var(--gray);
+      letter-spacing: 0.08em;
+      margin-bottom: 28px;
+    }
+
+    .popup-sep {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .popup-sep::before, .popup-sep::after {
+      content: ''; flex: 1; height: 1px; background: var(--gray-light);
+    }
+    .popup-sep span {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    .popup-rdv { display: flex; flex-direction: column; gap: 10px; }
+    .popup-rdv-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border: 1px solid var(--gray-light);
+      border-radius: 2px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      transition: all 0.22s;
+    }
+    .popup-rdv-btn:hover {
+      border-color: var(--pink);
+      background: var(--pink-ultra);
+      color: var(--pink-dark);
+    }
+    .popup-rdv-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+    /* ══════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: calc(var(--nav-h) + 60px) 40px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(90px);
+    }
+    .blob-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(240,202,222,0.45) 0%, transparent 70%);
+      top: -160px; right: -160px;
+    }
+    .blob-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(212,120,159,0.18) 0%, transparent 70%);
+      bottom: -60px; left: -80px;
+    }
+    .blob-3 {
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(240,202,222,0.3) 0%, transparent 70%);
+      bottom: 30%; left: 10%;
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-logo {
+      width: 130px; height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 36px;
+      box-shadow: 0 12px 48px rgba(212,120,159,0.22), 0 0 0 6px rgba(240,202,222,0.3);
+      opacity: 0;
+      animation: fadeRise 0.9s 0.1s var(--ease) forwards;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.63rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: fadeRise 0.9s 0.25s var(--ease) forwards;
+    }
+
+    .hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 7vw, 6.2rem);
+      font-weight: 300;
+      line-height: 1.06;
+      color: var(--dark);
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeRise 0.95s 0.38s var(--ease) forwards;
+    }
+    .hero-h1 em { font-style: italic; color: var(--pink-dark); }
+
+    .hero-script {
+      font-family: var(--script);
+      font-size: clamp(1.1rem, 2.5vw, 1.65rem);
+      color: var(--pink);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeRise 0.9s 0.52s var(--ease) forwards;
+    }
+
+    .hero-lead {
+      max-width: 480px;
+      margin: 0 auto 48px;
+      font-size: 0.9rem;
+      line-height: 1.85;
+      color: var(--gray);
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeRise 0.9s 0.62s var(--ease) forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeRise 0.9s 0.75s var(--ease) forwards;
+    }
+
+    .btn-fill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--pink-dark);
+      color: white;
+      padding: 16px 38px;
+      border-radius: 2px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+      transition: all 0.25s var(--ease);
+    }
+    .btn-fill:hover {
+      background: var(--dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.13);
+    }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      color: var(--dark);
+      padding: 16px 38px;
+      border-radius: 2px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border: 1px solid var(--gray-light);
+      transition: all 0.25s var(--ease);
+    }
+    .btn-outline:hover {
+      border-color: var(--pink);
+      color: var(--pink-dark);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeRise 0.9s 1.1s var(--ease) forwards;
+    }
+    .hero-scroll-hint span {
+      font-size: 0.55rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .scroll-bar {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, var(--pink), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: 0.35; transform: scaleY(1); }
+      50%      { opacity: 1;    transform: scaleY(1.08); }
+    }
+
+    @keyframes fadeRise {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══════════════════════════════════════════
+       SERVICES & TARIFS
+    ══════════════════════════════════════════ */
+    .services {
+      background: var(--white);
+      padding: 130px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .services::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--pink-light), transparent);
+    }
+
+    /* Giant decorative word */
+    .services-watermark {
+      position: absolute;
+      bottom: -2vw; left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--serif);
+      font-size: 20vw;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(212,120,159,0.05);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .services-header {
+      text-align: center;
+      padding: 0 24px;
+      margin-bottom: 88px;
+    }
+    .services-header .section-title { margin-bottom: 16px; }
+    .services-desc {
+      font-size: 0.86rem;
+      color: var(--gray);
+      max-width: 440px;
+      margin: 0 auto;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* Two-column layout inspired by espaciolanube */
+    .tarifs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .tarif-panel {
+      padding: 60px 64px;
+    }
+    .tarif-panel:first-child {
+      border-right: 1px solid var(--gray-light);
+    }
+
+    .tarif-panel-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-bottom: 28px;
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .tarif-panel-title {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--dark);
+    }
+    .tarif-panel-sub {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-top: 6px;
+    }
+    .tarif-panel-icon {
+      font-size: 2rem;
+      opacity: 0.35;
+    }
+
+    .price-list { list-style: none; }
+    .price-row {
+      display: flex;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(232,227,223,0.55);
+      gap: 10px;
+      transition: padding-left 0.25s var(--ease);
+    }
+    .price-row:last-child { border-bottom: none; }
+    .price-row:hover { padding-left: 6px; }
+
+    .price-name {
+      font-size: 0.86rem;
+      color: var(--dark);
+      font-weight: 300;
+      line-height: 1.4;
+      flex-shrink: 0;
+    }
+    .price-dots {
+      flex: 1;
+      height: 1px;
+      min-width: 16px;
+      background: repeating-linear-gradient(
+        to right,
+        var(--gray-light) 0, var(--gray-light) 3px,
+        transparent 3px, transparent 8px
+      );
+    }
+    .price-val {
+      font-family: var(--serif);
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: var(--pink-dark);
+      white-space: nowrap;
+      min-width: 38px;
+      text-align: right;
+    }
+
+    /* ══════════════════════════════════════════
+       CONTACT & LOCALISATION
+    ══════════════════════════════════════════ */
+    .localisation {
+      background: var(--cream);
+      padding: 130px 0;
+      position: relative;
+    }
+    .localisation::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--pink-light), transparent);
+    }
+
+    .loc-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 90px;
+      align-items: start;
+    }
+
+    .loc-info .section-title { margin-bottom: 44px; }
+
+    .loc-detail {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+    .loc-icon {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--pink-ultra);
+      border: 1px solid var(--pink-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .loc-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 5px;
+    }
+    .loc-value {
+      font-size: 0.88rem;
+      color: var(--dark);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+    .loc-value strong { font-weight: 500; }
+    .loc-value a { color: var(--dark); transition: color 0.2s; }
+    .loc-value a:hover { color: var(--pink-dark); }
+    .loc-hint {
+      font-size: 0.76rem;
+      color: var(--pink);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* RDV notice */
+    .rdv-box {
+      background: linear-gradient(135deg, var(--pink-ultra), rgba(255,255,255,0.8));
+      border: 1px solid var(--pink-light);
+      border-radius: 4px;
+      padding: 28px 30px;
+      margin-top: 36px;
+    }
+    .rdv-box-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .rdv-box-note {
+      font-size: 0.81rem;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+    .rdv-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .rdv-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 20px;
+      border-radius: 2px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.22s;
+    }
+    .rdv-btn svg { width: 15px; height: 15px; }
+    .rdv-btn-dark { background: var(--dark); color: white; }
+    .rdv-btn-dark:hover { background: var(--pink-dark); transform: translateY(-2px); }
+    .rdv-btn-light { border: 1px solid var(--gray-light); color: var(--dark); }
+    .rdv-btn-light:hover { border-color: var(--pink); color: var(--pink-dark); transform: translateY(-2px); }
+
+    /* Transport */
+    .transport {
+      margin-top: 34px;
+      padding-top: 28px;
+      border-top: 1px solid var(--gray-light);
+    }
+    .transport-title {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 14px;
+    }
+    .transport-list { display: flex; flex-direction: column; gap: 10px; }
+    .transport-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.81rem;
+      color: var(--gray);
+      line-height: 1.55;
+    }
+    .transport-badge {
+      background: var(--pink);
+      color: white;
+      font-size: 0.58rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Map */
+    .loc-map { }
+    .map-frame {
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.09);
+    }
+    .map-frame iframe {
+      width: 100%; height: 390px;
+      border: none; display: block;
+    }
+    .map-tag {
+      background: white;
+      padding: 18px 22px;
+      border-top: 2px solid var(--pink-light);
+    }
+    .map-tag-name {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--dark);
+      margin-bottom: 3px;
+    }
+    .map-tag-addr {
+      font-size: 0.78rem;
+      color: var(--gray);
+    }
+
+    /* ══════════════════════════════════════════
+       GALERIE
+    ══════════════════════════════════════════ */
+    .galerie {
+      background: var(--white);
+      padding: 130px 0;
+    }
+    .galerie::before {
+      content: '';
+      display: block;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--pink-light), transparent);
+      margin-bottom: 0;
+    }
+
+    .galerie-header {
+      text-align: center;
+      padding: 0 24px;
+      margin-bottom: 64px;
+    }
+    .galerie-header .section-title { margin-bottom: 12px; }
+    .galerie-header p {
+      font-size: 0.84rem;
+      color: var(--gray);
+      font-weight: 300;
+    }
+
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .galerie-item {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      background: var(--pink-ultra);
+    }
+    .galerie-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.65s var(--ease);
+    }
+    .galerie-item:hover img { transform: scale(1.06); }
+    .galerie-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,18,18,0.38), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .galerie-item:hover .galerie-overlay { opacity: 1; }
+
+    .galerie-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px dashed var(--pink-light);
+    }
+    .galerie-placeholder .ph-icon { font-size: 2rem; opacity: 0.5; }
+    .galerie-placeholder span {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--pink);
+      opacity: 0.7;
+    }
+
+    .galerie-note {
+      text-align: center;
+      margin-top: 28px;
+      padding: 0 24px;
+      font-size: 0.74rem;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+    .galerie-note code {
+      background: var(--pink-ultra);
+      color: var(--pink-dark);
+      padding: 2px 6px;
+      border-radius: 2px;
+      font-size: 0.7rem;
+    }
+
+    /* ══════════════════════════════════════════
+       SEO SECTION
+    ══════════════════════════════════════════ */
+    .seo {
+      padding: 72px 48px;
+      background: var(--cream);
+      border-top: 1px solid var(--gray-light);
+    }
+    .seo-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .seo-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gray);
+      opacity: 0.4;
+      margin-bottom: 20px;
+    }
+    .seo-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 12px;
+      opacity: 0.25;
+    }
+    .seo-tag {
+      font-size: 0.73rem;
+      color: var(--dark);
+      font-weight: 300;
+    }
+    .seo-dot { color: var(--pink); }
+
+    .seo-text {
+      margin-top: 24px;
+      font-size: 0.76rem;
+      color: var(--gray);
+      line-height: 2;
+      opacity: 0.22;
+      max-width: 820px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    .footer {
+      background: var(--dark);
+      padding: 64px 56px 32px;
+    }
+    .footer-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 56px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 28px;
+    }
+
+    .footer-brand-name {
+      font-family: var(--script);
+      font-size: 1.35rem;
+      color: white;
+      margin-bottom: 12px;
+    }
+    .footer-brand-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.8;
+      font-weight: 300;
+      max-width: 260px;
+      margin-bottom: 22px;
+    }
+    .footer-socials { display: flex; gap: 10px; }
+    .footer-social-link {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.5);
+      transition: all 0.22s;
+    }
+    .footer-social-link:hover {
+      border-color: var(--pink);
+      color: var(--pink-light);
+      background: rgba(212,120,159,0.12);
+    }
+    .footer-social-link svg { width: 15px; height: 15px; }
+
+    .footer-col-title {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li {
+      font-size: 0.81rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 300;
+      line-height: 1.55;
+    }
+    .footer-col ul li a:hover { color: var(--pink-light); }
+
+    .footer-bottom {
+      text-align: center;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.22);
+      font-weight: 300;
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .tarif-panel { padding: 48px 40px; }
+      .loc-inner { gap: 56px; }
+    }
+
+    @media (max-width: 860px) {
+      .nav { padding: 0 24px; }
+      .nav-menu { display: none; }
+      .hamburger { display: flex; }
+
+      .tarifs-grid { grid-template-columns: 1fr; padding: 0 24px; }
+      .tarif-panel:first-child { border-right: none; border-bottom: 1px solid var(--gray-light); }
+      .tarif-panel { padding: 40px 24px; }
+
+      .loc-inner { grid-template-columns: 1fr; padding: 0 24px; gap: 48px; }
+
+      .galerie-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+      .footer { padding: 48px 24px 28px; }
+
+      .seo { padding: 56px 24px; }
+    }
+
+    @media (max-width: 560px) {
+      .galerie-grid { grid-template-columns: 1fr; }
+      .hero-h1 { font-size: 2.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <a href="#accueil" class="nav-logo" aria-label="Spicy Beauty by T. — Accueil">
+    <img src="images/logo-spicy-beauty-by-t.JPG" alt="Logo Spicy Beauty by T.">
+    <span class="nav-logo-name">Spicy Beauty<br>by T.</span>
+  </a>
+
+  <ul class="nav-menu" id="navMenu">
+    <li><a href="#services">Prestations</a></li>
+    <li><a href="#localisation">Nous trouver</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">Instagram</a></li>
+    <li>
+      <button class="nav-cta" onclick="openPopup()" aria-label="Nous contacter">Contact</button>
+    </li>
+  </ul>
+
+  <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Drawer -->
+<nav class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <a href="#services" onclick="closeDrawer()">Prestations</a>
+  <a href="#localisation" onclick="closeDrawer()">Nous trouver</a>
+  <a href="#galerie" onclick="closeDrawer()">Galerie</a>
+  <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" onclick="closeDrawer()">Instagram</a>
+  <button class="nav-cta" onclick="closeDrawer(); openPopup();" style="border:1px solid var(--pink); color:var(--pink-dark); font-size:0.75rem; letter-spacing:0.16em; text-transform:uppercase; padding:12px 28px; border-radius:2px;">Contact</button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     CONTACT POPUP
+══════════════════════════════════════════════════════════ -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Contact Spicy Beauty by T." onclick="closeIfOutside(event)">
+  <div class="popup">
+    <button class="popup-close" onclick="closePopup()" aria-label="Fermer">×</button>
+    <p class="popup-label">✦ Spicy Beauty by T.</p>
+    <h2 class="popup-title">Nous contacter</h2>
+    <p class="popup-note">
+      La prise de rendez-vous se fait <strong>uniquement par message</strong> — SMS ou Instagram.<br>
+      Aucun appel téléphonique.
+    </p>
+    <a href="tel:+33635214756" class="popup-phone">+33 6 35 21 47 56</a>
+    <p class="popup-phone-sub">Appui pour appeler · Message uniquement pour les RDV</p>
+    <div class="popup-sep"><span>Prendre rendez-vous</span></div>
+    <div class="popup-rdv">
+      <a href="sms:+33635214756" class="popup-rdv-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/></svg>
+        Envoyer un SMS
+      </a>
+      <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="popup-rdv-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        Message Instagram @spicybeautyyy
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section class="hero" id="accueil">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="hero-content">
+    <img src="images/logo-spicy-beauty-by-t.JPG" alt="Spicy Beauty by T." class="hero-logo">
+    <p class="hero-eyebrow">✦ Beauty Therapist · Valenciennes · 59300</p>
+    <h1 class="hero-h1">L'art de la beauté,<br><em>sublimé.</em></h1>
+    <p class="hero-script">Spicy Beauty by T.</p>
+    <p class="hero-lead">
+      Épilations de précision, nails design & soins beauté personnalisés.<br>
+      Une expérience premium au cœur de Valenciennes — 
+      pour celles qui n'acceptent que le meilleur.
+    </p>
+    <div class="hero-actions">
+      <a href="sms:+33635214756" class="btn-fill">Prendre rendez-vous</a>
+      <a href="#services" class="btn-outline">Voir les tarifs →</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <span>Découvrir</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SERVICES & TARIFS
+══════════════════════════════════════════════════════════ -->
+<section class="services" id="services">
+  <div class="services-watermark">beauty</div>
+
+  <div class="services-header reveal">
+    <span class="eyebrow">✦ Prestations & Tarifs</span>
+    <h2 class="section-title">Un soin d'exception,<br><em>à chaque visite.</em></h2>
+    <p class="services-desc">Des tarifs transparents pour des prestations haut de gamme. Chaque geste, chaque détail — pensé pour vous.</p>
+  </div>
+
+  <div class="tarifs-grid">
+
+    <!-- ── ÉPILATIONS ── -->
+    <div class="tarif-panel reveal">
+      <div class="tarif-panel-head">
+        <div>
+          <div class="tarif-panel-title">Épilations</div>
+          <div class="tarif-panel-sub">Waxing & Précision</div>
+        </div>
+        <div class="tarif-panel-icon">🌸</div>
+      </div>
+      <ul class="price-list">
+        <li class="price-row">
+          <span class="price-name">Sourcils ligne inférieur</span>
+          <span class="price-dots"></span>
+          <span class="price-val">6€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Sourcils complet</span>
+          <span class="price-dots"></span>
+          <span class="price-val">8€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Moustache</span>
+          <span class="price-dots"></span>
+          <span class="price-val">4€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Menton</span>
+          <span class="price-dots"></span>
+          <span class="price-val">5€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Nez</span>
+          <span class="price-dots"></span>
+          <span class="price-val">4€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Oreilles</span>
+          <span class="price-dots"></span>
+          <span class="price-val">5€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Aisselles</span>
+          <span class="price-dots"></span>
+          <span class="price-val">8€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Bras</span>
+          <span class="price-dots"></span>
+          <span class="price-val">10€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Maillot simple</span>
+          <span class="price-dots"></span>
+          <span class="price-val">8€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Maillot échancré</span>
+          <span class="price-dots"></span>
+          <span class="price-val">15€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Maillot intégral</span>
+          <span class="price-dots"></span>
+          <span class="price-val">22€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Demi jambes</span>
+          <span class="price-dots"></span>
+          <span class="price-val">12€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Jambes complètes</span>
+          <span class="price-dots"></span>
+          <span class="price-val">20€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Fesses</span>
+          <span class="price-dots"></span>
+          <span class="price-val">6€</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── NAILS ── -->
+    <div class="tarif-panel reveal reveal-delay-1">
+      <div class="tarif-panel-head">
+        <div>
+          <div class="tarif-panel-title">Nails</div>
+          <div class="tarif-panel-sub">Pose & Beauté des ongles</div>
+        </div>
+        <div class="tarif-panel-icon">💅</div>
+      </div>
+      <ul class="price-list">
+        <li class="price-row">
+          <span class="price-name">Manucure – Pédicure</span>
+          <span class="price-dots"></span>
+          <span class="price-val">15€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Dépose Semi (sans manucure)</span>
+          <span class="price-dots"></span>
+          <span class="price-val">5€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Dépose de pose américaine</span>
+          <span class="price-dots"></span>
+          <span class="price-val">10€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Dépose Gel</span>
+          <span class="price-dots"></span>
+          <span class="price-val">10€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Pose semi permanent classique</span>
+          <span class="price-dots"></span>
+          <span class="price-val">20€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Pose semi + renfort</span>
+          <span class="price-dots"></span>
+          <span class="price-val">25€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Dépose + Pose semi</span>
+          <span class="price-dots"></span>
+          <span class="price-val">25€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Dépose + Pose semi + Renfort</span>
+          <span class="price-dots"></span>
+          <span class="price-val">35€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Pose Américaine</span>
+          <span class="price-dots"></span>
+          <span class="price-val">50€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Gainage sur ongles naturel</span>
+          <span class="price-dots"></span>
+          <span class="price-val">40€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Pose Capsules + Gel</span>
+          <span class="price-dots"></span>
+          <span class="price-val">50€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Remplissage</span>
+          <span class="price-dots"></span>
+          <span class="price-val">45€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">Babyboomer · Chrome · Effet miroir · Ombré</span>
+          <span class="price-dots"></span>
+          <span class="price-val">+5€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">French ongles courts ou pieds</span>
+          <span class="price-dots"></span>
+          <span class="price-val">+5€</span>
+        </li>
+        <li class="price-row">
+          <span class="price-name">French ongles longs</span>
+          <span class="price-dots"></span>
+          <span class="price-val">+10€</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CONTACT & LOCALISATION
+══════════════════════════════════════════════════════════ -->
+<section class="localisation" id="localisation">
+  <div class="loc-inner">
+
+    <div class="loc-info reveal">
+      <span class="eyebrow">✦ Nous trouver</span>
+      <h2 class="section-title">Où nous<br><em>rencontrer ?</em></h2>
+
+      <div class="loc-detail">
+        <div class="loc-icon">📍</div>
+        <div>
+          <div class="loc-label">Adresse</div>
+          <div class="loc-value">
+            <strong>190 Avenue de Denain</strong><br>
+            59300 Valenciennes, France
+            <span class="loc-hint">✦ À côté de Fitness Boutique</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="loc-detail">
+        <div class="loc-icon">📱</div>
+        <div>
+          <div class="loc-label">Téléphone (message uniquement)</div>
+          <div class="loc-value">
+            <a href="sms:+33635214756"><strong>+33 6 35 21 47 56</strong></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="loc-detail">
+        <div class="loc-icon" style="display:flex;align-items:center;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4789F" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="#D4789F" stroke="none"/></svg>
+        </div>
+        <div>
+          <div class="loc-label">Instagram</div>
+          <div class="loc-value">
+            <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">@spicybeautyyy</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RDV Box -->
+      <div class="rdv-box">
+        <div class="rdv-box-title">✦ Prise de rendez-vous</div>
+        <div class="rdv-box-note">
+          Les rendez-vous se font <strong>uniquement par message</strong> — aucun appel téléphonique.
+          Choisissez votre canal préféré, je vous réponds rapidement.
+        </div>
+        <div class="rdv-btns">
+          <a href="sms:+33635214756" class="rdv-btn rdv-btn-dark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/></svg>
+            SMS
+          </a>
+          <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="rdv-btn rdv-btn-light">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            Instagram DM
+          </a>
+        </div>
+      </div>
+
+      <!-- Transports -->
+      <div class="transport">
+        <div class="transport-title">🚌 Accès en transports en commun</div>
+        <div class="transport-list">
+          <div class="transport-item">
+            <span class="transport-badge">Bus</span>
+            <span>Ligne <strong>12</strong> — arrêt <strong>Solitude</strong> ou <strong>Avenue de Denain</strong>, descendre à proximité directe</span>
+          </div>
+          <div class="transport-item">
+            <span class="transport-badge">Tram</span>
+            <span>Tramway <strong>T1</strong> — arrêt <strong>Université</strong>, puis ~7 min à pied vers l'avenue de Denain</span>
+          </div>
+          <div class="transport-item">
+            <span class="transport-badge">Train</span>
+            <span>Gare de <strong>Valenciennes</strong> à ~15 min à pied ou 5 min en bus depuis le centre-ville</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="loc-map reveal reveal-delay-2">
+      <div class="map-frame">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2537.3!2d3.527!3d50.353!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2cf6b00000001%3A0x1!2s190+Avenue+de+Denain%2C+59300+Valenciennes%2C+France!5e0!3m2!1sfr!2sfr!4v1699000000000!5m2!1sfr!2sfr"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Spicy Beauty by T. — 190 Avenue de Denain, 59300 Valenciennes">
+        </iframe>
+        <div class="map-tag">
+          <div class="map-tag-name">Spicy Beauty by T.</div>
+          <div class="map-tag-addr">190 Avenue de Denain · 59300 Valenciennes · à côté de Fitness Boutique</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     GALERIE
+══════════════════════════════════════════════════════════ -->
+<section class="galerie" id="galerie">
+  <div class="galerie-header reveal">
+    <span class="eyebrow">✦ Notre travail</span>
+    <h2 class="section-title">La beauté en<br><em>images.</em></h2>
+    <p>Des réalisations qui parlent d'elles-mêmes.</p>
+  </div>
+
+  <div class="galerie-grid">
+    <div class="galerie-item">
+      <img src="images/gallery-1.jpg" alt="Prestation beauté — Spicy Beauty by T. Valenciennes"
+           onerror="this.parentElement.innerHTML='<div class=\'galerie-placeholder\'><div class=\'ph-icon\'>📸</div><span>Photo à venir</span></div>'">
+      <div class="galerie-overlay"></div>
+    </div>
+    <div class="galerie-item">
+      <img src="images/gallery-2.jpg" alt="Pose d\'ongles semi-permanent Valenciennes"
+           onerror="this.parentElement.innerHTML='<div class=\'galerie-placeholder\'><div class=\'ph-icon\'>💅</div><span>Nails</span></div>'">
+      <div class="galerie-overlay"></div>
+    </div>
+    <div class="galerie-item">
+      <img src="images/gallery-3.jpg" alt="Épilation Valenciennes"
+           onerror="this.parentElement.innerHTML='<div class=\'galerie-placeholder\'><div class=\'ph-icon\'>🌸</div><span>Épilations</span></div>'">
+      <div class="galerie-overlay"></div>
+    </div>
+    <div class="galerie-item">
+      <img src="images/gallery-4.jpg" alt="Pose américaine ongles Valenciennes"
+           onerror="this.parentElement.innerHTML='<div class=\'galerie-placeholder\'><div class=\'ph-icon\'>✨</div><span>Pose Américaine</span></div>'">
+      <div class="galerie-overlay"></div>
+    </div>
+    <div class="galerie-item">
+      <img src="images/gallery-5.jpg" alt="Semi permanent beauté Valenciennes"
+           onerror="this.parentElement.innerHTML='<div class=\'galerie-placeholder\'><div class=\'ph-icon\'>💄</div><span>Semi-permanent</span></div>'">
+      <div class="galerie-overlay"></div>
+    </div>
+    <div class="galerie-item">
+      <img src="images/gallery-6.jpg" alt="Institut beauté Spicy Beauty by T."
+           onerror="this.parentElement.innerHTML='<div class=\'galerie-placeholder\'><div class=\'ph-icon\'>🌹</div><span>Institut</span></div>'">
+      <div class="galerie-overlay"></div>
+    </div>
+  </div>
+
+  <p class="galerie-note">
+    📁 Pour modifier les photos : déposer vos fichiers dans le dossier <code>images/</code> sur GitHub en les nommant
+    <code>gallery-1.jpg</code>, <code>gallery-2.jpg</code> … <code>gallery-6.jpg</code>
+  </p>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SEO SECTION (invisible à l'utilisateur, pour Google)
+══════════════════════════════════════════════════════════ -->
+<section class="seo" aria-hidden="true">
+  <div class="seo-inner">
+    <p class="seo-label">Référencement · Spicy Beauty by T. Valenciennes</p>
+    <div class="seo-tags">
+      <span class="seo-tag">esthéticienne Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">épilation Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">pose ongles Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">semi permanent Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">manucure Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">pédicure Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">nails art Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">esthéticienne pas chère Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">épilation cire Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">pose capsules gel Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">pose américaine Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">gainage ongles naturels Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">esthéticienne autour de moi</span><span class="seo-dot">·</span>
+      <span class="seo-tag">esthéticienne autour de Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">institut beauté Valenciennes 59300</span><span class="seo-dot">·</span>
+      <span class="seo-tag">manucure pas chère 59300</span><span class="seo-dot">·</span>
+      <span class="seo-tag">babyboomer ongles Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">french manucure Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">épilation maillot Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">épilation sourcils Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">esthéticienne Denain</span><span class="seo-dot">·</span>
+      <span class="seo-tag">beauty therapist Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">soin beauté femme Nord</span><span class="seo-dot">·</span>
+      <span class="seo-tag">Spicy Beauty by T Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">rdv esthéticienne SMS Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">esthéticienne 59 Hauts-de-France</span><span class="seo-dot">·</span>
+      <span class="seo-tag">ongles gel Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">remplissage ongles Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">effet miroir ongles Valenciennes</span><span class="seo-dot">·</span>
+      <span class="seo-tag">maillot intégral épilation Valenciennes</span>
+    </div>
+    <p class="seo-text">
+      Spicy Beauty by T. est votre esthéticienne professionnelle à Valenciennes (59300), spécialisée dans l'épilation à la cire, la pose d'ongles semi-permanent, la pose américaine, le gainage sur ongles naturels, les capsules gel, et la manucure-pédicure. Située au 190 Avenue de Denain à Valenciennes, à côté de Fitness Boutique, l'institut vous accueille sur rendez-vous pris par message SMS ou Instagram. Esthéticienne qualifiée dans les Hauts-de-France, prestataire beauté Valenciennes, soins ongles et épilation corps visage pour femmes. Prix compétitifs, travail soigné, résultats professionnels. Nails art, babyboomer, chrome, ombré, french manucure courte et longue.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-grid">
+
+    <div>
+      <div class="footer-brand-name">Spicy Beauty by T.</div>
+      <p class="footer-brand-desc">
+        Beauty Therapist à Valenciennes. Épilations, nails design & soins beauté sur mesure — parce que chaque détail mérite le meilleur.
+      </p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="footer-social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="sms:+33635214756" class="footer-social-link" aria-label="SMS">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-col-title">Prestations</div>
+      <ul>
+        <li>Épilations à la cire</li>
+        <li>Manucure & Pédicure</li>
+        <li>Pose Semi-permanent</li>
+        <li>Pose Américaine</li>
+        <li>Gainage & Capsules Gel</li>
+        <li>Nails Art</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li>190 Avenue de Denain<br>59300 Valenciennes</li>
+        <li><a href="sms:+33635214756">+33 6 35 21 47 56</a></li>
+        <li><a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">@spicybeautyyy</a></li>
+        <li style="font-size:0.72rem;color:rgba(255,255,255,0.25)">RDV par message uniquement<br>— pas d'appel téléphonique</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Spicy Beauty by T. — Tous droits réservés &nbsp;·&nbsp; 190 Avenue de Denain, 59300 Valenciennes
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════════════ -->
+<script>
+  // ── Navbar scroll shadow
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // ── Hamburger / drawer
+  const hamburger = document.getElementById('hamburger');
+  const drawer    = document.getElementById('navDrawer');
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    const spans = hamburger.querySelectorAll('span');
+    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[1].style.opacity   = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    hamburger.querySelectorAll('span').forEach(s => {
+      s.style.transform = '';
+      s.style.opacity = '';
+    });
+  }
+
+  hamburger.addEventListener('click', () => {
+    drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+  });
+
+  // ── Contact popup
+  const overlay = document.getElementById('overlay');
+
+  function openPopup() {
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePopup() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function closeIfOutside(e) {
+    if (e.target === overlay) closePopup();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closePopup();
+      closeDrawer();
+    }
+  });
+
+  // ── Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => revealObs.observe(el));
+</script>
+
+</body>
+</html>
