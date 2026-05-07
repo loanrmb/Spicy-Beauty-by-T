@@ -584,8 +584,8 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
 
 .gal-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows: 300px 300px;
+  grid-template-columns: 2.5fr 1fr 1fr;
+  grid-template-rows: 360px 360px;
   gap: 4px;
   max-width: 100%;
 }
