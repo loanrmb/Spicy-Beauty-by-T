@@ -602,7 +602,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   background: #1a1a1a;
 }
 .gal-item img {
-  width: 100%; height: 100%; object-fit: cover; object-position: center bottom;
+  width: 100%; height: 100%; object-fit: cover;
   transition: transform .7s cubic-bezier(.25,.46,.45,.94);
   filter: saturate(.9) brightness(.92);
   display: block;
@@ -614,7 +614,11 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   opacity: .5; transition: opacity .35s;
   pointer-events: none;
 }
-.gal-item:hover .gal-ov { opacity: 0; }
+.gal-item:nth-child(1) img { object-position: center center; }
+.gal-item:nth-child(2) img,
+.gal-item:nth-child(3) img,
+.gal-item:nth-child(4) img,
+.gal-item:nth-child(5) img { object-position: center bottom; }
 .gal-ph {
   width: 100%; height: 100%;
   display: flex; flex-direction: column;
