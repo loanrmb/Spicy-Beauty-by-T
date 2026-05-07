@@ -6,26 +6,31 @@
   <title>Spicy Beauty by T. | Esthéticienne à Valenciennes | Épilation & Nails</title>
   <meta name="description" content="Spicy Beauty by T. — Esthéticienne à Valenciennes. Épilations, pose semi-permanent, manucure, pédicure. RDV par SMS ou Instagram.">
   <link rel="canonical" href="https://spicybeautybyt.fr">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BeautySalon","name":"Spicy Beauty by T.","address":{"@type":"PostalAddress","streetAddress":"190 Avenue de Denain","addressLocality":"Valenciennes","postalCode":"59300","addressCountry":"FR"},"telephone":"+33635214756","url":"https://spicybeautybyt.fr","sameAs":["https://www.instagram.com/spicybeautyyy/"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BeautySalon","name":"Spicy Beauty by T.","address":{"@type":"PostalAddress","addressLocality":"Valenciennes","postalCode":"59300","addressCountry":"FR"},"telephone":"+33635214756","url":"https://spicybeautybyt.fr","sameAs":["https://www.instagram.com/spicybeautyyy/"]}</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
+  <!-- Leaflet for zone map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <style>
-    /* ─────────────────────────────────────
+    /* ═══════════════════════════════════════
        TOKENS
-    ───────────────────────────────────── */
+    ═══════════════════════════════════════ */
     :root {
-      --hv:   'Helvetica Neue', Helvetica, Arial, sans-serif;
-      --sc:   'Pacifico', cursive;
+      --hv:         'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --sc:         'Pacifico', cursive;
       --rose:       #C8709A;
       --rose-pale:  #EBC4D8;
       --rose-ultra: #FBF2F7;
       --rose-dark:  #A2547A;
-      --noir:       #131010;
-      --g900:       #2A2525;
-      --g600:       #7A7070;
+      --noir:       #0C0909;
+      --g900:       #1E1A1A;
+      --g700:       #3D3535;
+      --g500:       #7A7070;
       --g200:       #E8E3DF;
       --g100:       #F2EFEC;
       --blanc:      #FFFFFF;
@@ -38,9 +43,9 @@
     a     { text-decoration: none; color: inherit; }
     button { background: none; border: none; cursor: pointer; font: inherit; }
 
-    /* ─────────────────────────────────────
-       NAV — logo séparé + pill (screen 2)
-    ───────────────────────────────────── */
+    /* ═══════════════════════════════════════
+       NAV PILL FLOTTANT
+    ═══════════════════════════════════════ */
     .nav-wrap {
       position: fixed;
       top: 20px; left: 50%; transform: translateX(-50%);
@@ -48,57 +53,52 @@
       display: flex; align-items: center; gap: 10px;
       white-space: nowrap;
     }
-
-    /* Logo circulaire séparé */
-    .nav-logo {
-      width: 48px; height: 48px; border-radius: 50%;
+    .nav-logo-btn {
+      width: 46px; height: 46px; border-radius: 50%;
       overflow: hidden;
-      background: rgba(255,255,255,0.75);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.4);
-      box-shadow: 0 2px 20px rgba(0,0,0,.12);
+      background: rgba(255,255,255,.75);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,.45);
+      box-shadow: 0 2px 18px rgba(0,0,0,.1);
       flex-shrink: 0;
       transition: box-shadow .3s;
     }
-    .nav-logo img { width:100%; height:100%; object-fit:cover; }
-    .nav-logo:hover { box-shadow: 0 4px 24px rgba(200,112,154,.3); }
+    .nav-logo-btn:hover { box-shadow: 0 4px 24px rgba(200,112,154,.25); }
+    .nav-logo-btn img { width:100%; height:100%; object-fit:cover; }
 
-    /* Pill navigation */
     .nav-pill {
       display: flex; align-items: center; gap: 2px;
-      background: rgba(255,255,255,0.82);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255,255,255,0.5);
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,.5);
       border-radius: 999px;
-      padding: 6px 6px 6px 6px;
-      box-shadow: 0 2px 20px rgba(0,0,0,.09);
+      padding: 6px;
+      box-shadow: 0 2px 18px rgba(0,0,0,.08);
       transition: box-shadow .3s;
     }
-    .nav-pill.scrolled { box-shadow: 0 6px 36px rgba(0,0,0,.14); }
-
+    .nav-pill.scrolled { box-shadow: 0 6px 32px rgba(0,0,0,.13); }
     .nav-pill a {
-      display: block; padding: 8px 16px;
-      font-family: var(--hv); font-size: .7rem; font-weight: 400;
-      letter-spacing: .04em; color: var(--g900); border-radius: 999px;
+      display: block; padding: 8px 15px;
+      font-family: var(--hv); font-size: .69rem; font-weight: 400;
+      letter-spacing: .03em; color: var(--g900); border-radius: 999px;
       transition: background .2s, color .2s;
     }
     .nav-pill a:hover { background: rgba(200,112,154,.1); color: var(--rose-dark); }
-
     .nav-pill-cta {
       margin-left: 4px; padding: 9px 20px;
       background: var(--noir); color: var(--blanc);
       border-radius: 999px; font-family: var(--hv);
-      font-size: .7rem; font-weight: 500; letter-spacing: .04em;
+      font-size: .69rem; font-weight: 500; letter-spacing: .04em;
       transition: background .25s;
     }
     .nav-pill-cta:hover { background: var(--rose-dark); }
 
-    /* Hamburger mobile */
     .hamburger {
       display: none; flex-direction: column; gap: 5px;
-      width: 48px; height: 48px; border-radius: 50%;
-      background: rgba(255,255,255,0.82); backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.4); box-shadow: 0 2px 20px rgba(0,0,0,.1);
+      width: 46px; height: 46px; border-radius: 50%;
+      background: rgba(255,255,255,.82); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,.4);
+      box-shadow: 0 2px 18px rgba(0,0,0,.1);
       align-items: center; justify-content: center;
     }
     .hamburger span { width: 18px; height: 1.5px; background: var(--noir); display: block; transition: all .3s; }
@@ -111,444 +111,396 @@
     .drawer.open { display: flex; }
     .drawer a, .drawer button {
       font-family: var(--hv); font-size: 2rem; font-weight: 300;
-      color: var(--noir); letter-spacing: -.01em;
+      color: var(--noir); letter-spacing: -.02em;
     }
     .drawer a:hover, .drawer button:hover { color: var(--rose-dark); }
 
-    /* ─────────────────────────────────────
+    /* ═══════════════════════════════════════
        POPUP CONTACT
-    ───────────────────────────────────── */
-    .overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(19,16,16,.5); backdrop-filter: blur(10px);
-      z-index: 900; align-items: center; justify-content: center;
-    }
-    .overlay.active { display: flex; }
-    .popup {
-      background: var(--blanc); width: calc(100% - 32px); max-width: 420px;
-      padding: 52px 44px 44px; border-radius: 24px; text-align: center;
-      position: relative; animation: popIn .38s cubic-bezier(.22,.68,0,1.38);
-    }
+    ═══════════════════════════════════════ */
+    .overlay { display:none; position:fixed; inset:0; background:rgba(12,9,9,.5); backdrop-filter:blur(10px); z-index:900; align-items:center; justify-content:center; }
+    .overlay.active { display:flex; }
+    .popup { background:var(--blanc); width:calc(100% - 32px); max-width:420px; padding:52px 44px 44px; border-radius:24px; text-align:center; position:relative; animation:popIn .38s cubic-bezier(.22,.68,0,1.38); }
     @keyframes popIn { from{opacity:0;transform:scale(.93) translateY(18px)} to{opacity:1;transform:scale(1) translateY(0)} }
-    .popup-x { position:absolute; top:16px; right:18px; font-size:1.3rem; color:var(--g600); padding:4px 8px; transition:color .2s; }
+    .popup-x { position:absolute; top:16px; right:18px; font-size:1.3rem; color:var(--g500); padding:4px 8px; transition:color .2s; }
     .popup-x:hover { color:var(--noir); }
-    .popup-tag { font-family:var(--hv); font-size:.58rem; letter-spacing:.24em; text-transform:uppercase; color:var(--rose); margin-bottom:10px; }
-    .popup-titre { font-family:var(--hv); font-size:1.75rem; font-weight:300; color:var(--noir); margin-bottom:8px; letter-spacing:-.02em; }
-    .popup-note { font-size:.78rem; color:var(--g600); line-height:1.75; margin-bottom:26px; }
-    .popup-tel { display:block; font-family:var(--hv); font-size:1.75rem; font-weight:600; color:var(--noir); letter-spacing:-.01em; margin-bottom:5px; transition:color .2s; }
+    .popup-tag { font-size:.58rem; letter-spacing:.24em; text-transform:uppercase; color:var(--rose); margin-bottom:10px; }
+    .popup-titre { font-size:1.75rem; font-weight:300; letter-spacing:-.02em; color:var(--noir); margin-bottom:8px; }
+    .popup-note { font-size:.78rem; color:var(--g500); line-height:1.75; margin-bottom:26px; }
+    .popup-tel { display:block; font-size:1.75rem; font-weight:600; color:var(--noir); letter-spacing:-.01em; margin-bottom:5px; transition:color .2s; }
     .popup-tel:hover { color:var(--rose-dark); }
-    .popup-tel-note { font-size:.67rem; color:var(--g600); margin-bottom:26px; }
+    .popup-tel-note { font-size:.66rem; color:var(--g500); margin-bottom:26px; }
     .popup-sep { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
     .popup-sep::before, .popup-sep::after { content:''; flex:1; height:1px; background:var(--g200); }
-    .popup-sep span { font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--g600); }
+    .popup-sep span { font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--g500); }
     .popup-rdv { display:flex; flex-direction:column; gap:10px; }
-    .popup-btn { display:flex; align-items:center; justify-content:center; gap:10px; padding:13px 20px; border-radius:14px; border:1px solid var(--g200); font-family:var(--hv); font-size:.72rem; font-weight:500; letter-spacing:.06em; color:var(--noir); transition:all .2s; }
+    .popup-btn { display:flex; align-items:center; justify-content:center; gap:10px; padding:13px 20px; border-radius:14px; border:1px solid var(--g200); font-size:.72rem; font-weight:500; letter-spacing:.06em; color:var(--noir); transition:all .2s; }
     .popup-btn:hover { border-color:var(--rose); background:var(--rose-ultra); color:var(--rose-dark); }
     .popup-btn svg { width:16px; height:16px; flex-shrink:0; }
 
-    /* ─────────────────────────────────────
-       HERO — plein écran, image bg (screen 2)
-    ───────────────────────────────────── */
+    /* ═══════════════════════════════════════
+       HERO — plein écran + image fond
+    ═══════════════════════════════════════ */
     .hero {
       height: 100vh; min-height: 600px;
       position: relative; overflow: hidden;
       display: flex; flex-direction: column;
       align-items: center; justify-content: flex-end;
-      padding-bottom: 130px;
-      text-align: center;
+      padding-bottom: 140px; text-align: center;
     }
+    .hero-bg-fallback { position:absolute; inset:0; background: radial-gradient(ellipse 80% 60% at 60% 10%, rgba(200,112,154,.3) 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 15% 85%, rgba(162,84,122,.22) 0%, transparent 50%), linear-gradient(170deg, #1C1014 0%, #0C0909 55%, #160C11 100%); }
+    .hero-bg { position:absolute; inset:0; background-image:url('images/hero.jpg'); background-size:cover; background-position:center; }
+    .hero-grain { position:absolute; inset:0; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E"); }
+    .hero-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,9,.75) 0%, rgba(12,9,9,.1) 50%, transparent 100%); }
 
-    /* Image de fond (remplacer par images/hero.jpg) */
-    .hero-bg {
-      position: absolute; inset: 0;
-      background-image: url('images/hero.jpg');
-      background-size: cover; background-position: center;
-    }
-    /* Fallback gradient si pas d'image */
-    .hero-bg-fallback {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 60% 10%, rgba(200,112,154,.28) 0%, transparent 55%),
-        radial-gradient(ellipse 50% 40% at 15% 85%, rgba(162,84,122,.2) 0%, transparent 50%),
-        linear-gradient(170deg, #1C1014 0%, #0D0A0C 55%, #160C11 100%);
-    }
-
-    /* Grain */
-    .hero-grain { position:absolute; inset:0; pointer-events:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
-    }
-
-    /* Dégradé bas pour le texte */
-    .hero-overlay { position:absolute; inset:0;
-      background: linear-gradient(to top, rgba(10,7,9,.7) 0%, rgba(10,7,9,.1) 50%, transparent 100%);
-    }
-
-    .hero-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; }
+    .hero-content { position:relative; z-index:2; }
 
     .hero-h1 {
       font-family: var(--hv);
       font-size: clamp(2.4rem, 5.5vw, 5.5rem);
-      font-weight: 400;
-      letter-spacing: -.025em;
-      line-height: 1.04;
-      color: var(--blanc);
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: riseIn 1s .3s cubic-bezier(.22,.68,0,1) forwards;
+      font-weight: 400; letter-spacing: -.03em; line-height: 1.04;
+      color: var(--blanc); margin-bottom: 28px;
+      opacity: 0; animation: riseIn 1s .3s cubic-bezier(.22,.68,0,1) forwards;
     }
-
     .hero-btn {
       display: inline-flex; align-items: center;
       padding: 13px 30px;
-      background: rgba(255,255,255,.15);
-      border: 1px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.32);
       color: var(--blanc); border-radius: 999px;
       font-family: var(--hv); font-size: .75rem; font-weight: 400; letter-spacing: .04em;
-      backdrop-filter: blur(8px);
-      transition: all .25s;
-      opacity: 0;
-      animation: riseIn 1s .52s cubic-bezier(.22,.68,0,1) forwards;
+      backdrop-filter: blur(8px); transition: all .25s;
+      opacity: 0; animation: riseIn 1s .5s cubic-bezier(.22,.68,0,1) forwards;
     }
-    .hero-btn:hover { background: rgba(255,255,255,.25); border-color:rgba(255,255,255,.6); transform:translateY(-2px); }
+    .hero-btn:hover { background: rgba(255,255,255,.24); border-color: rgba(255,255,255,.6); transform: translateY(-2px); }
 
-    /* Thumbnails bas — comme screen 2 */
+    /* Thumbnails — dark squares, no emoji */
     .hero-thumbs {
       position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
       display: flex; gap: 10px; z-index: 2;
-      opacity: 0;
-      animation: riseIn 1s .8s cubic-bezier(.22,.68,0,1) forwards;
+      opacity: 0; animation: riseIn 1s .75s cubic-bezier(.22,.68,0,1) forwards;
     }
     .hero-thumb {
-      width: 68px; height: 68px; border-radius: 16px; overflow: hidden;
-      border: 2px solid rgba(255,255,255,.0);
+      width: 66px; height: 66px; border-radius: 14px; overflow: hidden;
+      border: 1.5px solid transparent;
       cursor: pointer; transition: border-color .25s, transform .25s;
-      background: rgba(255,255,255,.1);
-      backdrop-filter: blur(4px);
+      background: rgba(255,255,255,.08);
     }
-    .hero-thumb.active { border-color: rgba(255,255,255,.7); }
+    .hero-thumb.active { border-color: rgba(255,255,255,.6); }
     .hero-thumb:hover { transform: scale(1.06); border-color: rgba(200,112,154,.8); }
     .hero-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
-    .hero-thumb-ph { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:.9rem; opacity:.5; }
+    /* Fallback: dark gradient square only, no emoji */
+    .hero-thumb-ph { width:100%; height:100%; background:rgba(255,255,255,.05); }
 
     @keyframes riseIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
-    /* ─────────────────────────────────────
-       STATEMENT — grande phrase (image 3)
-    ───────────────────────────────────── */
-    .statement {
-      background: var(--g100);
-      padding: 160px 64px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .statement p {
-      font-family: var(--hv);
-      font-size: clamp(1.6rem, 3.8vw, 3.5rem);
-      font-weight: 300; letter-spacing: -.02em;
-      line-height: 1.38; text-align: center;
-      color: rgba(19,16,16,.2); max-width: 960px;
-      transition: color 1.8s ease;
-    }
-    .statement p.lit { color: rgba(19,16,16,.72); }
-    .statement p em { font-style: normal; color: var(--rose); }
-
-    /* ─────────────────────────────────────
-       SERVICES — grandes cartes (screen 1)
-    ───────────────────────────────────── */
-    .services {
-      background: var(--g100);
-      padding: 0 40px 80px;
-    }
-
-    /* Titre de section */
-    .svc-head {
-      padding: 80px 40px 60px;
-      max-width: 1280px; margin: 0 auto;
-      display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;
-    }
-    .svc-head-title {
-      font-family: var(--hv); font-size: clamp(1.8rem, 3.5vw, 3.2rem);
-      font-weight: 300; letter-spacing: -.025em; line-height: 1.1;
-      color: var(--g900);
-    }
-    .svc-head-sub {
-      font-family: var(--hv); font-size: .84rem; font-weight: 300;
-      color: var(--g600); max-width: 360px; line-height: 1.75; text-align: right;
-    }
-
-    /* Grille deux cartes */
-    .svc-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      max-width: 1280px; margin: 0 auto;
-    }
-
-    /* Carte principale (comme screen 1) */
-    .svc-card {
-      border-radius: 28px; overflow: hidden;
-      position: relative; background: var(--noir);
-      aspect-ratio: 3/4;
-      cursor: default;
-    }
-
-    /* Image de fond de carte */
-    .svc-card-bg {
-      position: absolute; inset: 0;
-      background-size: cover; background-position: center;
-      transition: transform .7s cubic-bezier(.25,.46,.45,.94);
-    }
-    .svc-card:hover .svc-card-bg { transform: scale(1.04); }
-
-    /* Fallback gradient si pas d'image */
-    .svc-card-epil .svc-card-bg {
-      background-image: url('images/card-epil.jpg');
-      background-color: #1a0f15;
-    }
-    .svc-card-nails .svc-card-bg {
-      background-image: url('images/card-nails.jpg');
-      background-color: #14101a;
-    }
-
-    /* Gradient overlay bas */
-    .svc-card-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,7,9,.82) 0%, rgba(10,7,9,.3) 45%, transparent 75%);
-    }
-
-    /* Fallback gradient déco si pas d'image */
-    .svc-card-epil .svc-card-bg::after {
-      content:'';
-      position:absolute; inset:0;
-      background: radial-gradient(ellipse 80% 70% at 50% 30%, rgba(200,112,154,.25) 0%, transparent 65%);
-    }
-    .svc-card-nails .svc-card-bg::after {
-      content:'';
-      position:absolute; inset:0;
-      background: radial-gradient(ellipse 80% 70% at 50% 30%, rgba(130,90,180,.2) 0%, transparent 65%);
-    }
-
-    /* Contenu texte bas */
-    .svc-card-body {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 32px 32px 36px;
-      display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
-      z-index: 2;
-    }
-    .svc-card-num {
-      font-family: var(--hv); font-size: .65rem; letter-spacing: .18em;
-      text-transform: uppercase; color: rgba(255,255,255,.6);
-    }
-    .svc-card-title {
-      font-family: var(--hv); font-size: clamp(1.8rem, 3vw, 2.8rem);
-      font-weight: 400; letter-spacing: -.025em;
-      color: var(--blanc); line-height: 1.04;
-    }
-    .svc-card-desc {
-      font-family: var(--hv); font-size: .82rem; font-weight: 300;
-      color: rgba(255,255,255,.65); line-height: 1.6; max-width: 340px;
-    }
-    .svc-card-btn {
-      margin-top: 8px;
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 24px;
-      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28);
-      color: var(--blanc); border-radius: 999px; backdrop-filter: blur(8px);
-      font-family: var(--hv); font-size: .72rem; font-weight: 400; letter-spacing: .04em;
-      transition: all .25s; cursor: pointer;
-    }
-    .svc-card-btn:hover { background: rgba(255,255,255,.22); border-color: rgba(255,255,255,.55); }
-    .svc-card-btn.open { background: var(--blanc); color: var(--noir); border-color: transparent; }
-
-    /* ─────────────────────────────────────
-       TARIFS — accordéon sous les cartes
-    ───────────────────────────────────── */
-    .tarifs-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      max-width: 1280px; margin: 0 auto;
-    }
-
-    .tarif-panel {
-      background: var(--blanc);
-      border-radius: 20px;
+    /* ═══════════════════════════════════════
+       TARIFS — APPLE / TESLA STYLE
+    ═══════════════════════════════════════ */
+    .tarifs-section {
+      background: var(--noir);
+      position: relative;
       overflow: hidden;
-      max-height: 0;
-      transition: max-height .6s cubic-bezier(.25,.46,.45,.94), padding .4s;
-      padding: 0 40px;
-    }
-    .tarif-panel.open {
-      max-height: 1200px;
-      padding: 40px 40px 48px;
     }
 
-    .tarif-panel-title {
-      font-family: var(--hv); font-size: 1.4rem; font-weight: 300;
-      letter-spacing: -.02em; color: var(--noir);
-      margin-bottom: 28px; padding-bottom: 20px;
-      border-bottom: 1px solid var(--g200);
+    /* Header de section — petit texte en haut */
+    .tarifs-header {
+      padding: 100px 80px 0;
+      max-width: 1400px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
     }
+    .tarifs-header-label {
+      font-size: .58rem; letter-spacing: .28em; text-transform: uppercase;
+      color: rgba(200,112,154,.7);
+    }
+    .tarifs-header-rdv {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 22px;
+      border: 1px solid rgba(255,255,255,.15);
+      color: rgba(255,255,255,.75); border-radius: 999px;
+      font-size: .68rem; font-weight: 400; letter-spacing: .04em;
+      transition: all .25s;
+    }
+    .tarifs-header-rdv:hover { border-color: var(--rose-pale); color: var(--rose-pale); }
+
+    /* Chaque catégorie = un bloc plein écran */
+    .tarif-block {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 80px 80px 100px;
+      max-width: 1400px; margin: 0 auto;
+      gap: 80px;
+      position: relative;
+    }
+
+    /* Séparateur entre les deux blocs */
+    .tarif-sep {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,112,154,.25), transparent);
+      margin: 0 80px;
+      max-width: 1400px; margin-left:auto; margin-right:auto;
+    }
+
+    /* GAUCHE — identité de la catégorie */
+    .tarif-left {
+      position: sticky;
+      top: 50%; transform: translateY(-50%);
+      align-self: start;
+      padding-top: 120px;
+    }
+    .tarif-num {
+      font-size: .6rem; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 16px; display: block;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .tarif-name {
+      font-family: var(--hv);
+      font-size: clamp(5rem, 9vw, 9.5rem);
+      font-weight: 300; letter-spacing: -.04em;
+      line-height: .92; color: var(--blanc);
+      margin-bottom: 28px;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 1s .1s ease, transform 1s .1s ease;
+    }
+    .tarif-sub {
+      font-size: .82rem; font-weight: 300;
+      color: rgba(255,255,255,.38); line-height: 1.7;
+      max-width: 300px;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .9s .2s ease, transform .9s .2s ease;
+    }
+    .tarif-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 32px;
+      padding: 12px 26px;
+      background: rgba(200,112,154,.15); border: 1px solid rgba(200,112,154,.35);
+      color: var(--rose-pale); border-radius: 999px;
+      font-size: .7rem; font-weight: 400; letter-spacing: .04em;
+      transition: all .25s;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity .9s .32s ease, transform .9s .32s ease, background .25s, border-color .25s;
+    }
+    .tarif-cta:hover { background: rgba(200,112,154,.25); border-color: rgba(200,112,154,.6); }
+
+    /* Quand visible */
+    .tarif-block.in-view .tarif-num,
+    .tarif-block.in-view .tarif-name,
+    .tarif-block.in-view .tarif-sub,
+    .tarif-block.in-view .tarif-cta { opacity: 1; transform: translateY(0); }
+
+    /* DROITE — liste des prix */
+    .tarif-right { }
 
     .p-list { list-style: none; }
     .p-row {
-      display: flex; align-items: center; padding: 12px 0;
-      border-bottom: 1px solid rgba(232,227,223,.5); gap: 12px;
-      transition: padding-left .2s;
+      display: flex; align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      gap: 14px;
+      opacity: 0; transform: translateX(20px);
+      transition: opacity .5s ease, transform .5s ease, padding-left .2s;
     }
     .p-row:last-child { border-bottom: none; }
-    .p-row:hover { padding-left: 6px; }
-    .p-name { font-family:var(--hv); font-size:.84rem; font-weight:300; color:var(--noir); line-height:1.4; flex-shrink:0; }
-    .p-dots { flex:1; height:1px; min-width:16px; background:repeating-linear-gradient(to right,var(--g200) 0,var(--g200) 3px,transparent 3px,transparent 8px); }
-    .p-price { font-family:var(--hv); font-size:1rem; font-weight:600; color:var(--rose-dark); white-space:nowrap; min-width:36px; text-align:right; }
+    .p-row:hover { padding-left: 8px; }
+    .p-name {
+      font-family: var(--hv); font-size: .85rem; font-weight: 300;
+      color: rgba(255,255,255,.75); line-height: 1.4; flex-shrink: 0;
+    }
+    .p-dots {
+      flex: 1; height: 1px; min-width: 16px;
+      background: repeating-linear-gradient(to right, rgba(255,255,255,.1) 0, rgba(255,255,255,.1) 3px, transparent 3px, transparent 8px);
+    }
+    .p-price {
+      font-family: var(--hv); font-size: 1.05rem; font-weight: 600;
+      color: var(--rose); white-space: nowrap; min-width: 36px; text-align: right;
+    }
 
-    /* ─────────────────────────────────────
+    /* Animation staggerée des lignes quand visible */
+    .tarif-block.in-view .p-row {
+      opacity: 1; transform: translateX(0);
+    }
+    /* Les délais sont injectés par JS */
+
+    /* ═══════════════════════════════════════
        LOCALISATION
-    ───────────────────────────────────── */
-    .loc { background: var(--blanc); padding: 130px 0 0; position:relative; }
+    ═══════════════════════════════════════ */
+    .loc {
+      background: var(--g100); padding: 130px 0 0;
+      position: relative; overflow: hidden;
+    }
     .loc::before { content:''; position:absolute; top:0; left:0; right:0; height:1px;
-      background:linear-gradient(to right,transparent,var(--rose-pale),transparent); }
+      background: linear-gradient(to right, transparent, var(--rose-pale), transparent); }
 
     .loc-grid {
       display: grid; grid-template-columns: 1fr 1fr;
       max-width: 1280px; margin: 0 auto;
       padding: 0 80px 90px; gap: 80px; align-items: start;
     }
-    .loc-eyebrow { font-family:var(--hv); font-size:.58rem; letter-spacing:.26em; text-transform:uppercase; color:var(--rose); display:block; margin-bottom:14px; }
-    .loc-title { font-family:var(--hv); font-size:clamp(2.4rem,4vw,4.4rem); font-weight:300; letter-spacing:-.03em; line-height:1.06; color:var(--noir); }
+    .loc-eyebrow { font-size:.58rem; letter-spacing:.26em; text-transform:uppercase; color:var(--rose); display:block; margin-bottom:14px; }
+    .loc-title { font-size:clamp(2.4rem,4vw,4.4rem); font-weight:300; letter-spacing:-.03em; line-height:1.06; color:var(--noir); }
     .loc-title em { font-style:italic; color:var(--rose-dark); }
 
-    .loc-right { display:flex; flex-direction:column; gap:26px; }
+    .loc-right { display:flex; flex-direction:column; gap:24px; }
+
     .loc-row { display:flex; gap:16px; }
     .loc-ico { width:40px; height:40px; border-radius:50%; background:var(--rose-ultra); border:1px solid var(--rose-pale); display:flex; align-items:center; justify-content:center; font-size:.95rem; flex-shrink:0; }
-    .loc-lbl { font-family:var(--hv); font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:var(--rose); margin-bottom:4px; }
-    .loc-val { font-family:var(--hv); font-size:.85rem; font-weight:300; color:var(--noir); line-height:1.65; }
+    .loc-lbl { font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:var(--rose); margin-bottom:4px; }
+    .loc-val { font-size:.86rem; font-weight:300; color:var(--noir); line-height:1.65; }
     .loc-val strong { font-weight:500; }
     .loc-val a { color:var(--noir); transition:color .2s; }
     .loc-val a:hover { color:var(--rose-dark); }
-    .loc-hint { font-size:.72rem; color:var(--rose); margin-top:3px; display:block; }
+    .loc-zone-badge { display:inline-flex; align-items:center; gap:6px; margin-top:6px; font-size:.7rem; color:var(--rose-dark); background:var(--rose-ultra); border:1px solid var(--rose-pale); padding:4px 10px; border-radius:999px; }
 
-    .rdv-card { background:var(--rose-ultra); border:1px solid var(--rose-pale); border-radius:20px; padding:26px 28px; }
-    .rdv-card-title { font-family:var(--hv); font-size:.98rem; font-weight:500; margin-bottom:7px; }
-    .rdv-card-note { font-family:var(--hv); font-size:.77rem; font-weight:300; color:var(--g600); line-height:1.7; margin-bottom:16px; }
+    /* RDV CARD — très visible */
+    .rdv-card {
+      background: var(--noir);
+      border-radius: 22px;
+      padding: 32px 34px;
+      position: relative;
+      overflow: hidden;
+    }
+    .rdv-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 20% 50%, rgba(200,112,154,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .rdv-card-eyebrow {
+      font-size: .58rem; letter-spacing: .24em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 12px; display: block;
+    }
+    .rdv-card-title {
+      font-size: 1.5rem; font-weight: 300; letter-spacing: -.025em;
+      color: var(--blanc); margin-bottom: 10px; line-height: 1.2;
+    }
+    .rdv-card-note {
+      font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.5);
+      line-height: 1.7; margin-bottom: 26px;
+    }
+    .rdv-card-note strong { color: rgba(255,255,255,.8); font-weight: 500; }
     .rdv-btns { display:flex; gap:10px; flex-wrap:wrap; }
-    .rdv-btn { display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:999px; font-family:var(--hv); font-size:.68rem; font-weight:500; letter-spacing:.06em; transition:all .22s; }
+    .rdv-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:999px; font-size:.7rem; font-weight:500; letter-spacing:.06em; transition:all .22s; }
     .rdv-btn svg { width:14px; height:14px; }
-    .rdv-dark { background:var(--noir); color:var(--blanc); }
-    .rdv-dark:hover { background:var(--rose-dark); transform:translateY(-2px); }
-    .rdv-light { border:1px solid var(--g200); color:var(--noir); background:var(--blanc); }
-    .rdv-light:hover { border-color:var(--rose); color:var(--rose-dark); transform:translateY(-2px); }
+    .rdv-white { background:var(--blanc); color:var(--noir); }
+    .rdv-white:hover { background:var(--rose-pale); transform:translateY(-2px); }
+    .rdv-outline { border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.8); }
+    .rdv-outline:hover { border-color:var(--rose-pale); color:var(--rose-pale); transform:translateY(-2px); }
 
     .transp { border-top:1px solid var(--g200); padding-top:20px; }
-    .transp-title { font-family:var(--hv); font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:var(--rose); margin-bottom:12px; }
+    .transp-title { font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:var(--rose); margin-bottom:12px; }
     .transp-list { display:flex; flex-direction:column; gap:9px; }
-    .transp-row { display:flex; align-items:flex-start; gap:10px; font-family:var(--hv); font-size:.78rem; font-weight:300; color:var(--g600); line-height:1.5; }
-    .tbadge { background:var(--rose); color:white; font-family:var(--hv); font-size:.55rem; font-weight:600; padding:2px 8px; border-radius:999px; white-space:nowrap; flex-shrink:0; margin-top:2px; }
+    .transp-row { display:flex; align-items:flex-start; gap:10px; font-size:.79rem; font-weight:300; color:var(--g500); line-height:1.5; }
+    .tbadge { background:var(--rose); color:white; font-size:.55rem; font-weight:600; padding:2px 8px; border-radius:999px; white-space:nowrap; flex-shrink:0; margin-top:2px; }
 
-    .loc-map { height:440px; position:relative; }
-    .loc-map iframe { width:100%; height:100%; border:none; display:block; }
-    .map-tag { position:absolute; bottom:28px; left:80px; background:var(--blanc); padding:18px 22px; border-radius:16px; box-shadow:0 8px 40px rgba(0,0,0,.12); }
-    .map-tag-name { font-family:var(--hv); font-size:.98rem; font-weight:500; margin-bottom:3px; }
-    .map-tag-addr { font-family:var(--hv); font-size:.74rem; font-weight:300; color:var(--g600); }
+    /* Carte Leaflet */
+    .loc-map { height: 460px; position: relative; }
+    #leaflet-map { width: 100%; height: 100%; }
+    .map-tag {
+      position: absolute; bottom: 28px; left: 80px;
+      background: var(--blanc); padding: 18px 22px; border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.12); z-index: 1000;
+    }
+    .map-tag-name { font-size: .98rem; font-weight: 500; margin-bottom: 3px; }
+    .map-tag-addr { font-size: .74rem; font-weight: 300; color: var(--g500); }
 
-    /* ─────────────────────────────────────
+    /* ═══════════════════════════════════════
        GALERIE
-    ───────────────────────────────────── */
-    .galerie { background:var(--g100); padding:120px 0; }
+    ═══════════════════════════════════════ */
+    .galerie { background: var(--g100); padding: 120px 0; }
     .galerie::before { content:''; display:block; height:1px; background:linear-gradient(to right,transparent,var(--rose-pale),transparent); }
 
     .gal-header { text-align:center; padding:0 24px; margin-bottom:56px; }
-    .gal-eyebrow { font-family:var(--hv); font-size:.58rem; letter-spacing:.26em; text-transform:uppercase; color:var(--rose); display:block; margin-bottom:14px; }
-    .gal-title { font-family:var(--hv); font-size:clamp(2.2rem,4.5vw,4rem); font-weight:300; letter-spacing:-.025em; line-height:1.08; }
+    .gal-eyebrow { font-size:.58rem; letter-spacing:.26em; text-transform:uppercase; color:var(--rose); display:block; margin-bottom:14px; }
+    .gal-title { font-size:clamp(2.2rem,4.5vw,4rem); font-weight:300; letter-spacing:-.025em; line-height:1.08; }
     .gal-title em { font-style:italic; color:var(--rose-dark); }
-    .gal-sub { font-family:var(--hv); font-size:.83rem; font-weight:300; color:var(--g600); margin-top:10px; }
+    .gal-sub { font-size:.83rem; font-weight:300; color:var(--g500); margin-top:10px; }
 
     .gal-grid {
       display:grid; grid-template-columns:2fr 1fr 1fr;
-      grid-template-rows:auto auto;
-      gap:12px; padding:0 40px;
+      grid-template-rows:auto auto; gap:12px; padding:0 40px;
       max-width:1280px; margin:0 auto;
     }
     .gal-item { border-radius:22px; overflow:hidden; position:relative; background:var(--rose-ultra); }
     .gal-item:nth-child(1) { grid-row:span 2; aspect-ratio:3/4; }
     .gal-item:nth-child(n+2) { aspect-ratio:4/3; }
-
     .gal-item img { width:100%; height:100%; object-fit:cover; transition:transform .65s cubic-bezier(.25,.46,.45,.94); }
     .gal-item:hover img { transform:scale(1.05); }
-    .gal-ov { position:absolute; inset:0; background:linear-gradient(to top,rgba(19,16,16,.28),transparent 55%); opacity:0; transition:opacity .3s; }
+    .gal-ov { position:absolute; inset:0; background:linear-gradient(to top,rgba(12,9,9,.28),transparent 55%); opacity:0; transition:opacity .3s; }
     .gal-item:hover .gal-ov { opacity:1; }
     .gal-ph { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; border:1.5px dashed var(--rose-pale); }
-    .gal-ph .icon { font-size:2rem; opacity:.4; }
-    .gal-ph span { font-family:var(--hv); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--rose); opacity:.6; }
-
-    .gal-note { text-align:center; margin-top:22px; padding:0 24px; font-family:var(--hv); font-size:.71rem; font-weight:300; color:var(--g600); line-height:1.7; }
+    .gal-ph span { font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--rose); opacity:.6; }
+    .gal-note { text-align:center; margin-top:22px; padding:0 24px; font-size:.71rem; font-weight:300; color:var(--g500); line-height:1.7; }
     .gal-note code { background:var(--rose-ultra); color:var(--rose-dark); padding:2px 6px; border-radius:6px; font-size:.67rem; }
 
-    /* ─────────────────────────────────────
+    /* ═══════════════════════════════════════
        SEO
-    ───────────────────────────────────── */
+    ═══════════════════════════════════════ */
     .seo { padding:60px 48px; background:var(--blanc); border-top:1px solid var(--g200); }
     .seo-inner { max-width:960px; margin:0 auto; text-align:center; }
-    .seo-lbl { font-family:var(--hv); font-size:.55rem; letter-spacing:.22em; text-transform:uppercase; color:var(--g600); opacity:.35; margin-bottom:16px; }
+    .seo-lbl { font-size:.55rem; letter-spacing:.22em; text-transform:uppercase; color:var(--g500); opacity:.35; margin-bottom:16px; }
     .seo-tags { display:flex; flex-wrap:wrap; justify-content:center; gap:5px 10px; opacity:.2; }
-    .stag { font-family:var(--hv); font-size:.7rem; font-weight:300; color:var(--noir); }
+    .stag { font-size:.7rem; font-weight:300; color:var(--noir); }
     .sdot { color:var(--rose); }
-    .seo-p { margin-top:18px; font-family:var(--hv); font-size:.73rem; font-weight:300; color:var(--g600); line-height:2; opacity:.18; max-width:800px; margin-left:auto; margin-right:auto; }
+    .seo-p { margin-top:18px; font-size:.73rem; font-weight:300; color:var(--g500); line-height:2; opacity:.18; max-width:800px; margin-left:auto; margin-right:auto; }
 
-    /* ─────────────────────────────────────
+    /* ═══════════════════════════════════════
        FOOTER
-    ───────────────────────────────────── */
+    ═══════════════════════════════════════ */
     .footer { background:var(--noir); padding:64px 80px 32px; }
     .footer-grid { max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1.8fr 1fr 1fr; gap:60px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,.06); margin-bottom:28px; }
     .f-name { font-family:var(--sc); font-size:1.25rem; color:var(--blanc); margin-bottom:12px; }
-    .f-desc { font-family:var(--hv); font-size:.78rem; font-weight:300; color:rgba(255,255,255,.38); line-height:1.8; max-width:250px; margin-bottom:20px; }
+    .f-desc { font-size:.78rem; font-weight:300; color:rgba(255,255,255,.38); line-height:1.8; max-width:250px; margin-bottom:20px; }
     .fsocs { display:flex; gap:10px; }
     .fsoc { width:36px; height:36px; border-radius:50%; border:1px solid rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.38); transition:all .22s; }
     .fsoc:hover { border-color:var(--rose); color:var(--rose-pale); background:rgba(200,112,154,.1); }
     .fsoc svg { width:15px; height:15px; }
-    .f-col-title { font-family:var(--hv); font-size:.56rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.24); margin-bottom:18px; }
+    .f-col-title { font-size:.56rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.24); margin-bottom:18px; }
     .f-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
-    .f-col ul li { font-family:var(--hv); font-size:.79rem; font-weight:300; color:rgba(255,255,255,.4); line-height:1.55; }
+    .f-col ul li { font-size:.79rem; font-weight:300; color:rgba(255,255,255,.4); line-height:1.55; }
     .f-col ul li a:hover { color:var(--rose-pale); }
-    .f-bottom { text-align:center; font-family:var(--hv); font-size:.65rem; font-weight:300; color:rgba(255,255,255,.18); }
+    .f-bottom { text-align:center; font-size:.65rem; font-weight:300; color:rgba(255,255,255,.18); }
 
-    /* ─────────────────────────────────────
-       SCROLL REVEAL
-    ───────────────────────────────────── */
-    .reveal { opacity:0; transform:translateY(28px); transition:opacity .9s ease,transform .9s ease; }
-    .reveal.vis { opacity:1; transform:none; }
-    .d1 { transition-delay:.1s; }
-    .d2 { transition-delay:.22s; }
+    /* ═══════════════════════════════════════
+       ANIMATIONS GLOBALES
+    ═══════════════════════════════════════ */
+    .anim-up { opacity:0; transform:translateY(32px); transition:opacity .85s ease, transform .85s ease; }
+    .anim-up.vis { opacity:1; transform:none; }
+    .anim-left { opacity:0; transform:translateX(-28px); transition:opacity .85s ease, transform .85s ease; }
+    .anim-left.vis { opacity:1; transform:none; }
+    .anim-right { opacity:0; transform:translateX(28px); transition:opacity .85s ease, transform .85s ease; }
+    .anim-right.vis { opacity:1; transform:none; }
+    .anim-scale { opacity:0; transform:scale(.95); transition:opacity .8s ease, transform .8s ease; }
+    .anim-scale.vis { opacity:1; transform:scale(1); }
+    .d1 { transition-delay:.1s; } .d2 { transition-delay:.2s; } .d3 { transition-delay:.3s; }
+    .d4 { transition-delay:.4s; } .d5 { transition-delay:.5s; }
 
-    /* ─────────────────────────────────────
+    /* ═══════════════════════════════════════
        RESPONSIVE
-    ───────────────────────────────────── */
+    ═══════════════════════════════════════ */
     @media (max-width:1024px) {
-      .svc-head { padding:60px 20px 40px; }
-      .svc-cards, .tarifs-grid { gap:10px; }
+      .tarif-block { padding:80px 40px 90px; gap:48px; }
+      .tarifs-header { padding:80px 40px 0; }
+      .tarif-sep { margin:0 40px; }
       .loc-grid { padding:0 40px 70px; gap:50px; }
       .map-tag { left:40px; }
       .footer { padding:56px 40px 28px; }
       .gal-grid { padding:0 24px; gap:10px; }
     }
     @media (max-width:860px) {
-      .nav-pill a:not(:last-of-type) { display:none; }
       .nav-pill { display:none; }
       .hamburger { display:flex; }
-
-      .svc-head { flex-direction:column; align-items:flex-start; padding:56px 20px 36px; }
-      .svc-head-sub { text-align:left; }
-      .svc-cards, .tarifs-grid { grid-template-columns:1fr; padding:0; }
-      .svc-card { aspect-ratio:4/3; }
-      .services { padding:0 20px 60px; }
-
+      .tarif-block { grid-template-columns:1fr; min-height:auto; padding:60px 24px 80px; }
+      .tarif-left { position:relative; top:auto; transform:none; align-self:auto; padding-top:0; }
+      .tarif-name { font-size:clamp(3.5rem,12vw,6rem); }
+      .tarifs-header { padding:60px 24px 0; flex-direction:column; align-items:flex-start; gap:16px; }
+      .tarif-sep { margin:0 24px; }
       .loc-grid { grid-template-columns:1fr; padding:0 24px 48px; }
-      .loc-map { height:300px; }
+      .loc-map { height:320px; }
       .map-tag { left:20px; bottom:16px; }
-
       .gal-grid { grid-template-columns:1fr 1fr; }
       .gal-item:nth-child(1) { grid-row:span 1; aspect-ratio:4/3; grid-column:span 2; }
-
-      .statement { padding:100px 24px; }
       .footer-grid { grid-template-columns:1fr; gap:32px; }
       .footer { padding:48px 24px 28px; }
       .seo { padding:48px 24px; }
@@ -556,21 +508,26 @@
     @media (max-width:560px) {
       .gal-grid { grid-template-columns:1fr; }
       .gal-item:nth-child(1) { grid-column:span 1; }
-      .hero-thumb { width:52px; height:52px; border-radius:12px; }
+      .hero-thumbs { display:none; }
     }
+
+    /* Leaflet custom */
+    .leaflet-container { font-family: var(--hv); }
+    .leaflet-control-attribution { display:none; }
+    .leaflet-control-zoom { display:none; }
   </style>
 </head>
 <body>
 
 <!-- ══ NAV ══ -->
 <div class="nav-wrap" id="navWrap">
-  <a href="#top" class="nav-logo" aria-label="Spicy Beauty by T.">
+  <a href="#top" class="nav-logo-btn" aria-label="Spicy Beauty by T.">
     <img src="images/logo-spicy-beauty-by-t.JPG" alt="Logo">
   </a>
   <nav class="nav-pill" id="navPill">
     <a href="#services">Prestations</a>
-    <a href="#localisation">Nous trouver</a>
-    <a href="#galerie">Galerie</a>
+    <a href="#localisation">Localisation</a>
+    <a href="#galerie">Réalisations</a>
     <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">Instagram</a>
     <button class="nav-pill-cta" onclick="openPopup()">Contact</button>
   </nav>
@@ -582,8 +539,8 @@
 <!-- Drawer mobile -->
 <nav class="drawer" id="drawer">
   <a href="#services" onclick="closeDrawer()">Prestations</a>
-  <a href="#localisation" onclick="closeDrawer()">Nous trouver</a>
-  <a href="#galerie" onclick="closeDrawer()">Galerie</a>
+  <a href="#localisation" onclick="closeDrawer()">Localisation</a>
+  <a href="#galerie" onclick="closeDrawer()">Réalisations</a>
   <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" onclick="closeDrawer()">Instagram</a>
   <button onclick="closeDrawer();openPopup()">Contact</button>
 </nav>
@@ -593,7 +550,7 @@
   <div class="popup">
     <button class="popup-x" onclick="closePopup()">×</button>
     <p class="popup-tag">✦ Spicy Beauty by T.</p>
-    <h2 class="popup-titre">Nous contacter</h2>
+    <h2 class="popup-titre">Prendre contact</h2>
     <p class="popup-note">Prise de rendez-vous <strong>uniquement par message</strong> —<br>SMS ou Instagram. Pas d'appel téléphonique.</p>
     <a href="tel:+33635214756" class="popup-tel">+33 6 35 21 47 56</a>
     <p class="popup-tel-note">Appuyer pour appeler · Message uniquement pour les RDV</p>
@@ -617,86 +574,43 @@
   <div class="hero-bg"></div>
   <div class="hero-grain"></div>
   <div class="hero-overlay"></div>
-
   <div class="hero-content">
     <h1 class="hero-h1">L'art de la beauté, sublimé.</h1>
     <a href="#services" class="hero-btn">Découvrir</a>
   </div>
-
-  <!-- Thumbnails bas comme screen 2 -->
   <div class="hero-thumbs">
     <div class="hero-thumb active" onclick="setThumb(0)">
-      <img src="images/gallery-1.jpg" alt=""
-           onerror="this.parentElement.innerHTML='<div class=\'hero-thumb-ph\'>🌸</div>'">
+      <img src="images/gallery-1.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'hero-thumb-ph\'></div>'">
     </div>
     <div class="hero-thumb" onclick="setThumb(1)">
-      <img src="images/gallery-2.jpg" alt=""
-           onerror="this.parentElement.innerHTML='<div class=\'hero-thumb-ph\'>💅</div>'">
+      <img src="images/gallery-2.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'hero-thumb-ph\'></div>'">
     </div>
     <div class="hero-thumb" onclick="setThumb(2)">
-      <img src="images/gallery-3.jpg" alt=""
-           onerror="this.parentElement.innerHTML='<div class=\'hero-thumb-ph\'>✨</div>'">
+      <img src="images/gallery-3.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'hero-thumb-ph\'></div>'">
     </div>
     <div class="hero-thumb" onclick="setThumb(3)">
-      <img src="images/gallery-4.jpg" alt=""
-           onerror="this.parentElement.innerHTML='<div class=\'hero-thumb-ph\'>💄</div>'">
+      <img src="images/gallery-4.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'hero-thumb-ph\'></div>'">
     </div>
   </div>
 </section>
 
-<!-- ══ STATEMENT ══ -->
-<section class="statement">
-  <p id="stmt" class="reveal">
-    Spicy Beauty by T., c'est l'expérience beauté <em>réinventée</em> à Valenciennes —
-    des gestes précis, des résultats remarquables,
-    une attention portée à chaque détail qui vous mérite.
-  </p>
-</section>
+<!-- ══ PRESTATIONS & TARIFS — APPLE / TESLA ══ -->
+<section class="tarifs-section" id="services">
 
-<!-- ══ SERVICES + TARIFS ══ -->
-<section class="services" id="services">
-
-  <div class="svc-head reveal">
-    <div>
-      <span style="font-family:var(--hv);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--rose);display:block;margin-bottom:12px;">✦ Prestations & Tarifs</span>
-      <h2 class="svc-head-title">Un soin d'exception,<br>à chaque visite.</h2>
-    </div>
-    <p class="svc-head-sub">Des tarifs transparents, des résultats premium. Cliquez sur une prestation pour voir les tarifs détaillés.</p>
+  <div class="tarifs-header anim-up">
+    <span class="tarifs-header-label">✦ Prestations & Tarifs</span>
+    <a href="sms:+33635214756" class="tarifs-header-rdv">Prendre rendez-vous →</a>
   </div>
 
-  <!-- Deux grandes cartes (screen 1) -->
-  <div class="svc-cards">
-
-    <!-- Carte Épilations -->
-    <div class="svc-card svc-card-epil">
-      <div class="svc-card-bg"></div>
-      <div class="svc-card-overlay"></div>
-      <div class="svc-card-body">
-        <span class="svc-card-num">Prestation 01</span>
-        <div class="svc-card-title">Épilations</div>
-        <p class="svc-card-desc">Sourcils, visage, corps — des épilations à la cire soignées pour un résultat précis et durable.</p>
-        <button class="svc-card-btn" id="btnEpil" onclick="toggleTarif('epil')">Voir les tarifs →</button>
-      </div>
+  <!-- ── BLOC 1 : Épilations ── -->
+  <div class="tarif-block" id="blockEpil">
+    <div class="tarif-left">
+      <span class="tarif-num">01 — Épilations</span>
+      <div class="tarif-name">Épilations</div>
+      <p class="tarif-sub">Visage, corps, maillot — des épilations à la cire soignées pour un résultat précis et durable.</p>
+      <a href="sms:+33635214756" class="tarif-cta">Prendre rendez-vous →</a>
     </div>
-
-    <!-- Carte Nails -->
-    <div class="svc-card svc-card-nails">
-      <div class="svc-card-bg"></div>
-      <div class="svc-card-overlay"></div>
-      <div class="svc-card-body">
-        <span class="svc-card-num">Prestation 02</span>
-        <div class="svc-card-title">Nails</div>
-        <p class="svc-card-desc">Semi-permanent, pose américaine, capsules gel, gainage — des ongles sublimés qui durent.</p>
-        <button class="svc-card-btn" id="btnNails" onclick="toggleTarif('nails')">Voir les tarifs →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Panneaux tarifs dépliables -->
-  <div class="tarifs-grid" style="margin-top:14px;">
-
-    <div class="tarif-panel" id="panelEpil">
-      <div class="tarif-panel-title">Épilations — Waxing & Précision</div>
+    <div class="tarif-right">
       <ul class="p-list">
         <li class="p-row"><span class="p-name">Sourcils ligne inférieur</span><span class="p-dots"></span><span class="p-price">6€</span></li>
         <li class="p-row"><span class="p-name">Sourcils complet</span><span class="p-dots"></span><span class="p-price">8€</span></li>
@@ -714,9 +628,19 @@
         <li class="p-row"><span class="p-name">Fesses</span><span class="p-dots"></span><span class="p-price">6€</span></li>
       </ul>
     </div>
+  </div>
 
-    <div class="tarif-panel" id="panelNails">
-      <div class="tarif-panel-title">Nails — Pose & Beauté des ongles</div>
+  <div class="tarif-sep"></div>
+
+  <!-- ── BLOC 2 : Nails ── -->
+  <div class="tarif-block" id="blockNails">
+    <div class="tarif-left">
+      <span class="tarif-num">02 — Nails</span>
+      <div class="tarif-name">Nails</div>
+      <p class="tarif-sub">Semi-permanent, pose américaine, capsules gel, gainage — des ongles sublimés qui durent.</p>
+      <a href="sms:+33635214756" class="tarif-cta">Prendre rendez-vous →</a>
+    </div>
+    <div class="tarif-right">
       <ul class="p-list">
         <li class="p-row"><span class="p-name">Manucure – Pédicure</span><span class="p-dots"></span><span class="p-price">15€</span></li>
         <li class="p-row"><span class="p-name">Dépose Semi (sans manucure)</span><span class="p-dots"></span><span class="p-price">5€</span></li>
@@ -736,42 +660,67 @@
       </ul>
     </div>
   </div>
+
 </section>
 
 <!-- ══ LOCALISATION ══ -->
 <section class="loc" id="localisation">
   <div class="loc-grid">
-    <div class="reveal">
-      <span class="loc-eyebrow">✦ Nous trouver</span>
-      <h2 class="loc-title">Où nous<br><em>rencontrer ?</em></h2>
+    <div class="anim-left">
+      <span class="loc-eyebrow">✦ Localisation</span>
+      <h2 class="loc-title">La zone<br>d'intervention<br><em>à Valenciennes.</em></h2>
     </div>
-    <div style="display:flex;flex-direction:column;gap:26px;" class="reveal d2">
+
+    <div class="loc-right anim-right">
       <div class="loc-row">
         <div class="loc-ico">📍</div>
-        <div><div class="loc-lbl">Adresse</div><div class="loc-val"><strong>190 Avenue de Denain</strong><br>59300 Valenciennes, France<span class="loc-hint">✦ À côté de Fitness Boutique</span></div></div>
+        <div>
+          <div class="loc-lbl">Zone</div>
+          <div class="loc-val">
+            <strong>Valenciennes · 59300</strong>
+            <span class="loc-zone-badge">↔ Zone de 1 km</span>
+            <span style="display:block;margin-top:6px;font-size:.78rem;color:var(--g500);">L'adresse exacte est communiquée lors de la prise de rendez-vous.</span>
+          </div>
+        </div>
       </div>
+
       <div class="loc-row">
         <div class="loc-ico">📱</div>
-        <div><div class="loc-lbl">Téléphone (message uniquement)</div><div class="loc-val"><a href="sms:+33635214756"><strong>+33 6 35 21 47 56</strong></a></div></div>
+        <div>
+          <div class="loc-lbl">Téléphone (message uniquement)</div>
+          <div class="loc-val"><a href="sms:+33635214756"><strong>+33 6 35 21 47 56</strong></a></div>
+        </div>
       </div>
+
       <div class="loc-row">
         <div class="loc-ico" style="display:flex;align-items:center;justify-content:center;">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#C8709A" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="#C8709A" stroke="none"/></svg>
         </div>
-        <div><div class="loc-lbl">Instagram</div><div class="loc-val"><a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">@spicybeautyyy</a></div></div>
+        <div>
+          <div class="loc-lbl">Instagram</div>
+          <div class="loc-val"><a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">@spicybeautyyy</a></div>
+        </div>
       </div>
+
+      <!-- RDV CARD — très visible -->
       <div class="rdv-card">
-        <div class="rdv-card-title">✦ Prise de rendez-vous</div>
-        <div class="rdv-card-note">Uniquement par <strong>message</strong> — aucun appel. SMS ou Instagram DM au choix.</div>
+        <span class="rdv-card-eyebrow">✦ Prise de rendez-vous</span>
+        <div class="rdv-card-title">Par message uniquement.</div>
+        <p class="rdv-card-note">
+          <strong>Aucun appel téléphonique.</strong> Les rendez-vous se prennent exclusivement par SMS ou Instagram DM — une réponse rapide garantie.
+        </p>
         <div class="rdv-btns">
-          <a href="sms:+33635214756" class="rdv-btn rdv-dark">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/></svg>SMS
+          <a href="sms:+33635214756" class="rdv-btn rdv-white">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/></svg>
+            SMS
           </a>
-          <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="rdv-btn rdv-light">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram DM
+          <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="rdv-btn rdv-outline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            Instagram DM
           </a>
         </div>
       </div>
+
       <div class="transp">
         <div class="transp-title">🚌 Transports en commun</div>
         <div class="transp-list">
@@ -782,29 +731,46 @@
       </div>
     </div>
   </div>
-  <div class="loc-map">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2537.3!2d3.527!3d50.353!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2cf6b00000001%3A0x1!2s190+Avenue+de+Denain%2C+59300+Valenciennes%2C+France!5e0!3m2!1sfr!2sfr!4v1699000000000!5m2!1sfr!2sfr"
-      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Spicy Beauty by T."></iframe>
+
+  <!-- Carte Leaflet avec zone 1km -->
+  <div class="loc-map anim-up">
+    <div id="leaflet-map"></div>
     <div class="map-tag">
       <div class="map-tag-name">Spicy Beauty by T.</div>
-      <div class="map-tag-addr">190 Avenue de Denain · 59300 Valenciennes · À côté de Fitness Boutique</div>
+      <div class="map-tag-addr">Zone Valenciennes · 59300<br>Adresse communiquée sur RDV</div>
     </div>
   </div>
 </section>
 
 <!-- ══ GALERIE ══ -->
 <section class="galerie" id="galerie">
-  <div class="gal-header reveal">
-    <span class="gal-eyebrow">✦ Notre travail</span>
+  <div class="gal-header anim-up">
+    <span class="gal-eyebrow">✦ Réalisations</span>
     <h2 class="gal-title">La beauté en <em>images.</em></h2>
     <p class="gal-sub">Des réalisations qui parlent d'elles-mêmes.</p>
   </div>
+
   <div class="gal-grid">
-    <div class="gal-item"><img src="images/gallery-1.jpg" alt="Spicy Beauty by T." onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><div class=\'icon\'>📸</div><span>Photo à venir</span></div>'"><div class="gal-ov"></div></div>
-    <div class="gal-item"><img src="images/gallery-2.jpg" alt="Nails Valenciennes" onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><div class=\'icon\'>💅</div><span>Nails</span></div>'"><div class="gal-ov"></div></div>
-    <div class="gal-item"><img src="images/gallery-3.jpg" alt="Épilation Valenciennes" onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><div class=\'icon\'>🌸</div><span>Épilations</span></div>'"><div class="gal-ov"></div></div>
-    <div class="gal-item"><img src="images/gallery-4.jpg" alt="Semi-permanent" onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><div class=\'icon\'>✨</div><span>Semi-permanent</span></div>'"><div class="gal-ov"></div></div>
-    <div class="gal-item"><img src="images/gallery-5.jpg" alt="Nails art" onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><div class=\'icon\'>💄</div><span>Nails art</span></div>'"><div class="gal-ov"></div></div>
+    <div class="gal-item anim-scale">
+      <img src="images/gallery-1.jpg" alt="Spicy Beauty by T." onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><span>Photo à venir</span></div>'">
+      <div class="gal-ov"></div>
+    </div>
+    <div class="gal-item anim-scale d1">
+      <img src="images/gallery-2.jpg" alt="Nails Valenciennes" onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><span>Nails</span></div>'">
+      <div class="gal-ov"></div>
+    </div>
+    <div class="gal-item anim-scale d2">
+      <img src="images/gallery-3.jpg" alt="Épilation Valenciennes" onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><span>Épilations</span></div>'">
+      <div class="gal-ov"></div>
+    </div>
+    <div class="gal-item anim-scale d3">
+      <img src="images/gallery-4.jpg" alt="Semi-permanent" onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><span>Semi-permanent</span></div>'">
+      <div class="gal-ov"></div>
+    </div>
+    <div class="gal-item anim-scale d4">
+      <img src="images/gallery-5.jpg" alt="Nails art" onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><span>Nails art</span></div>'">
+      <div class="gal-ov"></div>
+    </div>
   </div>
   <p class="gal-note">📁 Remplacer <code>images/gallery-1.jpg</code> à <code>gallery-5.jpg</code> dans GitHub pour modifier les photos.</p>
 </section>
@@ -814,9 +780,9 @@
   <div class="seo-inner">
     <p class="seo-lbl">Référencement · Spicy Beauty by T. · Valenciennes 59300</p>
     <div class="seo-tags">
-      <span class="stag">esthéticienne Valenciennes</span><span class="sdot">·</span><span class="stag">épilation Valenciennes</span><span class="sdot">·</span><span class="stag">pose ongles Valenciennes</span><span class="sdot">·</span><span class="stag">semi permanent Valenciennes</span><span class="sdot">·</span><span class="stag">manucure Valenciennes</span><span class="sdot">·</span><span class="stag">pédicure Valenciennes</span><span class="sdot">·</span><span class="stag">nails art Valenciennes</span><span class="sdot">·</span><span class="stag">esthéticienne pas chère Valenciennes</span><span class="sdot">·</span><span class="stag">épilation cire Valenciennes</span><span class="sdot">·</span><span class="stag">pose américaine Valenciennes</span><span class="sdot">·</span><span class="stag">esthéticienne autour de moi</span><span class="sdot">·</span><span class="stag">institut beauté Valenciennes</span><span class="sdot">·</span><span class="stag">babyboomer ongles Valenciennes</span><span class="sdot">·</span><span class="stag">beauty therapist Valenciennes</span><span class="sdot">·</span><span class="stag">Spicy Beauty by T Valenciennes</span><span class="sdot">·</span><span class="stag">esthéticienne 59 Hauts-de-France</span>
+      <span class="stag">esthéticienne Valenciennes</span><span class="sdot">·</span><span class="stag">épilation Valenciennes</span><span class="sdot">·</span><span class="stag">pose ongles Valenciennes</span><span class="sdot">·</span><span class="stag">semi permanent Valenciennes</span><span class="sdot">·</span><span class="stag">manucure Valenciennes</span><span class="sdot">·</span><span class="stag">pédicure Valenciennes</span><span class="sdot">·</span><span class="stag">nails art Valenciennes</span><span class="sdot">·</span><span class="stag">esthéticienne pas chère Valenciennes</span><span class="sdot">·</span><span class="stag">pose américaine Valenciennes</span><span class="sdot">·</span><span class="stag">esthéticienne autour de moi</span><span class="sdot">·</span><span class="stag">institut beauté Valenciennes</span><span class="sdot">·</span><span class="stag">babyboomer ongles Valenciennes</span><span class="sdot">·</span><span class="stag">beauty therapist Valenciennes</span><span class="sdot">·</span><span class="stag">Spicy Beauty by T Valenciennes</span><span class="sdot">·</span><span class="stag">esthéticienne 59 Hauts-de-France</span>
     </div>
-    <p class="seo-p">Spicy Beauty by T. est votre esthéticienne professionnelle à Valenciennes (59300), spécialisée dans l'épilation à la cire, la pose d'ongles semi-permanent, la pose américaine, le gainage sur ongles naturels, les capsules gel, et la manucure-pédicure. Située au 190 Avenue de Denain à Valenciennes, à côté de Fitness Boutique.</p>
+    <p class="seo-p">Spicy Beauty by T. est votre esthéticienne professionnelle à Valenciennes (59300), spécialisée dans l'épilation à la cire, la pose d'ongles semi-permanent, la pose américaine, le gainage sur ongles naturels, les capsules gel, et la manucure-pédicure.</p>
   </div>
 </section>
 
@@ -827,8 +793,12 @@
       <div class="f-name">Spicy Beauty by T.</div>
       <p class="f-desc">Beauty Therapist à Valenciennes. Épilations, nails design & soins beauté — parce que chaque détail mérite le meilleur.</p>
       <div class="fsocs">
-        <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="fsoc" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-        <a href="sms:+33635214756" class="fsoc" aria-label="SMS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/></svg></a>
+        <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="fsoc" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="sms:+33635214756" class="fsoc" aria-label="SMS">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/></svg>
+        </a>
       </div>
     </div>
     <div class="f-col">
@@ -838,72 +808,114 @@
     <div class="f-col">
       <div class="f-col-title">Contact</div>
       <ul>
-        <li>190 Avenue de Denain<br>59300 Valenciennes</li>
+        <li>Valenciennes · 59300</li>
         <li><a href="sms:+33635214756">+33 6 35 21 47 56</a></li>
         <li><a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">@spicybeautyyy</a></li>
         <li style="font-size:.7rem;color:rgba(255,255,255,.2)">RDV par message uniquement</li>
       </ul>
     </div>
   </div>
-  <div class="f-bottom">© 2025 Spicy Beauty by T. · 190 Avenue de Denain, 59300 Valenciennes</div>
+  <div class="f-bottom">© 2025 Spicy Beauty by T. · Valenciennes, 59300</div>
 </footer>
 
 <script>
-  // Nav scroll
-  const pill = document.getElementById('navPill');
-  window.addEventListener('scroll', () => pill && pill.classList.toggle('scrolled', scrollY > 30), {passive:true});
+/* ── Nav ── */
+const pill = document.getElementById('navPill');
+window.addEventListener('scroll', () => pill && pill.classList.toggle('scrolled', scrollY > 30), {passive:true});
 
-  // Hamburger
-  const hbg = document.getElementById('hbg');
-  const drw = document.getElementById('drawer');
-  function openDrawer() {
-    drw.classList.add('open'); document.body.style.overflow='hidden';
-    const s=hbg.querySelectorAll('span');
-    s[0].style.transform='rotate(45deg) translate(5px,5px)';
-    s[1].style.opacity='0';
-    s[2].style.transform='rotate(-45deg) translate(5px,-5px)';
-  }
-  function closeDrawer() {
-    drw.classList.remove('open'); document.body.style.overflow='';
-    hbg.querySelectorAll('span').forEach(s=>{s.style.transform='';s.style.opacity='';});
-  }
-  hbg.addEventListener('click', ()=> drw.classList.contains('open') ? closeDrawer() : openDrawer());
+/* ── Hamburger ── */
+const hbg = document.getElementById('hbg');
+const drw = document.getElementById('drawer');
+function openDrawer() {
+  drw.classList.add('open'); document.body.style.overflow='hidden';
+  const s=hbg.querySelectorAll('span');
+  s[0].style.transform='rotate(45deg) translate(5px,5px)';
+  s[1].style.opacity='0';
+  s[2].style.transform='rotate(-45deg) translate(5px,-5px)';
+}
+function closeDrawer() {
+  drw.classList.remove('open'); document.body.style.overflow='';
+  hbg.querySelectorAll('span').forEach(s=>{s.style.transform='';s.style.opacity='';});
+}
+hbg.addEventListener('click', ()=> drw.classList.contains('open') ? closeDrawer() : openDrawer());
 
-  // Popup
-  const ov = document.getElementById('overlay');
-  function openPopup()  { ov.classList.add('active');    document.body.style.overflow='hidden'; }
-  function closePopup() { ov.classList.remove('active'); document.body.style.overflow=''; }
-  function outClick(e)  { if(e.target===ov) closePopup(); }
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape'){closePopup();closeDrawer();} });
+/* ── Popup ── */
+const ov = document.getElementById('overlay');
+function openPopup()  { ov.classList.add('active');    document.body.style.overflow='hidden'; }
+function closePopup() { ov.classList.remove('active'); document.body.style.overflow=''; }
+function outClick(e)  { if(e.target===ov) closePopup(); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){closePopup();closeDrawer();} });
 
-  // Tarif accordion
-  function toggleTarif(which) {
-    const panel = document.getElementById('panel' + which.charAt(0).toUpperCase() + which.slice(1));
-    const btn   = document.getElementById('btn'   + which.charAt(0).toUpperCase() + which.slice(1));
-    const isOpen = panel.classList.contains('open');
-    panel.classList.toggle('open');
-    btn.classList.toggle('open');
-    btn.textContent = isOpen ? 'Voir les tarifs →' : 'Masquer les tarifs ↑';
-    if (!isOpen) setTimeout(()=> panel.scrollIntoView({behavior:'smooth', block:'nearest'}), 100);
-  }
+/* ── Hero thumbnails ── */
+function setThumb(i) {
+  document.querySelectorAll('.hero-thumb').forEach((t,idx)=> t.classList.toggle('active', idx===i));
+}
 
-  // Hero thumbnails
-  function setThumb(i) {
-    document.querySelectorAll('.hero-thumb').forEach((t,idx)=> t.classList.toggle('active', idx===i));
-  }
+/* ── Scroll reveal général ── */
+const ro = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('vis'); ro.unobserve(e.target); } });
+},{threshold:.08, rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale').forEach(el=>ro.observe(el));
 
-  // Scroll reveal
-  const ro = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target);} });
-  },{threshold:.08, rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+/* ── Tarifs Apple/Tesla : animation au scroll ── */
+const tarBlocks = document.querySelectorAll('.tarif-block');
+const tarObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) {
+      e.target.classList.add('in-view');
+      /* Stagger les lignes de prix */
+      e.target.querySelectorAll('.p-row').forEach((row, i)=>{
+        row.style.transitionDelay = `${0.05 + i * 0.04}s`;
+      });
+      tarObs.unobserve(e.target);
+    }
+  });
+},{threshold:.1});
+tarBlocks.forEach(b=> tarObs.observe(b));
 
-  // Statement
-  const so = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('lit'); });
-  },{threshold:.3});
-  const stmt = document.getElementById('stmt');
-  if(stmt) so.observe(stmt);
+/* ── Leaflet map : zone 1km, pas d'adresse ── */
+document.addEventListener('DOMContentLoaded', ()=>{
+  const lat = 50.3447, lng = 3.5250; // Zone approximative Avenue de Denain, Valenciennes
+
+  const map = L.map('leaflet-map', {
+    center: [lat, lng],
+    zoom: 14,
+    zoomControl: false,
+    scrollWheelZoom: false,
+    dragging: true,
+    doubleClickZoom: false
+  });
+
+  /* Tiles CartoDB Positron — grises et élégantes */
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  /* Cercle zone 1km */
+  L.circle([lat, lng], {
+    radius: 1000,
+    color: '#C8709A',
+    fillColor: '#C8709A',
+    fillOpacity: 0.1,
+    weight: 2,
+    dashArray: '6 4'
+  }).addTo(map);
+
+  /* Marqueur minimal centré */
+  const icon = L.divIcon({
+    html: `<div style="
+      width:14px; height:14px; border-radius:50%;
+      background:#C8709A; border:3px solid #fff;
+      box-shadow:0 2px 8px rgba(200,112,154,.5);
+    "></div>`,
+    className: '',
+    iconSize: [14,14],
+    iconAnchor: [7,7]
+  });
+  L.marker([lat, lng], {icon}).addTo(map);
+});
 </script>
 </body>
 </html>
