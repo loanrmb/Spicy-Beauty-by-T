@@ -54,7 +54,7 @@
       white-space: nowrap;
     }
     .nav-logo-btn {
-      width: 46px; height: 46px; border-radius: 50%;
+      width: 58px; height: 58px; border-radius: 50%;
       overflow: hidden;
       background: rgba(255,255,255,.75);
       backdrop-filter: blur(20px);
@@ -72,30 +72,30 @@
       backdrop-filter: blur(24px);
       border: 1px solid rgba(255,255,255,.5);
       border-radius: 999px;
-      padding: 6px;
+      padding: 8px;
       box-shadow: 0 2px 18px rgba(0,0,0,.08);
       transition: box-shadow .3s;
     }
     .nav-pill.scrolled { box-shadow: 0 6px 32px rgba(0,0,0,.13); }
     .nav-pill a {
-      display: block; padding: 8px 15px;
-      font-family: var(--hv); font-size: .69rem; font-weight: 400;
+      display: block; padding: 10px 18px;
+      font-family: var(--hv); font-size: .8rem; font-weight: 400;
       letter-spacing: .03em; color: var(--g900); border-radius: 999px;
       transition: background .2s, color .2s;
     }
     .nav-pill a:hover { background: rgba(200,112,154,.1); color: var(--rose-dark); }
     .nav-pill-cta {
-      margin-left: 4px; padding: 9px 20px;
+      margin-left: 4px; padding: 11px 24px;
       background: var(--noir); color: var(--blanc);
       border-radius: 999px; font-family: var(--hv);
-      font-size: .69rem; font-weight: 500; letter-spacing: .04em;
+      font-size: .8rem; font-weight: 500; letter-spacing: .04em;
       transition: background .25s;
     }
     .nav-pill-cta:hover { background: var(--rose-dark); }
 
     .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      width: 46px; height: 46px; border-radius: 50%;
+      display: none; flex-direction: column; gap: 6px;
+      width: 58px; height: 58px; border-radius: 50%;
       background: rgba(255,255,255,.82); backdrop-filter: blur(20px);
       border: 1px solid rgba(255,255,255,.4);
       box-shadow: 0 2px 18px rgba(0,0,0,.1);
@@ -145,8 +145,8 @@
       height: 100vh; min-height: 600px;
       position: relative; overflow: hidden;
       display: flex; flex-direction: column;
-      align-items: center; justify-content: flex-end;
-      padding-bottom: 140px; text-align: center;
+      align-items: center; justify-content: center;
+      padding-bottom: 60px; text-align: center;
     }
     .hero-bg-fallback { position:absolute; inset:0; background: radial-gradient(ellipse 80% 60% at 60% 10%, rgba(200,112,154,.3) 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 15% 85%, rgba(162,84,122,.22) 0%, transparent 50%), linear-gradient(170deg, #1C1014 0%, #0C0909 55%, #160C11 100%); }
     .hero-bg { position:absolute; inset:0; background-image:url('images/hero.jpg'); background-size:cover; background-position:center; }
@@ -192,6 +192,89 @@
     .hero-thumb-ph { width:100%; height:100%; background:rgba(255,255,255,.05); }
 
     @keyframes riseIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── LOGO ANIMATION HERO ── */
+    .hero-logo-anim {
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+    }
+
+    .hero-logo-ring-wrap {
+      position: relative;
+      width: 220px; height: 220px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 32px;
+      opacity: 0; animation: logoReveal 1.2s .2s cubic-bezier(.22,.68,0,1.1) forwards;
+    }
+
+    /* Anneaux décoratifs animés */
+    .hero-ring-deco {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(200,112,154,.22);
+      animation: ringExpand 3s ease-in-out infinite;
+    }
+    .hero-ring-deco:nth-child(1) { width:240px; height:240px; animation-delay:0s; }
+    .hero-ring-deco:nth-child(2) { width:280px; height:280px; border-color:rgba(200,112,154,.12); animation-delay:.6s; }
+    .hero-ring-deco:nth-child(3) { width:320px; height:320px; border-color:rgba(200,112,154,.06); animation-delay:1.2s; }
+    @keyframes ringExpand {
+      0%,100% { opacity:.5; transform:scale(1); }
+      50%     { opacity:1;  transform:scale(1.03); }
+    }
+
+    /* Logo image */
+    .hero-logo-img {
+      width: 180px; height: 180px;
+      border-radius: 50%; object-fit: cover;
+      box-shadow:
+        0 0 0 3px rgba(200,112,154,.3),
+        0 0 40px rgba(200,112,154,.25),
+        0 20px 60px rgba(0,0,0,.5);
+      animation: logoFloat 4s 1.4s ease-in-out infinite;
+      position: relative; z-index: 2;
+    }
+    @keyframes logoReveal {
+      from { opacity:0; transform:scale(.7); filter:blur(12px); }
+      to   { opacity:1; transform:scale(1);  filter:blur(0); }
+    }
+    @keyframes logoFloat {
+      0%,100% { transform: translateY(0)  rotate(0deg); }
+      33%     { transform: translateY(-8px) rotate(.5deg); }
+      66%     { transform: translateY(-4px) rotate(-.5deg); }
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: absolute;
+      font-size: 1rem; color: var(--rose-pale);
+      animation: sparkAnim 2.5s ease-in-out infinite;
+      z-index: 3;
+    }
+    .sp1 { top:  8px; left:  24px; animation-delay: 0s;    font-size:.85rem; }
+    .sp2 { top: 12px; right: 18px; animation-delay: .7s;   font-size:.6rem; }
+    .sp3 { bottom:14px; left:10px; animation-delay: 1.1s;  font-size:.7rem; }
+    .sp4 { bottom:20px; right:8px; animation-delay: .4s;   font-size:.5rem; }
+    @keyframes sparkAnim {
+      0%,100% { opacity:0; transform:scale(0) rotate(0deg); }
+      50%     { opacity:1; transform:scale(1) rotate(180deg); }
+    }
+
+    /* Nom de marque sous le logo */
+    .hero-brand-name {
+      font-family: var(--sc);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--blanc);
+      letter-spacing: .01em;
+      line-height: 1;
+      opacity: 0; animation: riseIn 1s .9s cubic-bezier(.22,.68,0,1) forwards;
+      margin-bottom: 10px;
+    }
+    .hero-brand-sub {
+      font-family: var(--hv);
+      font-size: .7rem; font-weight: 300;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      opacity: 0; animation: riseIn 1s 1.1s cubic-bezier(.22,.68,0,1) forwards;
+      margin-bottom: 32px;
+    }
 
     /* ═══════════════════════════════════════
        TARIFS — APPLE / TESLA STYLE
@@ -522,7 +605,7 @@
 <!-- ══ NAV ══ -->
 <div class="nav-wrap" id="navWrap">
   <a href="#top" class="nav-logo-btn" aria-label="Spicy Beauty by T.">
-    <img src="images/logo-spicy-beauty-by-t.jpg" alt="Logo">
+    <img src="images/logo-spicy-beauty-by-t.JPG" alt="Logo">
   </a>
   <nav class="nav-pill" id="navPill">
     <a href="#services">Prestations</a>
@@ -553,7 +636,6 @@
     <h2 class="popup-titre">Prendre contact</h2>
     <p class="popup-note">Prise de rendez-vous <strong>uniquement par message</strong> —<br>SMS ou Instagram. Pas d'appel téléphonique.</p>
     <a href="tel:+33635214756" class="popup-tel">+33 6 35 21 47 56</a>
-    <p class="popup-tel-note">Appuyer pour appeler · Message uniquement pour les RDV</p>
     <div class="popup-sep"><span>Prendre rendez-vous</span></div>
     <div class="popup-rdv">
       <a href="sms:+33635214756" class="popup-btn">
@@ -575,22 +657,21 @@
   <div class="hero-grain"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h1 class="hero-h1">L'art de la beauté, sublimé.</h1>
+    <div class="hero-logo-anim">
+      <div class="hero-logo-ring-wrap">
+        <div class="hero-ring-deco"></div>
+        <div class="hero-ring-deco"></div>
+        <div class="hero-ring-deco"></div>
+        <img src="images/logo-spicy-beauty-by-t.JPG" alt="Spicy Beauty by T." class="hero-logo-img">
+        <span class="sparkle sp1">✦</span>
+        <span class="sparkle sp2">✦</span>
+        <span class="sparkle sp3">✦</span>
+        <span class="sparkle sp4">✦</span>
+      </div>
+      <div class="hero-brand-name">Spicy Beauty by T.</div>
+      <p class="hero-brand-sub">Beauty Therapist · Valenciennes · 59300</p>
+    </div>
     <a href="#services" class="hero-btn">Découvrir</a>
-  </div>
-  <div class="hero-thumbs">
-    <div class="hero-thumb active" onclick="setThumb(0)">
-      <img src="images/gallery-1.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'hero-thumb-ph\'></div>'">
-    </div>
-    <div class="hero-thumb" onclick="setThumb(1)">
-      <img src="images/gallery-2.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'hero-thumb-ph\'></div>'">
-    </div>
-    <div class="hero-thumb" onclick="setThumb(2)">
-      <img src="images/gallery-3.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'hero-thumb-ph\'></div>'">
-    </div>
-    <div class="hero-thumb" onclick="setThumb(3)">
-      <img src="images/gallery-4.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'hero-thumb-ph\'></div>'">
-    </div>
   </div>
 </section>
 
@@ -875,7 +956,7 @@ tarBlocks.forEach(b=> tarObs.observe(b));
 
 /* ── Leaflet map : zone 1km, pas d'adresse ── */
 document.addEventListener('DOMContentLoaded', ()=>{
-  const lat = 50.3447, lng = 3.5250; // Zone approximative Avenue de Denain, Valenciennes
+  const lat = 50.3363, lng = 3.5338; // 190 Avenue de Denain, Valenciennes
 
   const map = L.map('leaflet-map', {
     center: [lat, lng],
