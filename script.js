@@ -2,6 +2,25 @@
    SPICY BEAUTY BY T. — script.js
 ═══════════════════════════════════════════ */
 
+/* ── Favicon rond généré dynamiquement ── */
+(function() {
+  const img = new Image();
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = c.height = 64;
+    const ctx = c.getContext('2d');
+    ctx.beginPath();
+    ctx.arc(32, 32, 32, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(img, 0, 0, 64, 64);
+    const link = document.createElement('link');
+    link.rel = 'icon';
+    link.href = c.toDataURL();
+    document.head.appendChild(link);
+  };
+  img.src = 'images/logo-spicy-beauty-by-t.jpg';
+})();
 /* ── Nav scroll shadow ── */
 const navPill = document.getElementById('navPill');
 window.addEventListener('scroll', () => {
