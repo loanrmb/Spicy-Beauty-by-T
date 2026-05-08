@@ -123,8 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
     radius:      1000,
     color:       '#ffd3fa',
     fillColor:   '#ffd3fa',
-    fillOpacity: 0.08,
-    weight:      2,
-    dashArray:   '6 4'
+    fillOpacity: 0.12,
+    weight:      2.5,
+    dashArray:   '8 5',
+    opacity:     0.9
   }).addTo(map);
 });
