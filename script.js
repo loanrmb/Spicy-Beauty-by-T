@@ -96,7 +96,51 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
   .forEach(el => revealObs.observe(el));
 
 
-/* ── Leaflet map : zone 1km, sans adresse exacte ── */
+/* ── Carousel galerie mobile ── */
+(function () {
+  const car = document.querySelector('.gal-carousel');
+  if (!car) return;
+
+  const track  = car.querySelector('.gal-car-track');
+  const slides = car.querySelectorAll('.gal-car-slide');
+  const dots   = car.querySelectorAll('.gal-car-dot');
+  const btnPrev = car.querySelector('.gal-car-prev');
+  const btnNext = car.querySelector('.gal-car-next');
+  const total  = slides.length;
+  let current  = 0;
+  let timer;
+
+  function goTo(n) {
+    current = ((n % total) + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function startAuto() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 3000);
+  }
+
+  btnPrev.addEventListener('click', () => { goTo(current - 1); startAuto(); });
+  btnNext.addEventListener('click', () => { goTo(current + 1); startAuto(); });
+  dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i); startAuto(); }));
+
+  /* Swipe tactile */
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) { goTo(current + (dx < 0 ? 1 : -1)); startAuto(); }
+  }, { passive: true });
+
+  /* Pause au survol (desktop) */
+  car.addEventListener('mouseenter', () => clearInterval(timer));
+  car.addEventListener('mouseleave', startAuto);
+
+  goTo(0);
+  startAuto();
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   /* Centre : au-dessus de l'Étang du Vignoble, NW de Valenciennes */
   const lat = 50.352253, lng = 3.494597; /* 190 Avenue de Denain, Valenciennes */
