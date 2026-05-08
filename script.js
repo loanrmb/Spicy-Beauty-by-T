@@ -121,23 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Cercle zone 1km */
   L.circle([lat, lng], {
     radius:      1000,
-    color:       '#C8709A',
-    fillColor:   '#C8709A',
-    fillOpacity: 0.1,
+    color:       '#ffd3fa',
+    fillColor:   '#ffd3fa',
+    fillOpacity: 0.08,
     weight:      2,
     dashArray:   '6 4'
   }).addTo(map);
-
-  /* Marqueur minimal centré */
-  const icon = L.divIcon({
-    html: `<div style="
-      width:12px; height:12px; border-radius:50%;
-      background:#C8709A; border:3px solid #fff;
-      box-shadow:0 2px 8px rgba(200,112,154,.6);
-    "></div>`,
-    className: '',
-    iconSize:   [12, 12],
-    iconAnchor: [6, 6]
-  });
-  L.marker([lat, lng], { icon }).addTo(map);
 });
