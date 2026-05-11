@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -42,26 +41,10 @@
 </head>
 <body>
 
-<!-- SVG filter pour l'animation gooey -->
-<svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
-  <defs>
-    <filter id="threshold">
-      <feColorMatrix
-        in="SourceGraphic"
-        type="matrix"
-        values="1 0 0 0 0
-                0 1 0 0 0
-                0 0 1 0 0
-                0 0 0 255 -140"
-      />
-    </filter>
-  </defs>
-</svg>
-
 <!-- ════════════════════════════════════
      NAV
 ════════════════════════════════════ -->
-<div class="nav-wrap hero-reveal" id="navWrap">
+<div class="nav-wrap" id="navWrap">
   <a href="#top" class="nav-logo-btn" aria-label="Spicy Beauty by T.">
     <img src="images/logo-spicy-beauty-by-t.jpg" alt="Logo">
   </a>
@@ -128,27 +111,25 @@
 
   <div class="hero-inner">
 
-    <p class="hero-location hero-reveal">Valenciennes · 59300</p>
+    <p class="hero-location">Valenciennes · 59300</p>
 
-    <!-- Gooey text morphing -->
-    <div class="hero-morph" style="filter: url(#threshold);">
-      <span class="hero-morph-text hero-morph-text-1">Spicy Beauty<br>by T.</span>
-      <span class="hero-morph-text hero-morph-text-2">Spicy Beauty<br>by T.</span>
-    </div>
+    <h1 class="hero-title">
+      Spicy Beauty<br>by T.
+    </h1>
 
-    <ul class="hero-services hero-reveal">
+    <ul class="hero-services">
       <li>Épilations</li>
       <li>Nails</li>
     </ul>
 
-    <div class="hero-actions hero-reveal">
+    <div class="hero-actions">
       <a href="#services" class="hero-btn-primary">Voir les prestations</a>
       <button class="hero-btn-secondary" onclick="openPopup()">Prendre rendez-vous</button>
     </div>
 
   </div>
 
-  <div class="hero-scroll-indicator hero-reveal">
+  <div class="hero-scroll-indicator">
     <div class="hsi-line"></div>
   </div>
 
