@@ -564,7 +564,7 @@
     if (cooldown <= 0) {
       if (incr) {
         incrementCount++;
-        if (incrementCount > TEXTS.length * CYCLES) {
+        if (incrementCount >= TEXTS.length * CYCLES) {
           done = true;
           cancelAnimationFrame(raf);
           doCooldown();
