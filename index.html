@@ -40,6 +40,27 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Filtre gooey (invisible) -->
+<svg style="position:absolute;height:0;width:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    <filter id="gooey-threshold">
+      <feColorMatrix in="SourceGraphic" type="matrix"
+        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 255 -140"/>
+    </filter>
+  </defs>
+</svg>
+
+<div id="intro-overlay">
+  <div class="intro-stage">
+    <div class="gooey-wrap" aria-hidden="true">
+      <span class="gt1"></span>
+      <span class="gt2"></span>
+    </div>
+    <span id="intro-final" aria-hidden="true">Spicy Beauty by T.</span>
+  </div>
+  <div class="intro-dot" aria-hidden="true"><span></span><span></span><span></span></div>
+  <button id="intro-skip">Passer</button>
+</div>
 
 <!-- ════════════════════════════════════
      NAV
