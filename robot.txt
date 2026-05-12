@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://spicy-beauty-by-t.vercel.app/sitemap.xml
