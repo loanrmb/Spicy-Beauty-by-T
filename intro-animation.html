@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spicy Beauty by T. — Maquillage & Ongles à Valenciennes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <!-- Référence votre feuille de style existante -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ════════════════════════════════════════════
+       INTRO OVERLAY — Gooey Text Morphing
+    ════════════════════════════════════════════ */
+
+    #intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #0D0D0D;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: opacity 1.4s cubic-bezier(.16, 1, .3, 1);
+    }
+    #intro-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255, 211, 250, .045) 0%, transparent 68%);
+    }
+    #intro-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Conteneur centré pour les deux états (morph + finale) */
+    .intro-stage {
+      position: relative;
+      width: 100%;
+      max-width: 1400px;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: clamp(100px, 22vw, 220px);
+    }
+
+    /* Wrapper qui reçoit le filtre SVG gooey */
+    .gooey-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: url(#gooey-threshold);
+    }
+
+    /* Les deux spans de morphing */
+    .gt1,
+    .gt2 {
+      position: absolute;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: clamp(3rem, 13vw, 11.5rem);
+      font-weight: 200;
+      letter-spacing: -.04em;
+      line-height: 1;
+      color: #fff;
+      white-space: nowrap;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Texte final "Spicy Beauty by T." — sans filtre, apparaît après morphing */
+    #intro-final {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: clamp(3rem, 13vw, 11.5rem);
+      font-weight: 200;
+      letter-spacing: -.04em;
+      line-height: .92;
+      color: #fff;
+      text-align: center;
+      user-select: none;
+      word-break: break-word;
+
+      opacity: 0;
+      transform: translate(-50%, calc(-50% + 12px));
+      transition: opacity .9s cubic-bezier(.16, 1, .3, 1),
+                  transform .9s cubic-bezier(.16, 1, .3, 1);
+
+      z-index: 2;
+      pointer-events: none;
+    }
+    #intro-final.visible {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Bouton "Passer" discret */
+    #intro-skip {
+      position: absolute;
+      bottom: 36px;
+      right: 40px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: .63rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .18);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      transition: color .25s;
+      z-index: 1;
+    }
+    #intro-skip:hover {
+      color: rgba(255, 211, 250, .45);
+    }
+
+    /* Point clignotant d'attente en bas à gauche */
+    .intro-dot {
+      position: absolute;
+      bottom: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+    }
+    .intro-dot span {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(255, 211, 250, .25);
+      animation: dotPulse 1.4s ease-in-out infinite;
+    }
+    .intro-dot span:nth-child(2) { animation-delay: .2s; }
+    .intro-dot span:nth-child(3) { animation-delay: .4s; }
+
+    @keyframes dotPulse {
+      0%, 100% { opacity: .25; transform: scaleX(1); }
+      50%       { opacity: .8;  transform: scaleX(1.4); }
+    }
+
+    /* ════════════════════════════════════════════
+       NAV — initialement cachée, révélée après intro
+    ════════════════════════════════════════════ */
+
+    /* On surcharge le .nav-wrap pour le cacher au départ.
+       La transition s'applique APRÈS que .revealed est ajouté via JS. */
+    #navWrap {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-18px);
+      transition: opacity .9s .15s cubic-bezier(.16, 1, .3, 1),
+                  transform .9s .15s cubic-bezier(.16, 1, .3, 1);
+    }
+    #navWrap.revealed {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ════════════════════════════════════════════
+       HERO — animations en pause jusqu'à la fin de l'intro
+    ════════════════════════════════════════════ */
+
+    /* Cette classe est posée sur .hero au chargement,
+       et retirée via JS quand l'intro se termine. */
+    .hero-frozen .hero-location,
+    .hero-frozen .hero-title,
+    .hero-frozen .hero-services,
+    .hero-frozen .hero-actions,
+    .hero-frozen .hero-scroll-indicator {
+      animation-play-state: paused;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══ Filtre SVG gooey (invisible, positionné hors écran) ══ -->
+  <svg style="position:absolute;height:0;width:0;overflow:hidden" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="gooey-threshold">
+        <feColorMatrix
+          in="SourceGraphic"
+          type="matrix"
+          values="1 0 0 0 0
+                  0 1 0 0 0
+                  0 0 1 0 0
+                  0 0 0 255 -140"
+        />
+      </filter>
+    </defs>
+  </svg>
+
+
+  <!-- ══ INTRO OVERLAY ══ -->
+  <div id="intro-overlay" role="status" aria-live="polite" aria-label="Chargement de Spicy Beauty by T.">
+
+    <div class="intro-stage">
+
+      <!-- Morphing animé (filtre gooey) -->
+      <div class="gooey-wrap" aria-hidden="true">
+        <span class="gt1"></span>
+        <span class="gt2"></span>
+      </div>
+
+      <!-- Texte final fixe (apparaît après morphing) -->
+      <span id="intro-final" aria-hidden="true">Spicy Beauty by T.</span>
+
+    </div>
+
+    <!-- Points de rythme -->
+    <div class="intro-dot" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+
+    <button id="intro-skip">Passer</button>
+
+  </div>
+
+
+  <!-- ══ NAV PILL ══ -->
+  <div class="nav-wrap" id="navWrap">
+
+    <button
+      class="nav-logo-btn"
+      aria-label="Retour en haut"
+      onclick="document.getElementById('heroSection').scrollIntoView({behavior:'smooth'})"
+    >
+      <!-- Remplacez src par votre vrai logo -->
+      <img
+        src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=120&h=120&fit=crop&q=80"
+        alt="Logo Spicy Beauty by T."
+      >
+    </button>
+
+    <nav class="nav-pill" id="navPill">
+      <a href="#tarifSection">Tarifs</a>
+      <a href="#locSection">Localisation</a>
+      <a href="#galerieSection">Galerie</a>
+      <button
+        class="nav-pill-cta"
+        onclick="document.getElementById('contactOverlay').classList.add('active')"
+      >
+        Réserver
+      </button>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+
+  <!-- Drawer mobile -->
+  <div class="drawer" id="drawer">
+    <a href="#tarifSection"    onclick="document.getElementById('drawer').classList.remove('open')">Tarifs</a>
+    <a href="#locSection"      onclick="document.getElementById('drawer').classList.remove('open')">Localisation</a>
+    <a href="#galerieSection"  onclick="document.getElementById('drawer').classList.remove('open')">Galerie</a>
+    <button onclick="
+      document.getElementById('contactOverlay').classList.add('active');
+      document.getElementById('drawer').classList.remove('open')
+    ">Réserver</button>
+  </div>
+
+
+  <!-- ══ HERO ══ -->
+  <section class="hero hero-frozen" id="heroSection">
+
+    <div class="hero-inner">
+
+      <span class="hero-location">Valenciennes · 59300</span>
+
+      <h1 class="hero-title">Spicy Beauty<br>by T.</h1>
+
+      <ul class="hero-services">
+        <li>Maquillage</li>
+        <li>Ongles</li>
+        <li>Semi-permanent</li>
+        <li>Nail Art</li>
+      </ul>
+
+      <div class="hero-actions">
+        <button
+          class="hero-btn-primary"
+          onclick="document.getElementById('contactOverlay').classList.add('active')"
+        >
+          Prendre rendez-vous
+        </button>
+        <a href="#tarifSection" class="hero-btn-secondary">Voir les tarifs</a>
+      </div>
+
+    </div>
+
+    <div class="hero-scroll-indicator">
+      <div class="hsi-line"></div>
+    </div>
+
+  </section>
+
+
+  <!-- ══ POPUP CONTACT (inchangé) ══ -->
+  <div class="overlay" id="contactOverlay">
+    <div class="popup">
+      <button
+        class="popup-x"
+        aria-label="Fermer"
+        onclick="document.getElementById('contactOverlay').classList.remove('active')"
+      >✕</button>
+      <div class="popup-tag">Contact</div>
+      <h2 class="popup-titre">Prenons rendez-vous</h2>
+      <p class="popup-note">Disponible du mardi au samedi · Sur réservation uniquement</p>
+      <a href="tel:+33612345678" class="popup-tel">06 12 34 56 78</a>
+      <div class="popup-sep"><span>ou</span></div>
+      <div class="popup-rdv">
+        <button class="popup-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8"  y1="2" x2="8"  y2="6"/>
+            <line x1="3"  y1="10" x2="21" y2="10"/>
+          </svg>
+          Réserver en ligne
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       SCRIPT — Intro animation + interactions
+  ══════════════════════════════════════════ -->
+  <script>
+  (function () {
+
+    /* ── Configuration ────────────────────────── */
+    const TEXTS       = ["Spicy", "Beauty", "by T."];
+    const MORPH_TIME  = 0.72;   // secondes par transition
+    const COOLDOWN    = 0.95;   // secondes d'affichage par mot
+    const CYCLES      = 1;      // nb de cycles complets avant la finale
+
+    /* ── Éléments DOM ─────────────────────────── */
+    const t1          = document.querySelector('.gt1');
+    const t2          = document.querySelector('.gt2');
+    const introFinal  = document.getElementById('intro-final');
+    const introDots   = document.querySelector('.intro-dot');
+    const introOverlay= document.getElementById('intro-overlay');
+    const navWrap     = document.getElementById('navWrap');
+    const heroEl      = document.getElementById('heroSection');
+    const navPill     = document.getElementById('navPill');
+
+    /* ── État de l'animation ──────────────────── */
+    let textIndex     = TEXTS.length - 1;
+    let time          = new Date();
+    let morph         = 0;
+    let cooldown      = COOLDOWN;
+    let incrementCount = 0;
+    let done          = false;
+    let raf;
+
+    /* Init */
+    t1.textContent = TEXTS[textIndex % TEXTS.length];
+    t2.textContent = TEXTS[(textIndex + 1) % TEXTS.length];
+
+    /* ── Fonctions de morphing ────────────────── */
+
+    function setMorph(fraction) {
+      t2.style.filter  = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+      t2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+      const inv = 1 - fraction;
+      t1.style.filter  = `blur(${Math.min(8 / inv - 8, 100)}px)`;
+      t1.style.opacity = `${Math.pow(inv, 0.4) * 100}%`;
+    }
+
+    function doCooldown() {
+      morph = 0;
+      t2.style.filter  = '';
+      t2.style.opacity = '100%';
+      t1.style.filter  = '';
+      t1.style.opacity = '0%';
+    }
+
+    function doMorph() {
+      morph   -= cooldown;
+      cooldown = 0;
+      let fraction = morph / MORPH_TIME;
+      if (fraction > 1) {
+        cooldown = COOLDOWN;
+        fraction = 1;
+      }
+      setMorph(fraction);
+    }
+
+    /* ── Fin de l'animation : affichage du nom complet ── */
+
+    function triggerFinale() {
+      if (done) return;
+      done = true;
+      cancelAnimationFrame(raf);
+
+      /* Masquer les deux spans de morphing */
+      t1.style.transition = 'opacity .35s ease';
+      t2.style.transition = 'opacity .35s ease';
+      t1.style.opacity = '0';
+      t2.style.opacity = '0';
+
+      /* Masquer les dots */
+      introDots.style.opacity = '0';
+
+      /* Révéler le nom complet avec transition CSS */
+      requestAnimationFrame(() => {
+        introFinal.classList.add('visible');
+
+        /* Après que le nom s'est stabilisé → révéler le site */
+        setTimeout(revealSite, 1700);
+      });
+    }
+
+    /* ── Révélation du site ───────────────────── */
+
+    function revealSite() {
+      /* 1. Fade out de l'intro overlay */
+      introOverlay.classList.add('fade-out');
+
+      /* 2. Slide down de la nav */
+      navWrap.classList.add('revealed');
+
+      /* 3. Démarrer les animations du hero */
+      heroEl.classList.remove('hero-frozen');
+
+      /* 4. Supprimer l'overlay du DOM après la transition */
+      setTimeout(() => {
+        if (introOverlay.parentNode) introOverlay.parentNode.removeChild(introOverlay);
+      }, 1500);
+    }
+
+    /* ── Boucle d'animation principale ────────── */
+
+    function animate() {
+      if (done) return;
+      raf = requestAnimationFrame(animate);
+
+      const newTime = new Date();
+      const shouldIncrement = cooldown > 0;
+      const dt = (newTime.getTime() - time.getTime()) / 1000;
+      time = newTime;
+      cooldown -= dt;
+
+      if (cooldown <= 0) {
+
+        if (shouldIncrement) {
+          incrementCount++;
+
+          /* Cycles terminés → déclencher la finale */
+          if (incrementCount > TEXTS.length * CYCLES) {
+            done = true;
+            cancelAnimationFrame(raf);
+            doCooldown();
+            triggerFinale();
+            return;
+          }
+
+          textIndex = (textIndex + 1) % TEXTS.length;
+          t1.textContent = TEXTS[textIndex % TEXTS.length];
+          t2.textContent = TEXTS[(textIndex + 1) % TEXTS.length];
+        }
+
+        doMorph();
+
+      } else {
+        doCooldown();
+      }
+    }
+
+    /* ── Démarrage ────────────────────────────── */
+    animate();
+
+    /* Bouton "Passer" */
+    document.getElementById('intro-skip').addEventListener('click', function () {
+      triggerFinale();
+    });
+
+    /* ── Comportements UI globaux ─────────────── */
+
+    /* Scroll → ombre sur la nav pill */
+    window.addEventListener('scroll', function () {
+      if (navPill) {
+        navPill.classList.toggle('scrolled', window.scrollY > 60);
+      }
+    }, { passive: true });
+
+    /* Hamburger / Drawer mobile */
+    const hamburger = document.getElementById('hamburger');
+    const drawer    = document.getElementById('drawer');
+    if (hamburger && drawer) {
+      hamburger.addEventListener('click', function () {
+        drawer.classList.toggle('open');
+      });
+    }
+
+    /* Fermer overlay contact en cliquant sur le fond */
+    const contactOverlay = document.getElementById('contactOverlay');
+    if (contactOverlay) {
+      contactOverlay.addEventListener('click', function (e) {
+        if (e.target === contactOverlay) {
+          contactOverlay.classList.remove('active');
+        }
+      });
+    }
+
+  })();
+  </script>
+
+</body>
+</html>
