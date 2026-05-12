@@ -497,5 +497,92 @@
     © 2025 Spicy Beauty by T. · Valenciennes 59300
   </div>
 </footer>
+  <script>
+(function () {
+  const TEXTS      = ["Spicy", "Beauty", "by T."];
+  const MORPH_TIME = 0.72;
+  const COOLDOWN   = 0.95;
+  const CYCLES     = 1;
+
+  const t1             = document.querySelector('.gm-t1');
+  const t2             = document.querySelector('.gm-t2');
+  const gmZone         = document.getElementById('gmZone');
+  const titleReveal    = document.getElementById('heroTitleReveal');
+
+  if (!t1 || !t2) return;
+
+  let textIndex      = TEXTS.length - 1;
+  let time           = new Date();
+  let morph          = 0;
+  let cooldown       = COOLDOWN;
+  let incrementCount = 0;
+  let done           = false;
+  let raf;
+
+  t1.textContent = TEXTS[textIndex % TEXTS.length];
+  t2.textContent = TEXTS[(textIndex + 1) % TEXTS.length];
+
+  function setMorph(f) {
+    t2.style.filter  = `blur(${Math.min(8 / f - 8, 100)}px)`;
+    t2.style.opacity = `${Math.pow(f, 0.4) * 100}%`;
+    const inv = 1 - f;
+    t1.style.filter  = `blur(${Math.min(8 / inv - 8, 100)}px)`;
+    t1.style.opacity = `${Math.pow(inv, 0.4) * 100}%`;
+  }
+
+  function doCooldown() {
+    morph = 0;
+    t2.style.filter = ''; t2.style.opacity = '100%';
+    t1.style.filter = ''; t1.style.opacity = '0%';
+  }
+
+  function doMorph() {
+    morph   -= cooldown;
+    cooldown = 0;
+    let f    = morph / MORPH_TIME;
+    if (f > 1) { cooldown = COOLDOWN; f = 1; }
+    setMorph(f);
+  }
+
+  function finish() {
+    done = true;
+    cancelAnimationFrame(raf);
+    gmZone.classList.add('out');
+    setTimeout(() => { titleReveal.style.opacity = '1'; }, 400);
+  }
+
+  function animate() {
+    if (done) return;
+    raf = requestAnimationFrame(animate);
+
+    const now  = new Date();
+    const incr = cooldown > 0;
+    const dt   = (now - time) / 1000;
+    time       = now;
+    cooldown  -= dt;
+
+    if (cooldown <= 0) {
+      if (incr) {
+        incrementCount++;
+        if (incrementCount > TEXTS.length * CYCLES) {
+          done = true;
+          cancelAnimationFrame(raf);
+          doCooldown();
+          finish();
+          return;
+        }
+        textIndex      = (textIndex + 1) % TEXTS.length;
+        t1.textContent = TEXTS[textIndex % TEXTS.length];
+        t2.textContent = TEXTS[(textIndex + 1) % TEXTS.length];
+      }
+      doMorph();
+    } else {
+      doCooldown();
+    }
+  }
+
+  animate();
+})();
+</script>
 </body>
 </html>
