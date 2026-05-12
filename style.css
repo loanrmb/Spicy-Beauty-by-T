@@ -826,3 +826,151 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   .rdv-btns { flex-direction: column; }
   .rdv-btn { justify-content: center; }
 }
+/* ═══════════════════════════════════════════
+   INTRO OVERLAY — Gooey Text Morphing
+   À ajouter à la fin de style.css
+═══════════════════════════════════════════ */
+
+#intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0D0D0D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 1.4s cubic-bezier(.16, 1, .3, 1);
+}
+#intro-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255, 211, 250, .045) 0%, transparent 68%);
+}
+#intro-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(100px, 22vw, 220px);
+}
+
+.gooey-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: url(#gooey-threshold);
+}
+
+.gt1,
+.gt2 {
+  position: absolute;
+  font-family: var(--hv);
+  font-size: clamp(3rem, 13vw, 11.5rem);
+  font-weight: 200;
+  letter-spacing: -.04em;
+  line-height: 1;
+  color: #fff;
+  white-space: nowrap;
+  text-align: center;
+  user-select: none;
+}
+
+#intro-final {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% + 12px));
+  width: 90%;
+  font-family: var(--hv);
+  font-size: clamp(3rem, 13vw, 11.5rem);
+  font-weight: 200;
+  letter-spacing: -.04em;
+  line-height: .92;
+  color: #fff;
+  text-align: center;
+  user-select: none;
+  word-break: break-word;
+  opacity: 0;
+  transition: opacity .9s cubic-bezier(.16, 1, .3, 1),
+              transform .9s cubic-bezier(.16, 1, .3, 1);
+  z-index: 2;
+  pointer-events: none;
+}
+#intro-final.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+#intro-skip {
+  position: absolute;
+  bottom: 36px;
+  right: 40px;
+  font-family: var(--hv);
+  font-size: .63rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .18);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  transition: color .25s;
+}
+#intro-skip:hover { color: rgba(255, 211, 250, .45); }
+
+.intro-dot {
+  position: absolute;
+  bottom: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+.intro-dot span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 211, 250, .25);
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+.intro-dot span:nth-child(2) { animation-delay: .2s; }
+.intro-dot span:nth-child(3) { animation-delay: .4s; }
+
+@keyframes dotPulse {
+  0%, 100% { opacity: .25; transform: scaleX(1);   }
+  50%       { opacity: .8;  transform: scaleX(1.4); }
+}
+
+/* ── Nav cachée au démarrage ── */
+#navWrap {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-18px);
+  transition: opacity .9s .15s cubic-bezier(.16, 1, .3, 1),
+              transform .9s .15s cubic-bezier(.16, 1, .3, 1);
+}
+#navWrap.revealed {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Hero animations gelées jusqu'à la fin de l'intro ── */
+.hero-frozen .hero-location,
+.hero-frozen .hero-title,
+.hero-frozen .hero-services,
+.hero-frozen .hero-actions,
+.hero-frozen .hero-scroll-indicator {
+  animation-play-state: paused;
+}
