@@ -826,3 +826,45 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   .rdv-btns { flex-direction: column; }
   .rdv-btn { justify-content: center; }
 }
+/* ── Gooey title animation ── */
+.hero-title-stage {
+  position: relative;
+  width: 100%;
+  margin-bottom: 44px;
+}
+
+.gm-zone {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .6s ease;
+  z-index: 1;
+}
+.gm-zone.out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gm-filter {
+  filter: url(#gooey-threshold);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gm-t1, .gm-t2 {
+  position: absolute;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: clamp(3rem, 13vw, 11.5rem);
+  font-weight: 200;
+  letter-spacing: -.04em;
+  color: #fff;
+  white-space: nowrap;
+  text-align: center;
+  user-select: none;
+}
