@@ -113,9 +113,33 @@
 
     <p class="hero-location">Valenciennes · 59300</p>
 
-    <h1 class="hero-title">
-      Spicy Beauty<br>by T.
-    </h1>
+<!-- Filtre SVG gooey (colle-le juste avant ce bloc) -->
+<svg style="position:absolute;height:0;width:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    <filter id="gooey-threshold">
+      <feColorMatrix in="SourceGraphic" type="matrix"
+        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 255 -140"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- Remplace ton ancien <h1 class="hero-title"> par ça : -->
+<div class="hero-title-stage">
+
+  <!-- Zone de morphing (disparaît après l'animation) -->
+  <div class="gm-zone" id="gmZone" aria-hidden="true">
+    <div class="gm-filter">
+      <span class="gm-t1"></span>
+      <span class="gm-t2"></span>
+    </div>
+  </div>
+
+  <!-- Titre réel (caché pendant l'animation, révélé après) -->
+  <div id="heroTitleReveal" style="opacity:0; transition:opacity .9s ease">
+    <h1 class="hero-title" style="margin-bottom:0">Spicy Beauty<br>by T.</h1>
+  </div>
+
+</div>
 
     <ul class="hero-services">
       <li>Épilations</li>
