@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/jpeg" href="images/logo-spicy-beauty-by-t.jpg">
+  <link rel="apple-touch-icon" href="images/logo-spicy-beauty-by-t.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Blog Beauté | Conseils Esthéticienne Valenciennes | Spicy Beauty by T.</title>
+  <meta name="description" content="Conseils beauté, épilation, nails et soins par Spicy Beauty by T., esthéticienne à Valenciennes (59300). Articles courts, pratiques et honnêtes.">
+  <link rel="canonical" href="https://spicybeautybyt.fr/blog.html">
+
+  <!-- SEO Local -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BeautySalon",
+    "name": "Spicy Beauty by T.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Valenciennes",
+      "postalCode": "59300",
+      "addressCountry": "FR"
+    },
+    "telephone": "+33635214756",
+    "url": "https://spicybeautybyt.fr",
+    "sameAs": ["https://www.instagram.com/spicybeautyyy/"]
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ─── BLOG LISTING ─── */
+    .blog-hero {
+      background: #0D0D0D;
+      padding: 160px 24px 100px;
+      text-align: center;
+      color: #fff;
+    }
+    .blog-hero-eyebrow {
+      display: inline-block;
+      font-size: .68rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 28px;
+    }
+    .blog-hero-title {
+      font-family: var(--hv);
+      font-size: clamp(3.2rem, 10vw, 8rem);
+      font-weight: 200;
+      letter-spacing: -.04em;
+      line-height: .95;
+      color: #fff;
+      margin: 0 0 28px;
+    }
+    .blog-hero-sub {
+      font-size: .95rem;
+      font-weight: 300;
+      color: rgba(255,255,255,.5);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .blog-listing {
+      background: #111;
+      padding: 80px 24px;
+    }
+    .blog-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    .blog-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      transition: background .3s ease, border-color .3s ease, transform .3s ease;
+    }
+    .blog-card:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,211,250,0.18);
+      transform: translateY(-2px);
+    }
+    .blog-card-tag {
+      font-size: .58rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--rose);
+      font-weight: 500;
+    }
+    .blog-card-title {
+      font-family: var(--hv);
+      font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: -.02em;
+      line-height: 1.25;
+      margin: 12px 0 0;
+    }
+    .blog-card-desc {
+      font-size: .88rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.7;
+      margin: 10px 0 0;
+      flex-grow: 1;
+    }
+    .blog-card-cta {
+      align-self: flex-start;
+      background: var(--rose);
+      color: #2a0028;
+      font-family: var(--hv);
+      font-weight: 700;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 12px 24px;
+      border-radius: 999px;
+      text-decoration: none;
+      margin-top: 24px;
+      transition: background .25s ease, transform .25s ease;
+    }
+    .blog-card-cta:hover {
+      background: var(--rose-pale);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+      .blog-hero { padding: 130px 20px 70px; }
+      .blog-listing { padding: 50px 18px; }
+      .blog-grid { grid-template-columns: 1fr; gap: 18px; }
+      .blog-card { padding: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <a href="index.html" class="nav-logo-btn" aria-label="Spicy Beauty by T.">
+    <img src="images/logo-spicy-beauty-by-t.jpg" alt="Logo">
+  </a>
+  <nav class="nav-pill" id="navPill">
+    <a href="index.html#services">Prestations</a>
+    <a href="index.html#localisation">Localisation</a>
+    <a href="index.html#galerie">Réalisations</a>
+    <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">Instagram</a>
+    <a href="sms:+33635214756" class="nav-pill-cta">Contact</a>
+  </nav>
+  <button class="hamburger" id="hbg" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<nav class="drawer" id="drawer" aria-hidden="true">
+  <a href="index.html#services">Prestations</a>
+  <a href="index.html#localisation">Localisation</a>
+  <a href="index.html#galerie">Réalisations</a>
+  <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">Instagram</a>
+  <a href="sms:+33635214756">Contact</a>
+</nav>
+
+
+<!-- HERO BLOG -->
+<section class="blog-hero">
+  <span class="blog-hero-eyebrow">✦ Conseils & Blog</span>
+  <h1 class="blog-hero-title">Beauté.</h1>
+  <p class="blog-hero-sub">Conseils, techniques et réponses aux questions les plus posées.</p>
+</section>
+
+
+<!-- LISTING ARTICLES -->
+<section class="blog-listing">
+  <div class="blog-grid">
+
+    <article class="blog-card">
+      <span class="blog-card-tag">Nails</span>
+      <h2 class="blog-card-title">Semi-permanent ou pose américaine : quelle différence ?</h2>
+      <p class="blog-card-desc">Deux des prestations les plus demandées. Je t'explique les différences pour choisir celle qui te correspond.</p>
+      <a href="blog/semi-permanent-vs-pose-americaine.html" class="blog-card-cta">Lire l'article →</a>
+    </article>
+
+    <article class="blog-card">
+      <span class="blog-card-tag">Épilation</span>
+      <h2 class="blog-card-title">L'épilation à la cire, c'est fait pour moi ?</h2>
+      <p class="blog-card-desc">Durée des résultats, peaux sensibles, zones traitées — tout ce qu'il faut savoir avant une première séance.</p>
+      <a href="blog/epilaton-cire-est-ce-pour-moi.html" class="blog-card-cta">Lire l'article →</a>
+    </article>
+
+    <article class="blog-card">
+      <span class="blog-card-tag">Guide</span>
+      <h2 class="blog-card-title">Esthéticienne à Valenciennes : ce que je propose</h2>
+      <p class="blog-card-desc">Un tour complet de mes prestations, comment prendre rendez-vous, et ce à quoi s'attendre lors d'une première visite.</p>
+      <a href="blog/estheticienne-valenciennes-mes-prestations.html" class="blog-card-cta">Lire l'article →</a>
+    </article>
+
+    <article class="blog-card">
+      <span class="blog-card-tag">Nails</span>
+      <h2 class="blog-card-title">Combien de temps dure un semi-permanent ?</h2>
+      <p class="blog-card-desc">La question la plus posée. Je réponds franchement avec les vraies durées selon l'entretien et la pousse.</p>
+      <a href="blog/combien-de-temps-dure-un-semi-permanent.html" class="blog-card-cta">Lire l'article →</a>
+    </article>
+
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="f-name">Spicy Beauty by T.</div>
+      <p class="f-desc">Esthéticienne à Valenciennes. Épilations et Nails</p>
+      <div class="fsocs">
+        <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="fsoc" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="sms:+33635214756" class="fsoc" aria-label="SMS">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="f-col">
+      <div class="f-col-title">Prestations</div>
+      <ul>
+        <li>Épilations à la cire</li>
+        <li>Manucure & Pédicure</li>
+        <li>Pose Semi-permanent</li>
+        <li>Pose Américaine</li>
+        <li>Gainage & Capsules Gel</li>
+      </ul>
+    </div>
+
+    <div class="f-col">
+      <div class="f-col-title">Contact</div>
+      <ul>
+        <li>Valenciennes · 59300</li>
+        <li><a href="sms:+33635214756">+33 6 35 21 47 56</a></li>
+        <li><a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">@spicybeautyyy</a></li>
+        <li style="font-size:.7rem;color:rgba(255,255,255,.2)">RDV par message uniquement</li>
+        <li><a href="blog.html">Conseils & Blog</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="f-bottom">
+    © 2025 Spicy Beauty by T. · Valenciennes 59300
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
