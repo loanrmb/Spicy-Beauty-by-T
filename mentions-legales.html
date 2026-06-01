@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/jpeg" href="images/logo-spicy-beauty-by-t.jpg">
+  <link rel="apple-touch-icon" href="images/logo-spicy-beauty-by-t.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mentions légales | Spicy Beauty by T.</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://www.spicybeautybyt.com/mentions-legales">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .nav-pill-cta { background: var(--noir) !important; color: var(--blanc) !important; }
+
+    .legal-hero {
+      background: #0D0D0D;
+      padding: 160px 24px 90px;
+      text-align: center;
+      color: #fff;
+    }
+    .legal-eyebrow {
+      display: inline-block;
+      font-size: .68rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 28px;
+    }
+    .legal-title {
+      font-family: var(--hv);
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+      font-weight: 200;
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      color: #fff;
+      margin: 0;
+    }
+
+    .legal-body {
+      background: #111;
+      padding: 80px 24px;
+    }
+    .legal-content {
+      max-width: 760px;
+      margin: 0 auto;
+      font-family: var(--hv);
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.9;
+    }
+    .legal-content p { margin: 0 0 18px; }
+    .legal-content h2 {
+      font-family: var(--hv);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: -.01em;
+      margin: 44px 0 14px;
+      line-height: 1.3;
+    }
+    .legal-content a {
+      color: var(--rose);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,211,250,0.25);
+      transition: border-color .25s ease;
+    }
+    .legal-content a:hover { border-color: var(--rose); }
+
+    @media (max-width: 768px) {
+      .legal-hero { padding: 130px 20px 60px; }
+      .legal-body { padding: 50px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <a href="index.html" class="nav-logo-btn" aria-label="Spicy Beauty by T.">
+    <img src="images/logo-spicy-beauty-by-t.jpg" alt="Logo">
+  </a>
+  <nav class="nav-pill" id="navPill">
+    <a href="index.html#services">Prestations</a>
+    <a href="index.html#localisation">Localisation</a>
+    <a href="index.html#galerie">Réalisations</a>
+    <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">Instagram</a>
+    <button class="nav-pill-cta" onclick="openPopup()">Contact</button>
+  </nav>
+  <button class="hamburger" id="hbg" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<nav class="drawer" id="drawer" aria-hidden="true">
+  <a href="index.html#services">Prestations</a>
+  <a href="index.html#localisation">Localisation</a>
+  <a href="index.html#galerie">Réalisations</a>
+  <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">Instagram</a>
+  <a href="sms:+33635214756">Contact</a>
+</nav>
+
+
+<!-- HERO -->
+<section class="legal-hero">
+  <span class="legal-eyebrow">✦ Légal</span>
+  <h1 class="legal-title">Mentions légales.</h1>
+</section>
+
+
+<!-- CORPS -->
+<section class="legal-body">
+  <div class="legal-content">
+
+    <h2>Éditeur du site</h2>
+    <p>
+      Tiphaine Logelin<br>
+      Valenciennes, 59300 — France<br>
+      Téléphone : <a href="tel:+33673812254">+33 6 73 81 22 54</a><br>
+      Email : <a href="mailto:loanswipe@gmail.com">loanswipe@gmail.com</a><br>
+      Activité exercée à titre individuel
+    </p>
+
+    <h2>Hébergeur</h2>
+    <p>
+      Vercel Inc.<br>
+      340 Pine Street, Suite 701<br>
+      San Francisco, CA 94104 — États-Unis<br>
+      <a href="https://vercel.com" target="_blank" rel="noopener">https://vercel.com</a>
+    </p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>L'ensemble du contenu de ce site (textes, visuels, structure) est la propriété exclusive de Tiphaine Logelin. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
+
+    <h2>Données personnelles</h2>
+    <p>Ce site ne collecte aucune donnée personnelle. Aucun cookie de traçage n'est utilisé. Les prises de contact via SMS ou Instagram sont soumises aux politiques de confidentialité de ces plateformes.</p>
+
+    <h2>Contact</h2>
+    <p>Pour toute question : <a href="mailto:loanswipe@gmail.com">loanswipe@gmail.com</a></p>
+
+  </div>
+</section>
+
+
+<!-- POPUP CONTACT -->
+<div class="overlay" id="overlay" onclick="outClick(event)" role="dialog" aria-modal="true">
+  <div class="popup">
+    <button class="popup-x" onclick="closePopup()" aria-label="Fermer">×</button>
+    <p class="popup-tag">✦ Spicy Beauty by T.</p>
+    <h2 class="popup-titre">Prendre contact</h2>
+    <p class="popup-note">
+      Prise de rendez-vous <strong>uniquement par message</strong> —
+      SMS ou Instagram. Pas d'appel téléphonique.
+    </p>
+    <a href="tel:+33635214756" class="popup-tel">+33 6 35 21 47 56</a>
+    <div class="popup-sep"><span>Prendre rendez-vous</span></div>
+    <div class="popup-rdv">
+      <a href="sms:+33635214756" class="popup-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/>
+        </svg>
+        Envoyer un SMS
+      </a>
+      <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="popup-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4.5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Message Instagram · @spicybeautyyy
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="f-name">Spicy Beauty by T.</div>
+      <p class="f-desc">Esthéticienne à Valenciennes. Épilations et Nails</p>
+      <div class="fsocs">
+        <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="fsoc" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="sms:+33635214756" class="fsoc" aria-label="SMS">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="f-col">
+      <div class="f-col-title">Prestations</div>
+      <ul>
+        <li>Épilations à la cire</li>
+        <li>Manucure & Pédicure</li>
+        <li>Pose Semi-permanent</li>
+        <li>Pose Américaine</li>
+        <li>Gainage & Capsules Gel</li>
+      </ul>
+    </div>
+
+    <div class="f-col">
+      <div class="f-col-title">Contact</div>
+      <ul>
+        <li>Valenciennes · 59300</li>
+        <li><a href="sms:+33635214756">+33 6 35 21 47 56</a></li>
+        <li><a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">@spicybeautyyy</a></li>
+        <li style="font-size:.7rem;color:rgba(255,255,255,.2)">RDV par message uniquement</li>
+        <li><a href="blog.html">Conseils & Blog</a></li>
+        <li><a href="/mentions-legales">Mentions légales</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="f-bottom">
+    © 2025 Spicy Beauty by T. · Valenciennes 59300
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
