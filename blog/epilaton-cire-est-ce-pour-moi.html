@@ -33,6 +33,7 @@
   <link rel="stylesheet" href="../style.css">
 
   <style>
+    .nav-pill-cta { background: var(--noir) !important; color: var(--blanc) !important; }
     .article-hero { background:#0D0D0D; padding:160px 24px 90px; text-align:center; color:#fff; }
     .article-eyebrow { display:inline-block; font-size:.68rem; letter-spacing:.28em; text-transform:uppercase; color:var(--rose); margin-bottom:28px; }
     .article-title { font-family:var(--hv); font-size:clamp(2.4rem,6vw,5rem); font-weight:200; letter-spacing:-.03em; line-height:1.05; color:#fff; margin:0 auto 32px; max-width:900px; }
@@ -73,7 +74,7 @@
     <a href="../index.html#localisation">Localisation</a>
     <a href="../index.html#galerie">Réalisations</a>
     <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener">Instagram</a>
-    <a href="sms:+33635214756" class="nav-pill-cta">Contact</a>
+    <button class="nav-pill-cta" onclick="openPopup()">Contact</button>
   </nav>
   <button class="hamburger" id="hbg" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -191,6 +192,37 @@
     © 2025 Spicy Beauty by T. · Valenciennes 59300
   </div>
 </footer>
+
+<!-- POPUP CONTACT -->
+<div class="overlay" id="overlay" onclick="outClick(event)" role="dialog" aria-modal="true">
+  <div class="popup">
+    <button class="popup-x" onclick="closePopup()" aria-label="Fermer">×</button>
+    <p class="popup-tag">✦ Spicy Beauty by T.</p>
+    <h2 class="popup-titre">Prendre contact</h2>
+    <p class="popup-note">
+      Prise de rendez-vous <strong>uniquement par message</strong> —
+      SMS ou Instagram. Pas d'appel téléphonique.
+    </p>
+    <a href="tel:+33635214756" class="popup-tel">+33 6 35 21 47 56</a>
+    <div class="popup-sep"><span>Prendre rendez-vous</span></div>
+    <div class="popup-rdv">
+      <a href="sms:+33635214756" class="popup-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M7.5 8.25h9m-9 3H12m-9 3.75v-8.25A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v8.25a2.25 2.25 0 01-2.25 2.25H7.907l-3.657 2.923V17.25z"/>
+        </svg>
+        Envoyer un SMS
+      </a>
+      <a href="https://www.instagram.com/spicybeautyyy/" target="_blank" rel="noopener" class="popup-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4.5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Message Instagram · @spicybeautyyy
+      </a>
+    </div>
+  </div>
+</div>
 
 <script src="../script.js"></script>
 </body>
