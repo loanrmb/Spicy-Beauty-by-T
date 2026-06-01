@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const BASE_URL = 'https://www.spicybeautybyt.com';
-const EXCLUDED = ['404.html'];
+const EXCLUDED = ['404.html', 'mentions-legales.html'];
 
 function getHtmlFiles(dir, base = '') {
   let urls = [];
