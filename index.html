@@ -355,65 +355,17 @@
     <span class="gal-eyebrow">✦ Réalisations</span>
   </div>
 
-  <div class="gal-grid">
-    <div class="gal-item anim-scale">
-      <img src="images/gallery-1.jpg" alt="Estheticienne Valenciennes"
-           onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><span>Photo à venir</span></div>'">
-      <div class="gal-ov"></div>
+  <div class="gal-carousel-wrap">
+    <div class="gal-track" id="galTrack">
+      <!-- JS injectera les slides ici -->
     </div>
-    <div class="gal-item anim-scale d1">
-      <img src="images/gallery-2.jpg" alt="Nails Valenciennes"
-           onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><span>Nails</span></div>'">
-      <div class="gal-ov"></div>
-    </div>
-    <div class="gal-item anim-scale d2">
-      <img src="images/gallery-3.jpg" alt="Épilation Valenciennes"
-           onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><span>Épilations</span></div>'">
-      <div class="gal-ov"></div>
-    </div>
-    <div class="gal-item anim-scale d3">
-      <img src="images/gallery-5.jpg" alt="Nails art Valenciennes"
-           onerror="this.parentElement.innerHTML='<div class=\'gal-ph\'><span>Nails art</span></div>'">
-      <div class="gal-ov"></div>
-    </div>
-  </div>
-
-  <!-- Carousel mobile uniquement -->
-  <div class="gal-carousel" aria-label="Réalisations">
-    <div class="gal-car-track">
-      <div class="gal-car-slide" >
-        <img src="images/gallery-1.jpg" alt="Estheticienne Valenciennes" decoding="async" loading="eager">
-      </div>
-      <div class="gal-car-slide">
-        <img src="images/gallery-2.jpg" alt="Nails Valenciennes" decoding="async" loading="eager">
-      </div>
-      <div class="gal-car-slide">
-        <img src="images/gallery-3.jpg" alt="Épilation Valenciennes" decoding="async" loading="eager">
-      </div>
-      <div class="gal-car-slide">
-        <img src="images/gallery-5.jpg" alt="Nails art Valenciennes" decoding="async" loading="eager">
-      </div>
-    </div>
-
-    <!-- Boutons Apple/Tesla -->
-    <button class="gal-car-btn gal-car-prev" aria-label="Précédent">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
+    <button class="gal-btn gal-prev" aria-label="Précédent">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19l-7-7 7-7"/></svg>
     </button>
-    <button class="gal-car-btn gal-car-next" aria-label="Suivant">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <polyline points="9 18 15 12 9 6"/>
-      </svg>
+    <button class="gal-btn gal-next" aria-label="Suivant">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
     </button>
-
-    <!-- Dots -->
-    <div class="gal-car-dots">
-      <button class="gal-car-dot active" aria-label="Photo 1"></button>
-      <button class="gal-car-dot" aria-label="Photo 2"></button>
-      <button class="gal-car-dot" aria-label="Photo 3"></button>
-      <button class="gal-car-dot" aria-label="Photo 4"></button>
-    </div>
+    <div class="gal-dots" id="galDots"></div>
   </div>
 
 </section>
