@@ -115,6 +115,7 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
     { src: 'images/gallery-9.jpeg',  alt: 'Semi-permanent Spicy Beauty' },
     { src: 'images/gallery-10.jpeg', alt: 'Capsules gel Spicy Beauty' },
     { src: 'images/gallery-11.jpeg', alt: 'Manucure Spicy Beauty by T.' },
+    { src: 'images/gallery-7.png',   alt: 'Réalisation ongles gel' },
     { src: 'images/gallery-5.jpg',   alt: 'Nail art semi-permanent' },
     { src: 'images/gallery-4.jpg',   alt: 'Gainage ongle naturel' },
     { src: 'images/gallery-3.jpg',   alt: 'Pédicure Spicy Beauty' },
