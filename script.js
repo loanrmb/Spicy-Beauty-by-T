@@ -124,7 +124,8 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
 
   const n = GAL_PHOTOS.length;
   const TRANSITION = 'transform .6s cubic-bezier(.16,1,.3,1)';
-  const SLIDE_MARGIN = 12;     // margin de chaque côté du slide (px)
+  /* Margin de chaque côté du slide — doit matcher le CSS (10px desktop, 8px mobile) */
+  const getMargin = () => (window.innerWidth <= 860 ? 8 : 10);
 
   /* ── Build slide DOM ── */
   function buildSlide(photo, isClone = false) {
@@ -162,14 +163,14 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
   /* ── Update visuel ── */
   function getSlideOffset(index) {
     /* Centre le slide actif dans le wrapper, en pixels */
-    const wrapW = wrap.offsetWidth;
     const slide = track.querySelector('.gal-slide');
     if (!slide) return 0;
-    const slideW = slide.offsetWidth;
-    /* margin de chaque côté = SLIDE_MARGIN ; espacement total entre 2 slides = 2*SLIDE_MARGIN */
-    const totalSlideW = slideW + SLIDE_MARGIN * 2;
-    const centerOffset = (wrapW - slideW) / 2 - SLIDE_MARGIN;
-    return centerOffset - index * totalSlideW;
+    const wrapW   = wrap.offsetWidth;
+    const slideW  = slide.offsetWidth;
+    const margin  = getMargin();
+    const totalW  = slideW + margin * 2;
+    const center  = (wrapW - slideW) / 2 - margin;
+    return center - index * totalW;
   }
 
   function updateTransform() {
@@ -244,6 +245,12 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
 
   /* ── Init : positionner sur le premier vrai slide sans transition ── */
   goTo(1, false);
+
+  /* Recaler après chargement complet (images/fonts) — sécurise les dimensions */
+  window.addEventListener('load', () => {
+    track.style.transition = 'none';
+    track.style.transform = `translateX(${getSlideOffset(current)}px)`;
+  });
 })();
 
 document.addEventListener('DOMContentLoaded', () => {

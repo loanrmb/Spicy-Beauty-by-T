@@ -601,12 +601,15 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
 }
 
 /* ── Carousel Galerie ── */
+/* Wrapper : hauteur calée sur un ratio portrait */
 .gal-carousel-wrap {
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 80vh;
+  height: 85vh;
   background: #0D0D0D;
+  display: flex;
+  align-items: center;
 }
 
 .gal-track {
@@ -618,18 +621,18 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   transition: transform .6s cubic-bezier(.16,1,.3,1);
 }
 
+/* Slides en format portrait */
 .gal-slide {
   flex-shrink: 0;
-  width: 68vw;
-  height: 90%;
-  margin: 0 12px;
+  width: 38vw;
+  height: 78vh;
+  margin: 0 10px;
   border-radius: 16px;
   overflow: hidden;
   transition: filter .5s ease, transform .5s ease, opacity .5s ease;
-  filter: brightness(.55);
-  opacity: .75;
-  transform: scale(.97);
-  cursor: pointer;
+  filter: brightness(.5);
+  opacity: .7;
+  transform: scale(.96);
 }
 
 .gal-slide.active {
@@ -638,16 +641,17 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   transform: scale(1);
 }
 
+/* Cover : remplit le slide, pas de fond noir */
 .gal-slide img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;
+  object-position: center top;
   display: block;
-  background: #111;
+  background: none;
 }
 
-/* Flèches — toujours centrées verticalement, ancrées sur les bords du slide actif */
+/* Flèches : centrées verticalement, ancrées sur les bords du slide actif */
 .gal-btn {
   position: absolute;
   top: 50%;
@@ -670,13 +674,13 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   transform: translateY(-50%) scale(1.08);
 }
 .gal-btn svg { width: 20px; height: 20px; }
-.gal-prev { left: calc((100% - 68vw) / 2 - 20px); }
-.gal-next { right: calc((100% - 68vw) / 2 - 20px); }
+.gal-prev { left:  calc((100% - 38vw) / 2 - 20px); }
+.gal-next { right: calc((100% - 38vw) / 2 - 20px); }
 
-/* Dots — horizontal, en bas, sur tous les écrans */
+/* Dots */
 .gal-dots {
   position: absolute;
-  bottom: 24px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -699,20 +703,28 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   border-radius: 3px;
 }
 
-/* ── MOBILE / TABLET (<860px) : même design, slide plus large + hauteur adaptée ── */
+/* ── MOBILE : 90% de l'écran, format portrait ── */
 @media (max-width: 860px) {
+
   .gal-carousel-wrap {
-    height: 60vw;
+    height: auto;
+    padding: 24px 0 60px;  /* espace pour les dots en bas */
   }
+
   .gal-slide {
-    width: 80vw;
+    width: 90vw;
+    height: calc(90vw * 1.33);  /* ratio 3:4 portrait */
+    margin: 0 8px;
+    border-radius: 14px;
   }
+
+  .gal-prev { left:  calc((100% - 90vw) / 2 - 16px); }
+  .gal-next { right: calc((100% - 90vw) / 2 - 16px); }
+
   .gal-btn {
     width: 40px;
     height: 40px;
   }
-  .gal-prev { left: calc((100% - 80vw) / 2 - 20px); }
-  .gal-next { right: calc((100% - 80vw) / 2 - 20px); }
 }
 
 
