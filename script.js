@@ -125,7 +125,9 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
 
   const n = GAL_PHOTOS.length;
   const isMobile = () => window.innerWidth <= 860;
-  const TRANSITION = 'transform .55s cubic-bezier(.25,.46,.45,.94)';
+  const TRANSITION = 'transform .6s cubic-bezier(.16,1,.3,1)';
+  const SLIDE_RATIO = 0.72;    // largeur du slide vs wrapper (desktop)
+  const GAP = 16;              // gap entre slides (px, desktop)
 
   /* ── Build slide DOM ── */
   function buildSlide(photo, isClone = false) {
@@ -161,9 +163,22 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
   let current = 1;
 
   /* ── Update visuel ── */
+  function getOffsetPx(index) {
+    /* Desktop : centre le slide actif dans le wrapper, en pixels */
+    const wrapW = wrap.offsetWidth;
+    const slideW = wrapW * SLIDE_RATIO;
+    const center = (wrapW - slideW) / 2;
+    return -(index * (slideW + GAP)) + center;
+  }
+
   function updateTransform() {
-    const axis = isMobile() ? 'Y' : 'X';
-    track.style.transform = `translate${axis}(-${current * 100}%)`;
+    if (isMobile()) {
+      /* Mobile : vertical, 100% par slide, pas de peek */
+      track.style.transform = `translateY(-${current * 100}%)`;
+    } else {
+      /* Desktop : horizontal, calcul pixel pour le peek effect */
+      track.style.transform = `translateX(${getOffsetPx(current)}px)`;
+    }
   }
 
   function updateDots() {

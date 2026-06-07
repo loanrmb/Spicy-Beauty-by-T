@@ -604,7 +604,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
 .gal-carousel-wrap {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  overflow: hidden;            /* clipper ici */
   background: #0D0D0D;
   /* Desktop: hauteur fixe ; Mobile: portrait carré */
   height: 72vh;
@@ -612,22 +612,29 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
 
 .gal-track {
   display: flex;
-  flex-direction: row;      /* horizontal sur desktop */
-  width: 100%;
+  flex-direction: row;         /* horizontal sur desktop */
+  gap: 16px;
   height: 100%;
   will-change: transform;
-  transition: transform .55s cubic-bezier(.25,.46,.45,.94);
+  transition: transform .6s cubic-bezier(.16,1,.3,1);
 }
 
 .gal-slide {
-  min-width: 100%;
-  width: 100%;
-  height: 100%;
+  /* Chaque slide = 72% du wrapper ; offset calculé en JS */
+  width: 72%;
+  min-width: 72%;
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 20px;
+  overflow: hidden;
   background: #0D0D0D;
+  transition: filter .5s ease, transform .5s ease;
+  filter: blur(3px) brightness(.45) saturate(.6);
+  transform: scale(.96);
+}
+
+.gal-slide.active {
+  filter: none;
+  transform: scale(1);
 }
 
 .gal-slide img {
@@ -636,11 +643,6 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   object-fit: contain;
   object-position: center center;
   display: block;
-  filter: saturate(.92) brightness(.95);
-  transition: filter .4s;
-}
-.gal-slide.active img {
-  filter: saturate(1) brightness(1);
 }
 
 /* Flèches */
@@ -666,8 +668,9 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   transform: translateY(-50%) scale(1.08);
 }
 .gal-btn svg { width: 20px; height: 20px; }
-.gal-prev { left: 28px; }
-.gal-next { right: 28px; }
+/* Ancrage sur les bords internes du slide actif (slide = 72%, marge latérale = 14%) */
+.gal-prev { left: calc(14% - 22px); }
+.gal-next { right: calc(14% - 22px); }
 
 /* Dots — horizontal (desktop) */
 .gal-dots {
@@ -695,19 +698,29 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   border-radius: 3px;
 }
 
-/* ── MOBILE (<860px) : carousel vertical ── */
+/* ── MOBILE (<860px) : carousel vertical, pas de peek ── */
 @media (max-width: 860px) {
   .gal-carousel-wrap {
-    height: 100vw;           /* carré portrait */
+    height: 100vw;             /* carré portrait */
   }
 
   .gal-track {
-    flex-direction: column;  /* vertical */
+    flex-direction: column;    /* vertical */
+    gap: 0;
   }
 
   .gal-slide {
-    min-height: 100%;
     min-width: 100%;
+    width: 100%;
+    min-height: 100%;
+    border-radius: 0;
+    /* Pas de blur sur mobile : slide unique visible */
+    filter: none;
+    transform: none;
+  }
+  .gal-slide.active {
+    filter: none;
+    transform: none;
   }
 
   /* Flèches : haut / bas */
@@ -718,8 +731,8 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
     width: 44px; height: 44px;
   }
   .gal-btn:hover { transform: translateX(-50%) scale(1.08); }
-  .gal-prev { top: 16px; bottom: auto; left: 50%; right: auto; }
-  .gal-next { bottom: 16px; top: auto; left: 50%; right: auto; }
+  .gal-prev { top: 12px; bottom: auto; left: 50%; right: auto; }
+  .gal-next { bottom: 12px; top: auto; left: 50%; right: auto; }
 
   /* Flèches rotées 90° pour indiquer haut/bas */
   .gal-prev svg { transform: rotate(90deg); }
