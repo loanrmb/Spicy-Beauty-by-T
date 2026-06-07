@@ -97,7 +97,7 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
 
 
 /* ═══════════════════════════════════════════
-   GALERIE CAROUSEL — infinite loop, desktop H / mobile V
+   GALERIE CAROUSEL — horizontal, peek + infinite loop
 ═══════════════════════════════════════════ */
 (function () {
   const wrap = document.querySelector('.gal-carousel-wrap');
@@ -115,7 +115,6 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
     { src: 'images/gallery-9.jpeg',  alt: 'Semi-permanent Spicy Beauty' },
     { src: 'images/gallery-10.jpeg', alt: 'Capsules gel Spicy Beauty' },
     { src: 'images/gallery-11.jpeg', alt: 'Manucure Spicy Beauty by T.' },
-    { src: 'images/gallery-7.png',   alt: 'Réalisation ongles gel' },
     { src: 'images/gallery-5.jpg',   alt: 'Nail art semi-permanent' },
     { src: 'images/gallery-4.jpg',   alt: 'Gainage ongle naturel' },
     { src: 'images/gallery-3.jpg',   alt: 'Pédicure Spicy Beauty' },
@@ -124,10 +123,8 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
   ];
 
   const n = GAL_PHOTOS.length;
-  const isMobile = () => window.innerWidth <= 860;
   const TRANSITION = 'transform .6s cubic-bezier(.16,1,.3,1)';
-  const SLIDE_RATIO = 0.72;    // largeur du slide vs wrapper (desktop)
-  const GAP = 16;              // gap entre slides (px, desktop)
+  const SLIDE_MARGIN = 12;     // margin de chaque côté du slide (px)
 
   /* ── Build slide DOM ── */
   function buildSlide(photo, isClone = false) {
@@ -163,22 +160,20 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
   let current = 1;
 
   /* ── Update visuel ── */
-  function getOffsetPx(index) {
-    /* Desktop : centre le slide actif dans le wrapper, en pixels */
+  function getSlideOffset(index) {
+    /* Centre le slide actif dans le wrapper, en pixels */
     const wrapW = wrap.offsetWidth;
-    const slideW = wrapW * SLIDE_RATIO;
-    const center = (wrapW - slideW) / 2;
-    return -(index * (slideW + GAP)) + center;
+    const slide = track.querySelector('.gal-slide');
+    if (!slide) return 0;
+    const slideW = slide.offsetWidth;
+    /* margin de chaque côté = SLIDE_MARGIN ; espacement total entre 2 slides = 2*SLIDE_MARGIN */
+    const totalSlideW = slideW + SLIDE_MARGIN * 2;
+    const centerOffset = (wrapW - slideW) / 2 - SLIDE_MARGIN;
+    return centerOffset - index * totalSlideW;
   }
 
   function updateTransform() {
-    if (isMobile()) {
-      /* Mobile : vertical, 100% par slide, pas de peek */
-      track.style.transform = `translateY(-${current * 100}%)`;
-    } else {
-      /* Desktop : horizontal, calcul pixel pour le peek effect */
-      track.style.transform = `translateX(${getOffsetPx(current)}px)`;
-    }
+    track.style.transform = `translateX(${getSlideOffset(current)}px)`;
   }
 
   function updateDots() {
@@ -205,60 +200,45 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
   btnPrev.addEventListener('click', () => goTo(current - 1));
   btnNext.addEventListener('click', () => goTo(current + 1));
 
-  /* ── Swipe (touch + mouse drag) ── */
-  let startX = 0, startY = 0, dragging = false;
+  /* ── Swipe horizontal (touch + mouse drag) ── */
+  let startX = 0, dragging = false;
   const THRESHOLD = 40;
 
-  function onSwipeEnd(x, y) {
+  function onSwipeEnd(x) {
     if (!dragging) return;
     dragging = false;
     const dx = x - startX;
-    const dy = y - startY;
-    if (isMobile()) {
-      if (Math.abs(dy) > THRESHOLD) goTo(current + (dy < 0 ? 1 : -1));
-    } else {
-      if (Math.abs(dx) > THRESHOLD) goTo(current + (dx < 0 ? 1 : -1));
-    }
+    if (Math.abs(dx) > THRESHOLD) goTo(current + (dx < 0 ? 1 : -1));
   }
 
-  /* Touch */
+  /* Touch — passive : on ne bloque pas le scroll vertical natif de la page */
   track.addEventListener('touchstart', e => {
     startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
     dragging = true;
   }, { passive: true });
 
-  track.addEventListener('touchmove', e => {
-    if (!dragging || !isMobile()) return;
-    const dx = e.touches[0].clientX - startX;
-    const dy = e.touches[0].clientY - startY;
-    /* En mobile (carousel vertical), bloquer le scroll natif si le swipe est vertical */
-    if (Math.abs(dy) > Math.abs(dx)) e.preventDefault();
-  }, { passive: false });
-
   track.addEventListener('touchend', e => {
-    onSwipeEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+    onSwipeEnd(e.changedTouches[0].clientX);
   }, { passive: true });
 
   /* Mouse drag (desktop) */
   track.addEventListener('mousedown', e => {
     e.preventDefault();
     startX = e.clientX;
-    startY = e.clientY;
     dragging = true;
   });
   document.addEventListener('mouseup', e => {
-    if (dragging) onSwipeEnd(e.clientX, e.clientY);
+    if (dragging) onSwipeEnd(e.clientX);
   });
   track.addEventListener('mouseleave', () => { dragging = false; });
 
-  /* ── Resize : recompute axis (debounce 150ms) ── */
+  /* ── Resize : recalcule l'offset pixel (debounce 150ms, sans animation) ── */
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
       track.style.transition = 'none';
-      updateTransform();
+      track.style.transform = `translateX(${getSlideOffset(current)}px)`;
     }, 150);
   });
 

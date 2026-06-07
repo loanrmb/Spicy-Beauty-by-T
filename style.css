@@ -603,37 +603,38 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
 /* ── Carousel Galerie ── */
 .gal-carousel-wrap {
   position: relative;
+  overflow: hidden;
   width: 100%;
-  overflow: hidden;            /* clipper ici */
+  height: 80vh;
   background: #0D0D0D;
-  /* Desktop: hauteur fixe ; Mobile: portrait carré */
-  height: 72vh;
 }
 
 .gal-track {
   display: flex;
-  flex-direction: row;         /* horizontal sur desktop */
-  gap: 16px;
+  flex-direction: row;
+  align-items: center;
   height: 100%;
   will-change: transform;
   transition: transform .6s cubic-bezier(.16,1,.3,1);
 }
 
 .gal-slide {
-  /* Chaque slide = 72% du wrapper ; offset calculé en JS */
-  width: 72%;
-  min-width: 72%;
   flex-shrink: 0;
-  border-radius: 20px;
+  width: 68vw;
+  height: 90%;
+  margin: 0 12px;
+  border-radius: 16px;
   overflow: hidden;
-  background: #0D0D0D;
-  transition: filter .5s ease, transform .5s ease;
-  filter: blur(3px) brightness(.45) saturate(.6);
-  transform: scale(.96);
+  transition: filter .5s ease, transform .5s ease, opacity .5s ease;
+  filter: brightness(.55);
+  opacity: .75;
+  transform: scale(.97);
+  cursor: pointer;
 }
 
 .gal-slide.active {
-  filter: none;
+  filter: brightness(1);
+  opacity: 1;
   transform: scale(1);
 }
 
@@ -641,16 +642,17 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: center center;
+  object-position: center;
   display: block;
+  background: #111;
 }
 
-/* Flèches */
+/* Flèches — toujours centrées verticalement, ancrées sur les bords du slide actif */
 .gal-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: 20;
   width: 52px; height: 52px;
   border-radius: 50%;
   background: rgba(255,255,255,.08);
@@ -668,11 +670,10 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   transform: translateY(-50%) scale(1.08);
 }
 .gal-btn svg { width: 20px; height: 20px; }
-/* Ancrage sur les bords internes du slide actif (slide = 72%, marge latérale = 14%) */
-.gal-prev { left: calc(14% - 22px); }
-.gal-next { right: calc(14% - 22px); }
+.gal-prev { left: calc((100% - 68vw) / 2 - 20px); }
+.gal-next { right: calc((100% - 68vw) / 2 - 20px); }
 
-/* Dots — horizontal (desktop) */
+/* Dots — horizontal, en bas, sur tous les écrans */
 .gal-dots {
   position: absolute;
   bottom: 24px;
@@ -698,60 +699,20 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   border-radius: 3px;
 }
 
-/* ── MOBILE (<860px) : carousel vertical, pas de peek ── */
+/* ── MOBILE / TABLET (<860px) : même design, slide plus large + hauteur adaptée ── */
 @media (max-width: 860px) {
   .gal-carousel-wrap {
-    height: 100vw;             /* carré portrait */
+    height: 60vw;
   }
-
-  .gal-track {
-    flex-direction: column;    /* vertical */
-    gap: 0;
-  }
-
   .gal-slide {
-    min-width: 100%;
-    width: 100%;
-    min-height: 100%;
-    border-radius: 0;
-    /* Pas de blur sur mobile : slide unique visible */
-    filter: none;
-    transform: none;
+    width: 80vw;
   }
-  .gal-slide.active {
-    filter: none;
-    transform: none;
-  }
-
-  /* Flèches : haut / bas */
   .gal-btn {
-    top: auto;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 44px; height: 44px;
+    width: 40px;
+    height: 40px;
   }
-  .gal-btn:hover { transform: translateX(-50%) scale(1.08); }
-  .gal-prev { top: 12px; bottom: auto; left: 50%; right: auto; }
-  .gal-next { bottom: 12px; top: auto; left: 50%; right: auto; }
-
-  /* Flèches rotées 90° pour indiquer haut/bas */
-  .gal-prev svg { transform: rotate(90deg); }
-  .gal-next svg { transform: rotate(90deg); }
-
-  /* Dots : colonne droite */
-  .gal-dots {
-    bottom: auto;
-    top: 50%;
-    left: auto;
-    right: 14px;
-    transform: translateY(-50%);
-    flex-direction: column;
-  }
-  .gal-dot.active {
-    width: 6px;
-    height: 20px;
-    border-radius: 3px;
-  }
+  .gal-prev { left: calc((100% - 80vw) / 2 - 20px); }
+  .gal-next { right: calc((100% - 80vw) / 2 - 20px); }
 }
 
 
