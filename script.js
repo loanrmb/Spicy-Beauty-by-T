@@ -287,3 +287,21 @@ document.addEventListener('DOMContentLoaded', () => {
     opacity:     0.9
   }).addTo(map);
 });
+
+/* ═══════════════════════════════════════════
+   HERO — respect de prefers-reduced-motion
+   Coupe l'autoplay de la vidéo de fond et
+   n'affiche que le poster si l'utilisateur a
+   activé la réduction de mouvement.
+═══════════════════════════════════════════ */
+(function () {
+  var heroVideo = document.querySelector('.hero-video');
+  if (!heroVideo) return;
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    heroVideo.removeAttribute('autoplay');
+    heroVideo.pause();
+    // Repositionne sur le poster
+    try { heroVideo.currentTime = 0; heroVideo.load(); } catch (e) {}
+  }
+})();

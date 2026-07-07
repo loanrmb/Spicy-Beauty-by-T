@@ -168,10 +168,28 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   text-align: center;
 }
 
-/* Très subtil halo central */
+/* Vidéo d'arrière-plan */
+.hero-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Calque sombre entre la vidéo et le contenu (lisibilité) */
+.hero-video-overlay {
+  position: absolute; inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: rgba(13,13,13,.62);
+}
+
+/* Très subtil halo central — au-dessus de l'overlay */
 .hero::before {
   content: '';
   position: absolute; inset: 0; pointer-events: none;
+  z-index: 1;
   background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255,211,250,.03) 0%, transparent 70%);
 }
 
