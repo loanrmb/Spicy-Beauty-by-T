@@ -549,7 +549,24 @@
     }
   }
 
-  animate();
+  /* Démarre le morph au même signal que le reste de la hero (hero:play),
+     émis au First Contentful Paint par script.js. On ne démarre PLUS au
+     parse, sinon sur mobile le morph s'écoule avant que la hero soit
+     visible (désynchronisé du reste de la séquence). */
+  function startGooey(reduce) {
+    if (done) return;
+    if (reduce) { finish(); return; }   // mouvement réduit : titre révélé direct
+    time = new Date();                   // recale l'horloge sur l'instant du déclenchement
+    animate();
+  }
+
+  if (window.__heroPlay && window.__heroPlay.fired) {
+    startGooey(window.__heroPlay.reduce);            // signal déjà émis avant abonnement
+  } else {
+    document.addEventListener('hero:play', function (e) {
+      startGooey(e.detail && e.detail.reduce);
+    }, { once: true });
+  }
 })();
 </script>
 </body>

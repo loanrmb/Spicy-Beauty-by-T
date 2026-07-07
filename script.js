@@ -289,24 +289,78 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ═══════════════════════════════════════════
-   HERO — lance les animations d'apparition au
-   premier paint (et non au parse).
-   Les @keyframes hFade/hSlideUp sont en pause
-   (CSS : .js .hero-*) tant que .play n'est pas
-   ajouté. Sur mobile, le paint de la hero peut
-   arriver après l'écoulement des délais : sans
-   ce déclencheur, tout le texte apparaissait
-   d'un coup. Le double rAF garantit une frame
-   peinte à opacity:0 avant de démarrer.
+   HERO — lance la séquence d'apparition au
+   FIRST CONTENTFUL PAINT réel (pas au parse ni
+   à DOMContentLoaded).
+
+   Pourquoi : les @keyframes hFade/hSlideUp sont
+   en pause (CSS : .js .hero-*) jusqu'à l'ajout
+   de .hero.play. Une fois lancées, elles
+   avancent sur l'horloge du document (wall-clock).
+   Sur mobile, le FCP arrive APRÈS DOMContentLoaded
+   (leaflet.js render-blocking, CPU lent, décodage
+   vidéo). Un déclencheur ancré à DCL (rAF/DOMContentLoaded)
+   démarrait donc l'horloge AVANT que la hero soit
+   peinte → tout l'échelonnement s'écoulait pendant
+   l'intervalle invisible et le texte apparaissait
+   d'un coup. On attend le FCP pour démarrer pile
+   quand le contenu devient visible.
+
+   Émet aussi l'événement `hero:play` pour garder le
+   titre gooey synchronisé sur le même signal.
 ═══════════════════════════════════════════ */
 (function () {
   var hero = document.querySelector('.hero');
   if (!hero) return;
-  requestAnimationFrame(function () {
-    requestAnimationFrame(function () {
-      hero.classList.add('play');
+
+  var reduce = window.matchMedia &&
+               window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var started = false;
+
+  function start() {
+    if (started) return;
+    started = true;
+    hero.classList.add('play');
+    // Flag global (au cas où le gooey s'abonne après coup) + événement
+    window.__heroPlay = { fired: true, reduce: !!reduce };
+    document.dispatchEvent(new CustomEvent('hero:play', { detail: { reduce: !!reduce } }));
+  }
+
+  // Mouvement réduit : on révèle immédiatement, sans échelonnement.
+  if (reduce) { start(); return; }
+
+  // 1) Déclencheur principal : le First Contentful Paint.
+  //    buffered:true récupère l'entrée même si le FCP a déjà eu lieu.
+  try {
+    var po = new PerformanceObserver(function (list) {
+      for (var i = 0; i < list.getEntries().length; i++) {
+        if (list.getEntries()[i].name === 'first-contentful-paint') {
+          po.disconnect();
+          // +1 frame pour garantir que la frame « cachée » est bien à l'écran
+          requestAnimationFrame(start);
+          return;
+        }
+      }
     });
-  });
+    po.observe({ type: 'paint', buffered: true });
+  } catch (e) { /* PerformanceObserver/paint non supporté */ }
+
+  // 2) Repli : quand la hero entre réellement dans le viewport (déjà peinte).
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      for (var j = 0; j < entries.length; j++) {
+        if (entries[j].isIntersecting) {
+          io.disconnect();
+          requestAnimationFrame(start);
+          return;
+        }
+      }
+    });
+    io.observe(hero);
+  }
+
+  // 3) Filet de sécurité : ne jamais laisser la hero invisible.
+  setTimeout(start, 2500);
 })();
 
 /* ═══════════════════════════════════════════
