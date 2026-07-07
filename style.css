@@ -301,6 +301,28 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Ancre le démarrage des animations hero au premier paint (pas au parse).
+   Sur mobile, le paint de la hero peut arriver après l'écoulement des délais
+   (jusqu'à 1.1s) : sans ça, tout le texte apparaît d'un coup. Tant que JS est
+   présent (classe .js sur <html>), on garde les animations en pause ; le JS
+   ajoute .hero.play juste après le premier paint pour lancer la séquence.
+   Sans JS, les animations tournent normalement (pas de blocage). */
+.js .hero-location,
+.js .hero-title,
+.js .hero-services,
+.js .hero-actions,
+.js .hero-scroll-indicator {
+  animation-play-state: paused;
+  will-change: opacity, transform;
+}
+.js .hero.play .hero-location,
+.js .hero.play .hero-title,
+.js .hero.play .hero-services,
+.js .hero.play .hero-actions,
+.js .hero.play .hero-scroll-indicator {
+  animation-play-state: running;
+}
+
 
 /* ═══════════════════════════════════════════
    TARIFS — Tesla / Apple dark redesign

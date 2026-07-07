@@ -289,6 +289,27 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ═══════════════════════════════════════════
+   HERO — lance les animations d'apparition au
+   premier paint (et non au parse).
+   Les @keyframes hFade/hSlideUp sont en pause
+   (CSS : .js .hero-*) tant que .play n'est pas
+   ajouté. Sur mobile, le paint de la hero peut
+   arriver après l'écoulement des délais : sans
+   ce déclencheur, tout le texte apparaissait
+   d'un coup. Le double rAF garantit une frame
+   peinte à opacity:0 avant de démarrer.
+═══════════════════════════════════════════ */
+(function () {
+  var hero = document.querySelector('.hero');
+  if (!hero) return;
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      hero.classList.add('play');
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════
    HERO — respect de prefers-reduced-motion
    Coupe l'autoplay de la vidéo de fond et
    n'affiche que le poster si l'utilisateur a
