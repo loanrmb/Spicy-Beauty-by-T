@@ -136,6 +136,19 @@ Loan is creating the Supabase project separately. Planned tables:
   card, matched against `clients.id`.
 - Test batch of 10 before ordering 100+.
 
+### Supabase project
+
+- Project name: `spicy-beauty-loyalty`
+- URL: `https://zbeqkhzkbljjhsgsreas.supabase.co`
+- Anon (public) key — safe to reference in client-side code:
+  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpiZXFraHprYmxqamhzZ3NyZWFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0NDU1MzIsImV4cCI6MjA5OTAyMTUzMn0.9X_fER-ln18jYMjexvaRDU63ngWEHHyj8Hbpqsp70UY`
+- Service-role key: **never in this file, never in the repo.** Set only as the
+  `SUPABASE_SERVICE_KEY` environment variable in Vercel, used exclusively inside
+  `/api/*` serverless functions.
+- RLS is enabled on all four tables with **no policies defined** (deny-by-default for
+  the anon key). All reads/writes go through `/api/*` using the service-role key,
+  which bypasses RLS by design — this is intentional and expected, not a bug to fix.
+
 ### Current step
 
 Building the software side (Supabase schema, `/carte` and `/admin` pages, `/api`
