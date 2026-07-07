@@ -111,10 +111,13 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
 
   /* ── Photos (plus récentes en premier) ── */
   const GAL_PHOTOS = [
-    { src: 'images/gallery-8.jpeg',  alt: 'Nail art Spicy Beauty by T.' },
-    { src: 'images/gallery-9.jpeg',  alt: 'Semi-permanent Spicy Beauty' },
-    { src: 'images/gallery-10.jpeg', alt: 'Capsules gel Spicy Beauty' },
+    { src: 'images/gallery-12.jpeg', alt: 'Réalisation Spicy Beauty by T.' },
+    { src: 'images/gallery-13.jpeg', alt: 'Nail art Spicy Beauty by T.' },
+    { src: 'images/gallery-14.jpeg', alt: 'Manucure semi-permanent Spicy Beauty' },
     { src: 'images/gallery-11.jpeg', alt: 'Manucure Spicy Beauty by T.' },
+    { src: 'images/gallery-10.jpeg', alt: 'Capsules gel Spicy Beauty' },
+    { src: 'images/gallery-9.jpeg',  alt: 'Semi-permanent Spicy Beauty' },
+    { src: 'images/gallery-8.jpeg',  alt: 'Nail art Spicy Beauty by T.' },
     { src: 'images/gallery-5.jpg',   alt: 'Nail art semi-permanent' },
     { src: 'images/gallery-3.jpg',   alt: 'Pédicure Spicy Beauty' },
     { src: 'images/gallery-2.jpg',   alt: 'Ongles capsules extension' },
@@ -127,14 +130,14 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
   const getMargin = () => (window.innerWidth <= 860 ? 8 : 10);
 
   /* ── Build slide DOM ── */
-  function buildSlide(photo, isClone = false) {
+  function buildSlide(photo, isClone = false, eager = false) {
     const slide = document.createElement('div');
     slide.className = 'gal-slide';
     if (isClone) slide.dataset.clone = 'true';
     const img = document.createElement('img');
     img.src = photo.src;
     img.alt = photo.alt;
-    img.loading = 'lazy';
+    img.loading = eager ? 'eager' : 'lazy';
     img.decoding = 'async';
     slide.appendChild(img);
     return slide;
@@ -142,7 +145,7 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
 
   /* ── Injection : clone(last) + reals + clone(first) ── */
   track.appendChild(buildSlide(GAL_PHOTOS[n - 1], true));      // index 0  = clone du dernier
-  GAL_PHOTOS.forEach(p => track.appendChild(buildSlide(p)));   // index 1..n = vrais slides
+  GAL_PHOTOS.forEach((p, i) => track.appendChild(buildSlide(p, false, i === 0))); // index 1..n = vrais slides (1er en eager)
   track.appendChild(buildSlide(GAL_PHOTOS[0], true));          // index n+1 = clone du premier
 
   const slides = track.querySelectorAll('.gal-slide');
