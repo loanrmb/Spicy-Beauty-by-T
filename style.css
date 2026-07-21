@@ -691,6 +691,36 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   background: none;
 }
 
+/* ── Placeholder photo (en attente d'une vraie photo) ── */
+.gal-ph {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,.02);
+  border: 1.5px dashed rgba(255,211,250,.35);
+  border-radius: 16px;
+  color: rgba(255,211,250,.55);
+  font-family: var(--hv);
+  font-size: .78rem;
+  font-weight: 300;
+  letter-spacing: .04em;
+  text-align: center;
+  padding: 20px;
+}
+/* Conteneur pour un placeholder autonome (hors carousel) */
+.gal-ph-wrap {
+  aspect-ratio: 4 / 5;
+  max-width: 420px;
+  margin: 36px auto;
+}
+.gal-ph-wrap--sm {
+  aspect-ratio: 3 / 4;
+  max-width: 100%;
+  margin: 20px auto 0;
+}
+
 /* Flèches : centrées verticalement, ancrées sur les bords du slide actif */
 .gal-btn {
   position: absolute;
