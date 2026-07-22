@@ -16,16 +16,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.spicybeautybyt.com/blog/nail-art-valenciennes</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.spicybeautybyt.com/blog/premier-rendez-vous-epilation</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://www.spicybeautybyt.com/blog/semi-permanent-ou-gel-quelle-difference</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -39,10 +29,5 @@
     <loc>https://www.spicybeautybyt.com</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://www.spicybeautybyt.com/questions-frequentes</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
   </url>
 </urlset>
