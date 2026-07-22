@@ -109,10 +109,8 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
   const btnNext = wrap.querySelector('.gal-next');
   if (!track || !dotsBox) return;
 
-  /* ── Photos (plus récentes en premier) ──
-     Une page peut fournir ses propres photos (ex: carousel placeholder
-     d'un article) via `window.GAL_CAROUSEL_PHOTOS` défini AVANT ce script. */
-  const GAL_PHOTOS_DEFAULT = [
+  /* ── Photos (plus récentes en premier) ── */
+  const GAL_PHOTOS = [
     { src: 'images/gallery-12.jpeg', alt: 'Réalisation Spicy Beauty by T.' },
     { src: 'images/gallery-13.jpeg', alt: 'Nail art Spicy Beauty by T.' },
     { src: 'images/gallery-14.jpeg', alt: 'Manucure semi-permanent Spicy Beauty' },
@@ -125,7 +123,6 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
     { src: 'images/gallery-2.jpg',   alt: 'Ongles capsules extension' },
     { src: 'images/gallery-1.jpg',   alt: 'Réalisation Spicy Beauty by T.' },
   ];
-  const GAL_PHOTOS = window.GAL_CAROUSEL_PHOTOS || GAL_PHOTOS_DEFAULT;
 
   const n = GAL_PHOTOS.length;
   const TRANSITION = 'transform .6s cubic-bezier(.16,1,.3,1)';
@@ -137,15 +134,6 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
     const slide = document.createElement('div');
     slide.className = 'gal-slide';
     if (isClone) slide.dataset.clone = 'true';
-    if (photo.ph) {
-      const ph = document.createElement('div');
-      ph.className = 'gal-ph';
-      ph.setAttribute('role', 'img');
-      ph.setAttribute('aria-label', photo.alt);
-      ph.textContent = 'Photo à venir';
-      slide.appendChild(ph);
-      return slide;
-    }
     const img = document.createElement('img');
     img.src = photo.src;
     img.alt = photo.alt;
