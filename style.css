@@ -457,6 +457,16 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
   flex-shrink: 0;
 }
 
+/* Précision sous un service */
+.p-row.has-desc { flex-wrap: wrap; }
+.p-desc {
+  flex: 1 0 100%;
+  margin-top: 5px;
+  font-size: .72rem; font-weight: 300;
+  color: rgba(255,255,255,.3);
+  line-height: 1.5; letter-spacing: .01em;
+}
+
 
 /* ═══════════════════════════════════════════
    LOCALISATION — Tesla / Apple redesign
