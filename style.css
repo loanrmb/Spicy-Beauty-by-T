@@ -857,7 +857,9 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
 
   /* Fix prix masqués sur mobile : nom sur une ligne, prix toujours visible */
   .p-row { flex-wrap: wrap; align-items: flex-start; gap: 2px 0; padding: 14px 0; }
-  .p-name { flex: 1 1 75%; font-size: .9rem; white-space: normal; }
+  /* basis 0 (et non auto) : avec flex-wrap, une basis auto fait passer le
+     prix à la ligne au lieu de faire retourner le nom à la ligne */
+  .p-name { flex: 1 1 0; font-size: .9rem; white-space: normal; }
   .p-dots { display: none; }
   .p-price { font-size: 1rem; flex-shrink: 0; padding-left: 8px; }
 
@@ -894,10 +896,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
 
   /* Tarifs : nom sur plusieurs lignes, prix collé à droite sur la 1re ligne */
   .p-row   { align-items: baseline; gap: 16px; padding: 15px 0; }
-  .p-dots  { display: none; }
-  /* basis 0 (et non auto) : avec flex-wrap, une basis auto fait passer le
-     prix à la ligne au lieu de faire retourner le nom à la ligne */
-  .p-name  { flex: 1 1 0; font-size: 1.1rem; line-height: 1.4; }
+  .p-name  { font-size: 1.1rem; line-height: 1.4; }
   .p-price { font-size: 1.2rem; }
   .p-desc  { font-size: .78rem; margin-top: 5px; line-height: 1.5; }
 }
