@@ -424,7 +424,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
 .p-list { list-style: none; }
 .p-row {
   display: flex; align-items: center;
-  padding: 17px 0;
+  padding: 19px 0;
   border-bottom: 1px solid rgba(255,255,255,.06);
   gap: 14px;
   transition: padding-left .2s;
@@ -440,19 +440,20 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
 }
 .p-row-sep:hover { padding-left: 0 !important; }
 .p-cat {
-  font-size: .6rem; letter-spacing: .28em; text-transform: uppercase;
+  font-size: .64rem; letter-spacing: .28em; text-transform: uppercase;
   color: var(--rose); font-weight: 500; opacity: .7;
 }
 .p-name {
-  font-family: var(--hv); font-size: 1.05rem; font-weight: 300;
-  color: rgba(255,255,255,.72); line-height: 1.45; flex-shrink: 0;
+  font-family: var(--hv); font-size: 1.15rem; font-weight: 300;
+  color: rgba(255,255,255,.72); line-height: 1.45; flex-shrink: 1;
+  min-width: 0;
 }
 .p-dots {
   flex: 1; height: 1px; min-width: 16px;
   background: repeating-linear-gradient(to right, rgba(255,255,255,.1) 0, rgba(255,255,255,.1) 3px, transparent 3px, transparent 8px);
 }
 .p-price {
-  font-family: var(--hv); font-size: 1.18rem; font-weight: 500;
+  font-family: var(--hv); font-size: 1.3rem; font-weight: 500;
   color: var(--rose); white-space: nowrap; min-width: 36px; text-align: right;
   flex-shrink: 0;
 }
@@ -461,10 +462,10 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
 .p-row.has-desc { flex-wrap: wrap; }
 .p-desc {
   flex: 1 0 100%;
-  margin-top: 5px;
-  font-size: .72rem; font-weight: 300;
-  color: rgba(255,255,255,.3);
-  line-height: 1.5; letter-spacing: .01em;
+  margin-top: 6px;
+  font-size: .84rem; font-weight: 300;
+  color: rgba(255,255,255,.45);
+  line-height: 1.55; letter-spacing: .01em;
 }
 
 
@@ -890,6 +891,15 @@ button { background: none; border: none; cursor: pointer; font: inherit; }
 @media (max-width: 560px) {
   .rdv-btns { flex-direction: column; }
   .rdv-btn { justify-content: center; }
+
+  /* Tarifs : nom sur plusieurs lignes, prix collé à droite sur la 1re ligne */
+  .p-row   { align-items: baseline; gap: 16px; padding: 15px 0; }
+  .p-dots  { display: none; }
+  /* basis 0 (et non auto) : avec flex-wrap, une basis auto fait passer le
+     prix à la ligne au lieu de faire retourner le nom à la ligne */
+  .p-name  { flex: 1 1 0; font-size: 1.1rem; line-height: 1.4; }
+  .p-price { font-size: 1.2rem; }
+  .p-desc  { font-size: .78rem; margin-top: 5px; line-height: 1.5; }
 }
 /* ── Gooey title animation ── */
 .hero-title-stage {
