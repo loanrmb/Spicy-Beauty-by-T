@@ -2,6 +2,11 @@
    SPICY BEAUTY BY T. — script.js
 ═══════════════════════════════════════════ */
 
+/* ── Config ── */
+/* Clé API CARTO — publique par nature (restreinte par domaine côté CARTO),
+   requise depuis que les basemaps raster refusent les requêtes sans clé. */
+const CARTO_KEY = 'cb1_2jk2_1_04e082adc4a2b9696094dd18';
+
 /* ── Favicon rond généré dynamiquement ── */
 (function() {
   const img = new Image();
@@ -271,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* Tiles CartoDB Positron — grises et élégantes */
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  L.tileLayer(`https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=${CARTO_KEY}`, {
     subdomains: 'abcd',
     maxZoom: 19
   }).addTo(map);
