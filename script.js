@@ -114,23 +114,37 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
   const btnNext = wrap.querySelector('.gal-next');
   if (!track || !dotsBox) return;
 
-  /* ── Photos (plus récentes en premier) ── */
+  /* ── Photos (plus récentes en premier, puis nouveaux ajouts 15→30) ──
+     w/h = dimensions intrinsèques réelles du fichier (ratio, anti-CLS). */
   const GAL_PHOTOS = [
-    { src: 'images/gallery-12.jpeg', alt: 'Réalisation Spicy Beauty by T.' },
-    { src: 'images/gallery-13.jpeg', alt: 'Nail art Spicy Beauty by T.' },
-    { src: 'images/gallery-14.jpeg', alt: 'Manucure semi-permanent Spicy Beauty' },
-    { src: 'images/gallery-11.jpeg', alt: 'Manucure Spicy Beauty by T.' },
-    { src: 'images/gallery-10.jpeg', alt: 'Capsules gel Spicy Beauty' },
-    { src: 'images/gallery-9.jpeg',  alt: 'Semi-permanent Spicy Beauty' },
-    { src: 'images/gallery-8.jpeg',  alt: 'Nail art Spicy Beauty by T.' },
-    { src: 'images/gallery-5.jpg',   alt: 'Nail art semi-permanent' },
-    { src: 'images/gallery-3.jpg',   alt: 'Pédicure Spicy Beauty' },
-    { src: 'images/gallery-2.jpg',   alt: 'Ongles capsules extension' },
-    { src: 'images/gallery-1.jpg',   alt: 'Réalisation Spicy Beauty by T.' },
+    { src: 'images/gallery-12.jpeg', w: 3072, h: 4096, alt: 'Réalisation Spicy Beauty by T.' },
+    { src: 'images/gallery-13.jpeg', w: 3072, h: 4096, alt: 'Nail art Spicy Beauty by T.' },
+    { src: 'images/gallery-14.jpeg', w: 2390, h: 3187, alt: 'Manucure semi-permanent Spicy Beauty' },
+    { src: 'images/gallery-11.jpeg', w: 3024, h: 4032, alt: 'Manucure Spicy Beauty by T.' },
+    { src: 'images/gallery-10.jpeg', w: 3024, h: 4032, alt: 'Capsules gel Spicy Beauty' },
+    { src: 'images/gallery-9.jpeg',  w: 3024, h: 4032, alt: 'Semi-permanent Spicy Beauty' },
+    { src: 'images/gallery-8.jpeg',  w: 3024, h: 4032, alt: 'Nail art Spicy Beauty by T.' },
+    { src: 'images/gallery-5.jpg',   w: 3024, h: 4032, alt: 'Nail art semi-permanent' },
+    { src: 'images/gallery-3.jpg',   w: 1320, h: 1484, alt: 'Pédicure Spicy Beauty' },
+    { src: 'images/gallery-2.jpg',   w: 1320, h: 1516, alt: 'Ongles capsules extension' },
+    { src: 'images/gallery-1.jpg',   w: 1440, h: 1920, alt: 'Réalisation Spicy Beauty by T.' },
+    { src: 'images/gallery-15.jpeg', w: 3072, h: 4096, alt: 'Pose de semi-permanent sur ongles naturels réalisée à Valenciennes' },
+    { src: 'images/gallery-16.jpeg', w: 3024, h: 4032, alt: 'Nail art sur mesure par l\'esthéticienne Spicy Beauty by T. à Valenciennes' },
+    { src: 'images/gallery-18.jpeg', w: 3024, h: 4032, alt: 'Manucure et pose de capsules gel en institut de beauté à Valenciennes' },
+    { src: 'images/gallery-19.jpeg', w: 3024, h: 3334, alt: 'Ongles en gel effet baby boomer, salon de beauté à Valenciennes' },
+    { src: 'images/gallery-21.jpeg', w: 3024, h: 4032, alt: 'Semi-permanent longue tenue sur mains soignées, Valenciennes' },
+    { src: 'images/gallery-22.jpeg', w: 3024, h: 4032, alt: 'Nail art coloré réalisé chez Spicy Beauty by T., Valenciennes' },
+    { src: 'images/gallery-23.jpeg', w: 3024, h: 4032, alt: 'Pose d\'ongles avec gainage, prestation beauté à Valenciennes' },
+    { src: 'images/gallery-26.jpeg', w: 3024, h: 4032, alt: 'Manucure française revisitée par Spicy Beauty by T. à Valenciennes' },
+    { src: 'images/gallery-28.jpeg', w: 3024, h: 4032, alt: 'Vernis semi-permanent effet miroir chrome, Valenciennes 59300' },
+    { src: 'images/gallery-29.jpeg', w: 3024, h: 4032, alt: 'Remplissage et entretien d\'ongles en gel à Valenciennes' },
+    { src: 'images/gallery-30.jpeg', w: 3024, h: 4032, alt: 'Réalisation ongles Spicy Beauty by T., esthéticienne à Valenciennes' },
   ];
 
   const n = GAL_PHOTOS.length;
   const TRANSITION = 'transform .6s cubic-bezier(.16,1,.3,1)';
+  /* Les 2 premiers slides sont visibles au chargement (actif + peek) → eager */
+  const EAGER_COUNT = Math.min(2, n);
   /* Margin de chaque côté du slide — doit matcher le CSS (10px desktop, 8px mobile) */
   const getMargin = () => (window.innerWidth <= 860 ? 8 : 10);
 
@@ -142,6 +156,8 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
     const img = document.createElement('img');
     img.src = photo.src;
     img.alt = photo.alt;
+    img.width  = photo.w;
+    img.height = photo.h;
     img.loading = eager ? 'eager' : 'lazy';
     img.decoding = 'async';
     slide.appendChild(img);
@@ -150,7 +166,7 @@ document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale')
 
   /* ── Injection : clone(last) + reals + clone(first) ── */
   track.appendChild(buildSlide(GAL_PHOTOS[n - 1], true));      // index 0  = clone du dernier
-  GAL_PHOTOS.forEach((p, i) => track.appendChild(buildSlide(p, false, i === 0))); // index 1..n = vrais slides (1er en eager)
+  GAL_PHOTOS.forEach((p, i) => track.appendChild(buildSlide(p, false, i < EAGER_COUNT))); // index 1..n = vrais slides
   track.appendChild(buildSlide(GAL_PHOTOS[0], true));          // index n+1 = clone du premier
 
   const slides = track.querySelectorAll('.gal-slide');
